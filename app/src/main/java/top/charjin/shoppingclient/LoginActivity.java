@@ -1,4 +1,4 @@
-package top.charjin.goodsclientapp;
+package top.charjin.shoppingclient;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
