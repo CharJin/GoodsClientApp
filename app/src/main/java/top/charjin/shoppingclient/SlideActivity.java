@@ -12,9 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import top.charjin.shoppingclient.adapter.SliderAdapter;
-import top.charjin.shoppingclient.utils.SharedPreferencesUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class SlideActivity extends AppCompatActivity {
 
     private ViewPager mSlideViewPager;
     private LinearLayout mDotLayout;
@@ -26,10 +25,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!SharedPreferencesUtil.isFirstLaunched(this)) {
-            startActivity(new Intent(this, LoginActivity.class));
-            this.finish();
-        }
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+//        if (!SharedPreferencesUtil.isFirstLaunched(this)) {
+//            startActivity(new Intent(this, LoginActivity.class));
+//            this.finish();
+//        }
         setContentView(R.layout.activity_main);
 
         btnPre = findViewById(R.id.btnPre);
