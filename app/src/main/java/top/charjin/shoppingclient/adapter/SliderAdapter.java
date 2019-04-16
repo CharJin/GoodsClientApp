@@ -18,9 +18,9 @@ public class SliderAdapter extends PagerAdapter {
     private int[] slide_images = {R.drawable.eat_icon, R.drawable.sleep_icon, R.drawable.code_icon};
     private String[] slide_headings = {"EAT", "SLEEP", "CODE"};
     private String[] slide_descs = {
-            "fdsohfodshgfusdhgufsdhugifhsd"
-            , "54325432543254325432543"
-            , "54325555555555555544444444444444444444"};
+            "fdsohfodshgfusdhgufsdhugifhsd\nfdsafjidfdsafdsa"
+            , "54325432543254325432543\nfdsafdasfdsafdasfdsa\nfdsafdsafd"
+            , "54325555555555555544444444444444444444\nfdsafdsa\nfdsafdsaf"};
 
     public SliderAdapter(Context context) {
         this.context = context;

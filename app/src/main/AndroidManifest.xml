@@ -13,14 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-        <activity android:name="top.charjin.shoppingclient.LoginActivity">
+        <activity android:name=".activity.SplashActivity"></activity>
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
-        <activity android:name="top.charjin.shoppingclient.SlideActivity">
+        <activity android:name=".activity.SlideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

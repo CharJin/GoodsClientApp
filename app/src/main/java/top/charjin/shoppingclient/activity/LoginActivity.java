@@ -1,4 +1,4 @@
-package top.charjin.shoppingclient;
+package top.charjin.shoppingclient.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.adapter.ViewPagerAdapter;
 import top.charjin.shoppingclient.fragment.ButtonFragment;
 import top.charjin.shoppingclient.fragment.TextFragment;

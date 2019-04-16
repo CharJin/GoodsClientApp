@@ -1,4 +1,4 @@
-package top.charjin.shoppingclient;
+package top.charjin.shoppingclient.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.adapter.SliderAdapter;
 
 public class SlideActivity extends AppCompatActivity {
