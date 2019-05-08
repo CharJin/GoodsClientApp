@@ -8,9 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.adapter.ViewPagerAdapter;
-import top.charjin.shoppingclient.fragment.ButtonFragment;
-import top.charjin.shoppingclient.fragment.TextFragment;
+import top.charjin.shoppingclient.adapter.IntroViewPagerAdapter;
+import top.charjin.shoppingclient.fragment.CartFragment;
+import top.charjin.shoppingclient.fragment.ProfileFragment;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -26,10 +26,10 @@ public class LoginActivity extends AppCompatActivity {
         appBarLayout = findViewById(R.id.appbar_layout);
 
         viewPager = findViewById(R.id.viewpager);
-        Fragment[] tabFgs = {new TextFragment(), new ButtonFragment()};
+        Fragment[] tabFgs = {new ProfileFragment(), new CartFragment()};
         String[] tabFgTitles = {"Text", "Button"};
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        IntroViewPagerAdapter adapter = new IntroViewPagerAdapter(getSupportFragmentManager());
         for (int i = 0; i < tabFgs.length; i++) {
             adapter.addFragmentView(tabFgs[i], tabFgTitles[i]);
         }

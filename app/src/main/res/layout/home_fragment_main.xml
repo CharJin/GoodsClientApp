@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/home_include_toolbar_search" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- header : RecyclerView 前显示的部分 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    tools:ignore="RtlSymmetry">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/home_recommend_text_normal"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:text="手机"
+                        android:textColor="@color/home_text_bg_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/home_recommend_text_normal"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+
+                        android:text="电话卡"
+                        android:textColor="@color/home_text_bg_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/home_recommend_text_normal"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:text="SSD硬盘"
+                        android:textColor="@color/home_text_bg_color"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/home_recommend_text_normal"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:text="手机"
+                        android:textColor="@color/home_text_bg_color"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@color/design_default_color_primary" />
+
+                <include layout="@layout/home_include_category" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:text="热门推荐"
+                    android:textColor="#000000"
+                    android:textSize="30sp"
+                    tools:ignore="RtlSymmetry" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lv_home_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

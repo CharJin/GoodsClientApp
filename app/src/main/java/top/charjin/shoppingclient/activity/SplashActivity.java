@@ -10,7 +10,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.slide_layout);
+        setContentView(R.layout.intro_fragment_item);
 
     }
 }

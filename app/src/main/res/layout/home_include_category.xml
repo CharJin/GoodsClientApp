@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/home_category_img_commodity"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@color/colorAccent" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_category_img_commodity"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="日用品"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/home_category_img_baby"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@color/colorAccent" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_category_img_baby"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="母婴"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/home_category_img_electronic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@color/colorAccent" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_category_img_electronic"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="电子产品"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/home_category_img_food"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@color/colorAccent" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_category_img_food"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="食品"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</LinearLayout>
