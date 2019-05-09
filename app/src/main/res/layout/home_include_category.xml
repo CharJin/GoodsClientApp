@@ -5,96 +5,118 @@
     android:orientation="horizontal"
     android:paddingBottom="10dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/home_category_img_commodity"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@color/colorAccent" />
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/home_category_img_commodity" />
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/home_category_img_commodity"
             android:layout_marginTop="12dp"
             android:gravity="center"
-            android:text="日用品"
-            android:textSize="14sp" />
-    </RelativeLayout>
+            android:text="@string/home_category_text_commodity"
+            android:textSize="12sp" />
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/home_category_img_baby"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@color/colorAccent" />
+            android:id="@+id/iv_home_category_baby"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/home_category_img_baby" />
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/home_category_img_baby"
             android:layout_marginTop="12dp"
             android:gravity="center"
-            android:text="母婴"
-            android:textSize="14sp" />
-    </RelativeLayout>
+            android:text="@string/home_category_text_baby"
+            android:textSize="12sp" />
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/home_category_img_electronic"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@color/colorAccent" />
+            android:id="@+id/iv_home_category_electronics"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/home_category_img_electronics" />
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/home_category_img_electronic"
             android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:text="电子产品"
-            android:textSize="14sp" />
-    </RelativeLayout>
+            android:text="@string/home_category_text_electronics"
+            android:textSize="12sp" />
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/home_category_img_food"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@color/colorAccent" />
+            android:id="@+id/iv_home_category_foods"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/home_category_img_foods" />
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/home_category_img_food"
             android:layout_marginTop="12dp"
             android:gravity="center"
-            android:text="食品"
-            android:textSize="14sp" />
-    </RelativeLayout>
+            android:text="@string/home_category_text_foods"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_home_category_clothes"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/home_category_img_clothes" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/home_category_text_clothes"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
 
 </LinearLayout>

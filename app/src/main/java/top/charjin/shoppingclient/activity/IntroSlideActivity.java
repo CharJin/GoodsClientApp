@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.adapter.IntroSliderAdapter;
-import top.charjin.shoppingclient.utils.SharedPreferencesUtil;
 
 public class IntroSlideActivity extends AppCompatActivity {
 
@@ -31,10 +30,11 @@ public class IntroSlideActivity extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if (!SharedPreferencesUtil.isFirstLaunched(this)) {
+//        if (!SharedPreferencesUtil.isFirstLaunched(this)) {
             startActivity(new Intent(this, AppActivity.class));
             this.finish();
-        }
+//        }
+
         setContentView(R.layout.intro_activity_main);
 
         btnPre = findViewById(R.id.btnPre);

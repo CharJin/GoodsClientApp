@@ -5,9 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.gyf.barlibrary.ImmersionBar;
 
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.data.BottomNavResource;
@@ -19,12 +22,25 @@ public class AppActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private Fragment[] mFragments;
 
+    private ImmersionBar mImmersionBar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_activity);
 
+//        mImmersionBar = ImmersionBar.with(this);
+//        mImmersionBar.init();
+
+        Log.e("ACTIVITY", "dads9f9deaf9d");
         initView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();
     }
 
     private void initView() {
@@ -60,12 +76,10 @@ public class AppActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
@@ -96,7 +110,10 @@ public class AppActivity extends AppCompatActivity {
         }
         // 替换显示的Fragment.
         if (fragment != null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.home_container, fragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.home_container, fragment)
+                    .commit();
         }
     }
 }

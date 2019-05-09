@@ -9,7 +9,7 @@
 
     <!--<color name="colorPrimary">#3F51B5</color>-->
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
-    <!--<color name="colorAccent">#FF4081</color>-->
+    <!--<color name="colorAccent">#FF3081</color>-->
 
     <color name="text_color">#E38A7C</color>
 
@@ -25,4 +25,7 @@
     <color name="page3_start_color">#75539F</color>
     <color name="page3_end_color">#A87CB7</color>
     <color name="home_text_bg_color">#FFFFFF</color>
+    <color name="home_text_price_color">#FF6100</color>
+    <color name="home_text_title_color">#000000</color>
+    <color name="home_swipe_circle_color">#EE888888</color>
 </resources>

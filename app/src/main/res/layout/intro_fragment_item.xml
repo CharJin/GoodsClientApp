@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/slide_image"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:contentDescription="image" />
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/slide_image"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:text="This is Ha."
         android:textColor="#FFFFFF"
         android:textSize="28sp" />
@@ -30,9 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/slide_heading"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        android:paddingHorizontal="40dp"
+        android:paddingHorizontal="30dp"
         android:text="This is the description of the view."
         android:textColor="@color/colorTransparentWhite"
         android:textSize="20sp" />
