@@ -106,22 +106,47 @@
 
                 <include layout="@layout/home_include_category" />
 
-                <TextView
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="20dp"
-                    android:text="热门推荐"
-                    android:textColor="#000000"
-                    android:textSize="30sp"
-                    tools:ignore="RtlSymmetry" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_top_recommend_title"
+                        android:textColor="#000000"
+                        android:textSize="22sp"
+                        tools:ignore="RtlSymmetry" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="6dp"
+                        android:background="@color/home_separator_line_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="6dp"
+                        android:paddingTop="6dp"
+                        android:text="@string/home_top_recommend_title_decorate"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/lv_home_goods"
+                    android:id="@+id/rv_home_goods"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
                     android:paddingHorizontal="5dp"
+                    android:paddingTop="5dp"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 </android.support.v7.widget.RecyclerView>

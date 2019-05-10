@@ -12,9 +12,16 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="bottom_tab_image_des">To show the image of bottom.</string>
+
+
     <string name="home_category_text_commodity">日用品</string>
     <string name="home_category_text_baby">母婴</string>
     <string name="home_category_text_foods">食品</string>
     <string name="home_category_text_clothes">衣饰</string>
     <string name="home_category_text_electronics">电子产品</string>
+    <string name="home_top_recommend_title">热门推荐</string>
+    <string name="home_top_recommend_title_decorate">发现更多人气好货</string>
+    <string name="message_title">消息</string>
+
+
 </resources>

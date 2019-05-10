@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
     HomeGoodsAdapter adapter;
     private Context context;
     private View viewHome;
-    private RecyclerView lvGoods;
+    private RecyclerView rvGoods;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Banner banner_ads;
     private BannerAdsImageLoader imageLoader;
@@ -52,12 +52,18 @@ public class HomeFragment extends Fragment {
         viewHome = inflater.inflate(R.layout.home_fragment_main, container, false);
 
         swipeRefreshLayout = viewHome.findViewById(R.id.swipe_layout_home);
-        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.home_swipe_circle_color));
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.app_swipe_circle_color));
         swipeRefreshLayout.setOnRefreshListener(this::refreshGoods);
 
-        lvGoods = viewHome.findViewById(R.id.lv_home_goods);
-        lvGoods.setLayoutManager(new GridLayoutManager(container.getContext(), 2));
+        // RecyclerView
+        initRecommendGoods();
+        adapter = new HomeGoodsAdapter(data);
 
+        rvGoods = viewHome.findViewById(R.id.rv_home_goods);
+        rvGoods.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        rvGoods.setAdapter(adapter);
+
+        // NestedScrollView
         nestedScrollView = viewHome.findViewById(R.id.nested_scroll_home);
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
@@ -65,9 +71,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        initRecommendGoods();
-        adapter = new HomeGoodsAdapter(data);
-        lvGoods.setAdapter(adapter);
 
         initBannerAdsResource();
 
@@ -79,12 +82,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void initRecommendGoods() {
+        String[] des = new String[]{"这是描述:fdushuafhduisafhuidhsiufdhsifhdiushfiuOJI", "84938294",
+                "999999ffffffffohguidshghfdsds"};
         data.clear();
+        Random random = new Random();
         for (int i = 0; i < 20; i++) {
-            Random random = new Random();
             int n = random.nextInt(300);
+            int j = random.nextInt(3);
             data.add(new GoodsModel("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557425251324&di=07fccf2fc756baeb13c222eff210bc46&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180504%2Fcc178a20314c4d409dbee7b5419d796c.jpeg"
-                    , "这是描述:", n + ""));
+                    , des[j], n + ""));
         }
     }
 

@@ -22,10 +22,16 @@
     <color name="page2_start_color">#EE602C</color>
     <color name="page2_end_color">#F2AB65</color>
 
+
+    <!-- 自定义 color -->
+    <color name="app_swipe_circle_color">#EE888888</color>
+
     <color name="page3_start_color">#75539F</color>
     <color name="page3_end_color">#A87CB7</color>
     <color name="home_text_bg_color">#FFFFFF</color>
     <color name="home_text_price_color">#FF6100</color>
-    <color name="home_text_title_color">#000000</color>
-    <color name="home_swipe_circle_color">#EE888888</color>
+    <color name="home_text_title_color">#333333</color>
+    <color name="home_separator_line_color">#EE888888</color>
+
+    <color name="message_title_color">#333333</color>
 </resources>

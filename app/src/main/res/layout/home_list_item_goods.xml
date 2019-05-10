@@ -29,6 +29,8 @@
                 android:id="@+id/tv_list_item_home_goods_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="这是标题"
                 android:textColor="@color/home_text_title_color"
                 android:textSize="20sp"

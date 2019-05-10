@@ -10,6 +10,7 @@ import android.widget.TextView;
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.fragment.CartFragment;
 import top.charjin.shoppingclient.fragment.HomeFragment;
+import top.charjin.shoppingclient.fragment.MessageFragment;
 import top.charjin.shoppingclient.fragment.ProfileFragment;
 
 /**
@@ -32,7 +33,7 @@ public class BottomNavResource {
      * 获取各个Tab所对应的Fragment.
      */
     public static Fragment[] getFragments() {
-        return new Fragment[]{new HomeFragment(), new ProfileFragment(),
+        return new Fragment[]{new HomeFragment(), new MessageFragment(),
                 new CartFragment(), new ProfileFragment()};
     }
 
