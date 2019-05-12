@@ -22,6 +22,8 @@
     <string name="home_top_recommend_title">热门推荐</string>
     <string name="home_top_recommend_title_decorate">发现更多人气好货</string>
     <string name="message_title">消息</string>
+    <string name="cart_title">购物车</string>
+    <string name="cart_edit">编辑</string>
 
 
 </resources>

@@ -34,4 +34,10 @@
     <color name="home_separator_line_color">#EE888888</color>
 
     <color name="message_title_color">#333333</color>
+
+
+    <color name="cart_shop_color">#EEFCFCFC</color>
+    <color name="cart_shop_text_color">#333333</color>
+    <color name="cart_shop_price_color">#FF6100</color>
+
 </resources>
