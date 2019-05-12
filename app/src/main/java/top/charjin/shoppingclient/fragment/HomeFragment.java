@@ -24,13 +24,13 @@ import java.util.List;
 import java.util.Random;
 
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.adapter.HomeGoodsAdapter;
-import top.charjin.shoppingclient.model.GoodsModel;
+import top.charjin.shoppingclient.adapter.HomeCommodityAdapter;
+import top.charjin.shoppingclient.model.CommodityModel;
 
 public class HomeFragment extends Fragment {
 
-    List<GoodsModel> data = new ArrayList<>();
-    HomeGoodsAdapter adapter;
+    List<CommodityModel> data = new ArrayList<>();
+    HomeCommodityAdapter adapter;
     private Context context;
     private View viewHome;
     private RecyclerView rvGoods;
@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
 
         // RecyclerView
         initRecommendGoods();
-        adapter = new HomeGoodsAdapter(data);
+        adapter = new HomeCommodityAdapter(data);
 
         rvGoods = viewHome.findViewById(R.id.rv_home_goods);
         rvGoods.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < 20; i++) {
             int n = random.nextInt(300);
             int j = random.nextInt(3);
-            data.add(new GoodsModel("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557425251324&di=07fccf2fc756baeb13c222eff210bc46&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180504%2Fcc178a20314c4d409dbee7b5419d796c.jpeg"
+            data.add(new CommodityModel("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557425251324&di=07fccf2fc756baeb13c222eff210bc46&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180504%2Fcc178a20314c4d409dbee7b5419d796c.jpeg"
                     , des[j], n + ""));
         }
     }

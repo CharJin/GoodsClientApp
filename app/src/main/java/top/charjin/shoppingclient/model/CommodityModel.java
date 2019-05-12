@@ -1,11 +1,11 @@
 package top.charjin.shoppingclient.model;
 
-public class GoodsModel {
+public class CommodityModel {
     private String pic;
     private String title;
     private String price;
 
-    public GoodsModel(String pic, String title, String price) {
+    public CommodityModel(String pic, String title, String price) {
         this.pic = pic;
         this.title = title;
         this.price = price;

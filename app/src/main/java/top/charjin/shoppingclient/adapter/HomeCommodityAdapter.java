@@ -15,15 +15,15 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.model.GoodsModel;
+import top.charjin.shoppingclient.model.CommodityModel;
 
 
-public class HomeGoodsAdapter extends RecyclerView.Adapter<HomeGoodsAdapter.ViewHolder> {
-    private List<GoodsModel> data;
+public class HomeCommodityAdapter extends RecyclerView.Adapter<HomeCommodityAdapter.ViewHolder> {
+    private List<CommodityModel> data;
     private Context context;
 
 
-    public HomeGoodsAdapter(List<GoodsModel> data) {
+    public HomeCommodityAdapter(List<CommodityModel> data) {
         this.data = data;
     }
 
@@ -39,7 +39,7 @@ public class HomeGoodsAdapter extends RecyclerView.Adapter<HomeGoodsAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        GoodsModel goods = this.data.get(position);
+        CommodityModel goods = this.data.get(position);
 
         Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/simhei.ttf");
         holder.tv_title.setText(goods.getTitle());
