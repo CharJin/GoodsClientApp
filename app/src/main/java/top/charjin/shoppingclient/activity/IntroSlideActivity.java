@@ -31,8 +31,8 @@ public class IntroSlideActivity extends AppCompatActivity {
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 //        if (!SharedPreferencesUtil.isFirstLaunched(this)) {
-            startActivity(new Intent(this, AppActivity.class));
-            this.finish();
+        startActivity(new Intent(this, AppActivity.class));
+        this.finish();
 //        }
 
         setContentView(R.layout.intro_activity_main);
