@@ -2,7 +2,7 @@ package top.charjin.shoppingclient.entity;
 
 import java.io.Serializable;
 
-public class OsCommodity implements Serializable {
+public class OsGoods implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
     /**

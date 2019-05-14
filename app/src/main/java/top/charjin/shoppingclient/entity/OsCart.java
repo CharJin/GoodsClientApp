@@ -13,6 +13,7 @@ public class OsCart implements Serializable {
      * 外键,商品id
      */
     private Integer commodityId;
+    private Integer number;
 
     public Integer getId() {
         return id;
@@ -36,5 +37,13 @@ public class OsCart implements Serializable {
 
     public void setCommodityId(Integer commodityId) {
         this.commodityId = commodityId;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 }

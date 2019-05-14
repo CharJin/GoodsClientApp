@@ -2,9 +2,13 @@ package top.charjin.shoppingclient.entity;
 
 import java.io.Serializable;
 
-public class OsCommodityReview implements Serializable {
+public class OsGoodsReview implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer id;
+    /**
+     * 外键,用户id
+     */
+    private Integer userId;
     /**
      * 外键,商品id
      */
@@ -20,6 +24,14 @@ public class OsCommodityReview implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getCommodityId() {
