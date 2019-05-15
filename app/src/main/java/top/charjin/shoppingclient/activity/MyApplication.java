@@ -3,15 +3,19 @@ package top.charjin.shoppingclient.activity;
 import android.app.Application;
 import android.content.Context;
 
+import top.charjin.shoppingclient.entity.OsUser;
+
 public class MyApplication extends Application {
 
 //    private static Context app_context, intro_context, login_context;
 
-    private static Context context;
+    private Context context;
+    private OsUser user = new OsUser();
 
-    public static Context getContext() {
-        return context;
+    public Context getContext() {
+        return this.context;
     }
+
 
     @Override
     public void onCreate() {
@@ -19,4 +23,12 @@ public class MyApplication extends Application {
         context = getApplicationContext();
     }
 
+    public OsUser getUser() {
+        user.setId(1);
+        return user;
+    }
+
+    public void setUser(OsUser user) {
+        this.user = user;
+    }
 }
