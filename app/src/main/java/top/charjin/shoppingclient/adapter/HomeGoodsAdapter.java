@@ -18,12 +18,12 @@ import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.model.CommodityModel;
 
 
-public class HomeCommodityAdapter extends RecyclerView.Adapter<HomeCommodityAdapter.ViewHolder> {
+public class HomeGoodsAdapter extends RecyclerView.Adapter<HomeGoodsAdapter.ViewHolder> {
     private List<CommodityModel> data;
     private Context context;
 
 
-    public HomeCommodityAdapter(List<CommodityModel> data) {
+    public HomeGoodsAdapter(List<CommodityModel> data) {
         this.data = data;
     }
 

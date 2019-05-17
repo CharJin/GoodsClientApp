@@ -39,5 +39,14 @@
     <color name="cart_shop_color">#EEFCFCFC</color>
     <color name="cart_shop_text_color">#333333</color>
     <color name="cart_shop_price_color">#FF6100</color>
+    <color name="cart_check_out_bg_text_color">#CFCFCF</color>
+    <color name="cart_check_out_text_color">#FFFFFF</color>
+    <color name="cart_sum_text_color">#333333</color>
+
+    <color name="user_name_text_color">#FFFFFF</color>
+
+
+    <color name="search_btn_color">#333333</color>
+
 
 </resources>

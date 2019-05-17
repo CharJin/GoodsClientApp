@@ -35,9 +35,78 @@
     <ExpandableListView
         android:id="@+id/elv_cart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp">
+
+            <CheckBox
+                android:id="@+id/cb_cart_goods_choose_all"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/cart_choose_selector"
+                android:button="@android:color/transparent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="全选"
+                android:textColor="@color/message_title_color"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_cart_label_sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/tv_cart_sum"
+                android:text="合计:"
+                android:textColor="@color/message_title_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_cart_sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="22dp"
+                android:layout_toStartOf="@id/tv_btn_cart_chock_out"
+                android:text="￥0"
+                android:textColor="@color/cart_shop_price_color"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_btn_cart_chock_out"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@color/cart_check_out_bg_text_color"
+                android:gravity="center"
+                android:text="去结算(0)"
+                android:textColor="@color/cart_check_out_text_color" />
 
 
-    </ExpandableListView>
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
 </LinearLayout>

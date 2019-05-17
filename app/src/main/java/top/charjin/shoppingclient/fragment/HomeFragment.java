@@ -1,6 +1,7 @@
 package top.charjin.shoppingclient.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.youth.banner.Banner;
@@ -24,13 +26,14 @@ import java.util.List;
 import java.util.Random;
 
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.adapter.HomeCommodityAdapter;
+import top.charjin.shoppingclient.activity.SearchActivity;
+import top.charjin.shoppingclient.adapter.HomeGoodsAdapter;
 import top.charjin.shoppingclient.model.CommodityModel;
 
 public class HomeFragment extends Fragment {
 
     List<CommodityModel> data = new ArrayList<>();
-    HomeCommodityAdapter adapter;
+    HomeGoodsAdapter adapter;
     private Context context;
     private View viewHome;
     private RecyclerView rvGoods;
@@ -38,6 +41,7 @@ public class HomeFragment extends Fragment {
     private Banner banner_ads;
     private BannerAdsImageLoader imageLoader;
     private NestedScrollView nestedScrollView;
+    private RelativeLayout rlHomeSearch;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +60,7 @@ public class HomeFragment extends Fragment {
 
         // RecyclerView
         initRecommendGoods();
-        adapter = new HomeCommodityAdapter(data);
+        adapter = new HomeGoodsAdapter(data);
 
         rvGoods = viewHome.findViewById(R.id.rv_home_goods);
         rvGoods.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -69,6 +73,11 @@ public class HomeFragment extends Fragment {
                 initRecommendGoods();
             }
         });
+
+
+        // 点击搜索 跳转到新页面
+        rlHomeSearch = viewHome.findViewById(R.id.rl_home_search);
+        rlHomeSearch.setOnClickListener(e -> this.getActivity().startActivity(new Intent(this.getActivity(), SearchActivity.class)));
 
 
         initBannerAdsResource();

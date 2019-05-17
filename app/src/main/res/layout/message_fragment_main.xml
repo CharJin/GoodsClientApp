@@ -26,11 +26,7 @@
 
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:alpha="0.6"
-        android:background="@android:color/darker_gray" />
+    <include layout="@layout/separator_line_horizontal" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_layout_message"

@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.entity.OsCart;
 import top.charjin.shoppingclient.entity.OsGoods;
 import top.charjin.shoppingclient.entity.OsShop;
 
@@ -78,7 +77,7 @@ public class CartAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_list_item_shop_group, parent, false);
             holder = new ViewHolderShop();
-            holder.cbAllChoose = view.findViewById(R.id.cb_cart_goods_choose_all);
+            holder.cbAllChoose = view.findViewById(R.id.cb_cart_goods_choose_children);
             holder.tvShopName = view.findViewById(R.id.tv_cart_shop_name);
             // action
             view.setTag(holder);
@@ -88,12 +87,13 @@ public class CartAdapter extends BaseExpandableListAdapter {
         }
         // property, bind event---
 
+        holder.tvShopName.setText(shop.getName());
         return view;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        OsCart cart = (OsCart) this.getChild(groupPosition, childPosition);
+        OsGoods goods = (OsGoods) this.getChild(groupPosition, childPosition);
         View view;
         ViewHolderGoods holder;
         if (convertView == null) {
@@ -114,6 +114,9 @@ public class CartAdapter extends BaseExpandableListAdapter {
             holder = (ViewHolderGoods) view.getTag();
         }
         // property, bind event---
+        holder.tvGoodsName.setText(goods.getName());
+//            holder.tvGoodsPlan.setText(""+goods);
+        holder.tvGoodsPrice.setText(goods.getPrice() + "");
 
         return view;
     }

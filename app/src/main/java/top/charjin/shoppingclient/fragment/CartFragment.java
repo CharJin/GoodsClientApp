@@ -43,15 +43,19 @@ public class CartFragment extends Fragment {
 
     private ExpandableListView elvCart;
     private CartAdapter cartAdapter;
+
+    private List<OsShop> shopList = new ArrayList<>();
     @SuppressLint("HandlerLeak")
     private final Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             elvCart.setAdapter(cartAdapter);
+            for (int i = 0; i < shopList.size(); i++) {
+                elvCart.expandGroup(i);
+            }
         }
     };
-    private List<OsShop> shopList = new ArrayList<>();
     private Map<OsShop, List<OsGoods>> cartMap = new HashMap<>();
     private OsUser user;
 
@@ -59,6 +63,13 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View homeView = inflater.inflate(R.layout.cart_fragment_main, container, false);
+
+        System.out.println(homeView);
+        elvCart = homeView.findViewById(R.id.elv_cart);
+        elvCart.setGroupIndicator(null);
+
+        initCartData();
+
         return homeView;
     }
 
@@ -70,10 +81,6 @@ public class CartFragment extends Fragment {
 //        MyApplication application = (MyApplication) this.getActivity().getApplicationContext();
 //        user = application.getUser();
 
-        System.out.println(homeView);
-        elvCart = homeView.findViewById(R.id.elv_cart);
-
-        initCartData();
 
     }
 
@@ -104,8 +111,8 @@ public class CartFragment extends Fragment {
 
                     }
 
-                    handler.sendEmptyMessage(1);
                     cartAdapter = new CartAdapter(CartFragment.this.getContext(), shopList, cartMap);
+                    handler.sendEmptyMessage(1);
 //                    elvCart.setAdapter(cartAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();

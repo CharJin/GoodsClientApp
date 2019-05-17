@@ -26,4 +26,12 @@
     <string name="cart_edit">编辑</string>
 
 
+    <string name="profile_personal_recommend_title">个性推荐</string>
+    <string name="profile_personal_recommend_title_decorate">更多适合你的好货</string>
+
+
+    <string name="search_history_record">历史搜索</string>
+    <string name="search_result_text_title">搜索结果</string>
+
+
 </resources>

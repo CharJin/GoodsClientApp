@@ -14,6 +14,7 @@
         android:src="@drawable/code_icon" />
 
     <RelativeLayout
+        android:id="@+id/rl_home_search"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_weight="1"
