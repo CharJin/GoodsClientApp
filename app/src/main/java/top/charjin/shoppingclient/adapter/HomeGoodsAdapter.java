@@ -15,15 +15,25 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.model.CommodityModel;
+import top.charjin.shoppingclient.entity.OsGoods;
 
 
 public class HomeGoodsAdapter extends RecyclerView.Adapter<HomeGoodsAdapter.ViewHolder> {
-    private List<CommodityModel> data;
+    private List<OsGoods> data;
     private Context context;
+    private ItemClickListener itemClickListener;
 
+    public HomeGoodsAdapter(Context context, List<OsGoods> data, ItemClickListener itemClickListener) {
+        this.context = context;
+        this.data = data;
+        this.itemClickListener = itemClickListener;
+    }
 
-    public HomeGoodsAdapter(List<CommodityModel> data) {
+    public List<OsGoods> getData() {
+        return data;
+    }
+
+    public void setData(List<OsGoods> data) {
         this.data = data;
     }
 
@@ -39,16 +49,16 @@ public class HomeGoodsAdapter extends RecyclerView.Adapter<HomeGoodsAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CommodityModel goods = this.data.get(position);
+        OsGoods goods = this.data.get(position);
 
         Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/simhei.ttf");
-        holder.tv_title.setText(goods.getTitle());
+        holder.tv_title.setText(goods.getName());
         holder.tv_title.setTypeface(tf);
-        holder.tv_price.setText(goods.getPrice());
+        holder.tv_price.setText(goods.getPrice() + "");
+        holder.tv_sale_volume.setText(goods.getSalesVolume() + "人已付款");
         Glide.with(context).load(R.drawable.background).into(holder.iv_pic);
 
-        holder.itemView.setOnClickListener(v -> {
-        });
+        holder.itemView.setOnClickListener(v -> itemClickListener.onClick(goods));
     }
 
     @Override
@@ -56,18 +66,22 @@ public class HomeGoodsAdapter extends RecyclerView.Adapter<HomeGoodsAdapter.View
         return data.size();
     }
 
+    public interface ItemClickListener {
+        void onClick(OsGoods goods);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView iv_pic;
         private TextView tv_title;
         private TextView tv_price;
+        private TextView tv_sale_volume;
 
         ViewHolder(View view) {
             super(view);
             iv_pic = view.findViewById(R.id.iv_list_item_home_goods_pic);
             tv_title = view.findViewById(R.id.tv_list_item_home_goods_title);
             tv_price = view.findViewById(R.id.tv_list_item_home_goods_price);
+            tv_sale_volume = view.findViewById(R.id.tv_list_item_home_goods_sale_volume);
         }
     }
-
-
 }

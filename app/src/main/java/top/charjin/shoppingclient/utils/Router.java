@@ -6,5 +6,5 @@ public class Router {
     public static final String SHOP_MODULE = "cart/";
     public static final String Goods_MODULE = "cart/";
 
-    public static final String BASE_URL = "http://10.0.2.2:4315/shoppingserver/";
+    public static final String BASE_URL = "http://192.168.1.3:4315/shoppingserver/";
 }

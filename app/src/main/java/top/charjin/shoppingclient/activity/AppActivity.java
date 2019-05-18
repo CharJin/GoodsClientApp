@@ -100,7 +100,6 @@ public class AppActivity extends AppCompatActivity {
             case 1:
                 fragment = mFragments[1];
                 break;
-
             case 2:
                 fragment = mFragments[2];
                 break;

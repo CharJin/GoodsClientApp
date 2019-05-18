@@ -24,7 +24,10 @@
 
 
     <!-- 自定义 color -->
+
+    <color name="app_base_black_color">#333333</color>
     <color name="app_swipe_circle_color">#EE888888</color>
+    <color name="app_separator_view_color">#EEF3F3F3</color>
 
     <color name="page3_start_color">#75539F</color>
     <color name="page3_end_color">#A87CB7</color>
@@ -48,5 +51,8 @@
 
     <color name="search_btn_color">#333333</color>
 
+    <color name="goods_buy_bg_color">#FF5D49</color>
+    <color name="goods_add_cart_text_color">#FFFFFF</color>
+    <color name="goods_add_cart_bg_color">#4D4747</color>
 
 </resources>

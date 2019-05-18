@@ -15,24 +15,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.youth.banner.Banner;
 import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.activity.SearchActivity;
+import top.charjin.shoppingclient.activity.GoodsActivity;
 import top.charjin.shoppingclient.adapter.HomeGoodsAdapter;
-import top.charjin.shoppingclient.model.CommodityModel;
+import top.charjin.shoppingclient.entity.OsGoods;
+import top.charjin.shoppingclient.utils.HttpUtil;
+import top.charjin.shoppingclient.utils.JsonUtil;
+import top.charjin.shoppingclient.utils.Router;
 
 public class HomeFragment extends Fragment {
 
-    List<CommodityModel> data = new ArrayList<>();
+    List<OsGoods> goodsList = new ArrayList<>();
     HomeGoodsAdapter adapter;
     private Context context;
     private View viewHome;
@@ -43,6 +51,11 @@ public class HomeFragment extends Fragment {
     private NestedScrollView nestedScrollView;
     private RelativeLayout rlHomeSearch;
 
+
+    //推荐TextView
+    private TextView tvRecommend1, tvRecommend2, tvRecommend3, tvRecommend4;
+    private boolean isRefresh = true;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,33 +64,40 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        context = container.getContext();
+        context = this.getContext();
         viewHome = inflater.inflate(R.layout.home_fragment_main, container, false);
 
-        swipeRefreshLayout = viewHome.findViewById(R.id.swipe_layout_home);
+        initComponent();
+
+
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.app_swipe_circle_color));
         swipeRefreshLayout.setOnRefreshListener(this::refreshGoods);
 
-        // RecyclerView
-        initRecommendGoods();
-        adapter = new HomeGoodsAdapter(data);
+        initRecommend();
 
-        rvGoods = viewHome.findViewById(R.id.rv_home_goods);
+        // RecyclerView
+        adapter = new HomeGoodsAdapter(context, goodsList, goods -> {
+            Intent intent = new Intent(this.context, GoodsActivity.class);
+            intent.putExtra("goods", goods);
+            startActivity(intent);
+        });
         rvGoods.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         rvGoods.setAdapter(adapter);
 
+        initRecommendGoods();
+
         // NestedScrollView
-        nestedScrollView = viewHome.findViewById(R.id.nested_scroll_home);
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
                 initRecommendGoods();
+                isRefresh = false;
+                Toast.makeText(this.context, "fdsfdsafdsa", Toast.LENGTH_SHORT).show();
             }
         });
 
 
         // 点击搜索 跳转到新页面
-        rlHomeSearch = viewHome.findViewById(R.id.rl_home_search);
-        rlHomeSearch.setOnClickListener(e -> this.getActivity().startActivity(new Intent(this.getActivity(), SearchActivity.class)));
+        rlHomeSearch.setOnClickListener(e -> startActivity(new Intent(this.getActivity(), GoodsActivity.class)));
 
 
         initBannerAdsResource();
@@ -85,21 +105,44 @@ public class HomeFragment extends Fragment {
         return viewHome;
     }
 
-    private void intiComponent() {
+    private void initComponent() {
+        swipeRefreshLayout = viewHome.findViewById(R.id.swipe_layout_home);
+        rvGoods = viewHome.findViewById(R.id.rv_home_goods);
+        nestedScrollView = viewHome.findViewById(R.id.nested_scroll_home);
+        rlHomeSearch = viewHome.findViewById(R.id.rl_home_search);
+    }
 
+
+    private void initRecommend() {
+        tvRecommend1 = viewHome.findViewById(R.id.tv_home_recommend_text_1);
+        tvRecommend2 = viewHome.findViewById(R.id.tv_home_recommend_text_2);
+        tvRecommend3 = viewHome.findViewById(R.id.tv_home_recommend_text_3);
+        tvRecommend4 = viewHome.findViewById(R.id.tv_home_recommend_text_4);
     }
 
     private void initRecommendGoods() {
-        String[] des = new String[]{"这是描述:fdushuafhduisafhuidhsiufdhsifhdiushfiuOJI", "84938294",
-                "999999ffffffffohguidshghfdsds"};
-        data.clear();
-        Random random = new Random();
-        for (int i = 0; i < 20; i++) {
-            int n = random.nextInt(300);
-            int j = random.nextInt(3);
-            data.add(new CommodityModel("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557425251324&di=07fccf2fc756baeb13c222eff210bc46&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180504%2Fcc178a20314c4d409dbee7b5419d796c.jpeg"
-                    , des[j], n + ""));
-        }
+        HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "goods/getAllGoods", new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                goodsList = JsonUtil.parseJSONObjectInStringToEntityList(response.body().string(), OsGoods.class);
+                List<OsGoods> data = adapter.getData();
+//                if (isRefresh) {
+//                    data.clear();
+//                }
+                isRefresh = true;
+                data.addAll(goodsList);
+                getActivity().runOnUiThread(() -> {
+                    adapter.setData(goodsList);
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(context, "数据已更新", Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
     }
 
     private void refreshGoods() {
@@ -111,7 +154,6 @@ public class HomeFragment extends Fragment {
             }
             getActivity().runOnUiThread(() -> {
                 initRecommendGoods();
-                adapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             });
         }

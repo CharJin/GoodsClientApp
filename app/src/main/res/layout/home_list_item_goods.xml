@@ -57,12 +57,13 @@
                     android:textSize="25sp" />
 
                 <TextView
-                    android:id="@+id/tv_list_item_home_goods_turnover"
+
+                    android:id="@+id/tv_list_item_home_goods_sale_volume"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginStart="14dp"
                     android:text="7人付款"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
