@@ -1,5 +1,6 @@
 package top.charjin.shoppingclient.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.youth.banner.Banner;
 import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
@@ -26,19 +29,25 @@ import com.youth.banner.loader.ImageLoader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.activity.GoodsActivity;
+import top.charjin.shoppingclient.activity.SearchActivity;
+import top.charjin.shoppingclient.activity.SearchResultActivity;
 import top.charjin.shoppingclient.adapter.HomeGoodsAdapter;
 import top.charjin.shoppingclient.entity.OsGoods;
+import top.charjin.shoppingclient.entity.OsRecommend;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.JsonUtil;
 import top.charjin.shoppingclient.utils.Router;
 
 public class HomeFragment extends Fragment {
+
+    private Activity activity;
 
     List<OsGoods> goodsList = new ArrayList<>();
     HomeGoodsAdapter adapter;
@@ -65,6 +74,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         context = this.getContext();
+        activity = this.getActivity();
         viewHome = inflater.inflate(R.layout.home_fragment_main, container, false);
 
         initComponent();
@@ -84,12 +94,12 @@ public class HomeFragment extends Fragment {
         rvGoods.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         rvGoods.setAdapter(adapter);
 
-        initRecommendGoods();
+        initGoods();
 
         // NestedScrollView
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
-                initRecommendGoods();
+                initGoods();
                 isRefresh = false;
                 Toast.makeText(this.context, "fdsfdsafdsa", Toast.LENGTH_SHORT).show();
             }
@@ -97,7 +107,7 @@ public class HomeFragment extends Fragment {
 
 
         // 点击搜索 跳转到新页面
-        rlHomeSearch.setOnClickListener(e -> startActivity(new Intent(this.getActivity(), GoodsActivity.class)));
+        rlHomeSearch.setOnClickListener(e -> startActivity(new Intent(this.getActivity(), SearchActivity.class)));
 
 
         initBannerAdsResource();
@@ -106,6 +116,11 @@ public class HomeFragment extends Fragment {
     }
 
     private void initComponent() {
+        tvRecommend1 = viewHome.findViewById(R.id.tv_home_recommend_text_1);
+        tvRecommend2 = viewHome.findViewById(R.id.tv_home_recommend_text_2);
+        tvRecommend3 = viewHome.findViewById(R.id.tv_home_recommend_text_3);
+        tvRecommend4 = viewHome.findViewById(R.id.tv_home_recommend_text_4);
+
         swipeRefreshLayout = viewHome.findViewById(R.id.swipe_layout_home);
         rvGoods = viewHome.findViewById(R.id.rv_home_goods);
         nestedScrollView = viewHome.findViewById(R.id.nested_scroll_home);
@@ -114,13 +129,33 @@ public class HomeFragment extends Fragment {
 
 
     private void initRecommend() {
-        tvRecommend1 = viewHome.findViewById(R.id.tv_home_recommend_text_1);
-        tvRecommend2 = viewHome.findViewById(R.id.tv_home_recommend_text_2);
-        tvRecommend3 = viewHome.findViewById(R.id.tv_home_recommend_text_3);
-        tvRecommend4 = viewHome.findViewById(R.id.tv_home_recommend_text_4);
+        HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "recommend/getRecommend", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                List<OsRecommend> recommendList = new Gson().fromJson(response.body().string(), new TypeToken<List<OsRecommend>>() {
+                }.getType());
+                activity.runOnUiThread(() -> {
+                    TextView[] arr = {tvRecommend1, tvRecommend2, tvRecommend3, tvRecommend4};
+                    for (int i = 0; i < recommendList.size(); i++) {
+                        String content = recommendList.get(i).getContent();
+                        arr[i].setText(content);
+                        arr[i].setOnClickListener(e -> {
+                            Intent intent = new Intent(activity, SearchResultActivity.class);
+                            intent.putExtra("key", content);
+                            startActivity(intent);
+                        });
+                    }
+                });
+            }
+        });
     }
 
-    private void initRecommendGoods() {
+    private void initGoods() {
         HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "goods/getAllGoods", new Callback() {
 
             @Override
@@ -136,7 +171,7 @@ public class HomeFragment extends Fragment {
 //                }
                 isRefresh = true;
                 data.addAll(goodsList);
-                getActivity().runOnUiThread(() -> {
+                activity.runOnUiThread(() -> {
                     adapter.setData(goodsList);
                     adapter.notifyDataSetChanged();
                     Toast.makeText(context, "数据已更新", Toast.LENGTH_SHORT).show();
@@ -152,8 +187,9 @@ public class HomeFragment extends Fragment {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            getActivity().runOnUiThread(() -> {
-                initRecommendGoods();
+            Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
+                initRecommend();
+                initGoods();
                 swipeRefreshLayout.setRefreshing(false);
             });
         }

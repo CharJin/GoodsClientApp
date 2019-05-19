@@ -54,8 +54,8 @@ public class HomeGoodsAdapter extends RecyclerView.Adapter<HomeGoodsAdapter.View
         Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/simhei.ttf");
         holder.tv_title.setText(goods.getName());
         holder.tv_title.setTypeface(tf);
-        holder.tv_price.setText(goods.getPrice() + "");
-        holder.tv_sale_volume.setText(goods.getSalesVolume() + "人已付款");
+        holder.tv_price.setText(String.format("%s", goods.getPrice()));
+        holder.tv_sale_volume.setText(String.format("%s人已付款", goods.getSalesVolume()));
         Glide.with(context).load(R.drawable.background).into(holder.iv_pic);
 
         holder.itemView.setOnClickListener(v -> itemClickListener.onClick(goods));

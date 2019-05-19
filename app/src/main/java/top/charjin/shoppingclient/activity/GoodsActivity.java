@@ -3,6 +3,7 @@ package top.charjin.shoppingclient.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -105,20 +106,21 @@ public class GoodsActivity extends AppCompatActivity {
         System.out.println(Router.BASE_URL + "cart/addGoods?userId=" + user.getId() + "&goodsId=" + goods.getId());
         HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "cart/addGoods?userId=" + user.getId() + "&goodsId=" + goods.getId(), new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                assert response.body() != null;
                 String jsonData = response.body().string();
-                if (Integer.parseInt(jsonData) > 0)
-                    System.out.println("succeed  090 909 090 90 ");
-//                    Toast.makeText(GoodsActivity.this, "增加购物车成功!", Toast.LENGTH_SHORT).show();
-                else {
-                    System.out.println("failure 09032493209849032894032");
-//                    Toast.makeText(GoodsActivity.this, "好像出错了!", Toast.LENGTH_SHORT).show();
-                }
+                runOnUiThread(() -> {
+                    if (Integer.parseInt(jsonData) > 0)
+                        Toast.makeText(GoodsActivity.this, "已添加至购物车!", Toast.LENGTH_SHORT).show();
+                    else {
+                        Toast.makeText(GoodsActivity.this, "好像出错了!", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
