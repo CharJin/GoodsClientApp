@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
 
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.TestTabActivity">
 
     <ImageView
         android:id="@+id/img_logo"

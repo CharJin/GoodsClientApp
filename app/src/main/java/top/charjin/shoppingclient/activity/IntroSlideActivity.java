@@ -85,7 +85,7 @@ public class IntroSlideActivity extends AppCompatActivity {
                 mSlideViewPager.setCurrentItem(mCurrentPage);
                 addDotsIndicator(mCurrentPage);
             } else {
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(this, TestTabActivity.class);
                 startActivity(intent);
                 finish();
             }

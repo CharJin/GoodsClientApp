@@ -38,8 +38,8 @@
 
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="15dp"
@@ -53,7 +53,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="4dp" />
 
 
     <ScrollView
@@ -119,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="80dp"
                     android:layout_marginBottom="8dp"
-                    android:text="运费0元"
+                    android:text="运费 0 元"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/tv_goods_price_prefix"
@@ -140,7 +140,7 @@
                     android:id="@+id/tv_goods_region"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="14dp"
                     android:text="上海"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_goods_freight"
@@ -218,7 +218,7 @@
                     android:layout_marginStart="40dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="此功能欲仿淘宝(saved)" />
+                    android:text="欲仿淘宝(未开发)" />
 
                 <ImageView
                     android:layout_width="18dp"
@@ -305,6 +305,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/goods_add_cart_shape"
             android:gravity="center"
+            android:onClick="addCart"
             android:text="加入购物车"
             android:textColor="@color/goods_add_cart_text_color"
             android:textStyle="bold"
@@ -320,6 +321,7 @@
             android:layout_marginEnd="15dp"
             android:background="@drawable/goods_buy_shape"
             android:gravity="center"
+            android:onClick="buyNow"
             android:text="立即购买"
             android:textColor="@color/goods_add_cart_text_color"
             android:textStyle="bold"
@@ -333,6 +335,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:gravity="center"
+            android:onClick="goShop"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -358,6 +361,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:gravity="center"
+            android:onClick="collectGoods"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@+id/ll_goods_shop"
             app:layout_constraintStart_toEndOf="@+id/ll_goods_shop"

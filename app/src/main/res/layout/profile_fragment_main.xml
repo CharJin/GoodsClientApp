@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_profile_top"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@color/cart_check_out_bg_text_color">

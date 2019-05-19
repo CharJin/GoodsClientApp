@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#FF5D49</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#FFFFFF</color>
@@ -54,5 +54,11 @@
     <color name="goods_buy_bg_color">#FF5D49</color>
     <color name="goods_add_cart_text_color">#FFFFFF</color>
     <color name="goods_add_cart_bg_color">#4D4747</color>
+
+
+    <color name="login_btn_able_bg_color">#FF5D49</color>
+    <color name="login_btn_disable_bg_color">#72FF5C49</color>
+    <color name="login_bottom_register_tv_color">#378DFC</color>
+    <color name="login_bottom_forget_pwd_tv_color">#378DFC</color>
 
 </resources>
