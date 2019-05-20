@@ -6,12 +6,13 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/home_toolbar_search_image"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:id="@+id/home_toolbar_logo"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/code_icon" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_toolbar_img_logo" />
 
     <RelativeLayout
         android:id="@+id/rl_home_search"
@@ -49,12 +50,12 @@
 
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/home_toolbar_search_user"
+    <ImageView
+        android:id="@+id/home_toolbar_user"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/background" />
+        android:src="@drawable/code_icon" />
 
 </LinearLayout>

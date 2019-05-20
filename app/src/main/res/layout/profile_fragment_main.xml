@@ -9,7 +9,7 @@
         android:id="@+id/rl_profile_top"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@color/cart_check_out_bg_text_color">
+        android:background="@color/colorPrimary">
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -18,7 +18,7 @@
             android:layout_height="65dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:src="@drawable/background" />
+            android:src="#FFFFFF" />
 
         <TextView
             android:id="@+id/tv_user_name"
@@ -26,8 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:layout_toRightOf="@id/civ_user_head_portrait"
-            android:text="金志超"
+            android:layout_toEndOf="@id/civ_user_head_portrait"
+            android:text="@string/profile_user_name"
             android:textColor="@color/user_name_text_color"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -41,7 +41,7 @@
             android:layout_marginEnd="20dp"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_navigate_next_grey_900_24dp"
+            android:src="@drawable/ic_navigate_next_white_24dp"
             android:text=">" />
 
     </RelativeLayout>

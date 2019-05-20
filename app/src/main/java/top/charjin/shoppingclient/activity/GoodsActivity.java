@@ -31,6 +31,7 @@ import top.charjin.shoppingclient.utils.Router;
 
 public class GoodsActivity extends AppCompatActivity {
 
+    private MyApplication application;
     private OsGoods goods;
 
     private Banner banner;
@@ -53,6 +54,7 @@ public class GoodsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.goods_activity_main);
+        application = (MyApplication) this.getApplication();
         // 获取点击商品后传来的商品实体类
         goods = (OsGoods) this.getIntent().getSerializableExtra("goods");
 
@@ -98,11 +100,13 @@ public class GoodsActivity extends AppCompatActivity {
     }
 
     public void addCart(View view) {
-        OsUser user = ((MyApplication) this.getApplication()).getUser();
+        OsUser user = (OsUser) MyApplication.map.get("user");
         if (user == null) {
             Toast.makeText(this, "请登录", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, LoginActivity.class));
+            return;
         }
+        // 输出请求url
         System.out.println(Router.BASE_URL + "cart/addGoods?userId=" + user.getId() + "&goodsId=" + goods.getId());
         HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "cart/addGoods?userId=" + user.getId() + "&goodsId=" + goods.getId(), new Callback() {
             @Override

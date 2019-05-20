@@ -4,12 +4,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -20,12 +22,20 @@ import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.JsonUtil;
 import top.charjin.shoppingclient.utils.Router;
 
-public class LoginActivity extends AppCompatActivity implements View.OnKeyListener {
+public class LoginActivity extends AppCompatActivity implements TextWatcher {
 
     private MyApplication application;
 
     private TextInputEditText etUserName, etPwd;
     private TextView tvBtnLogin;
+
+/*
+    // 点击第4个选项卡时候 判断一下用户是否登录
+        if (MyApplication.map.get("user") == null) {
+        startActivity(new Intent(AppActivity.this, LoginActivity.class));
+        return;
+    }
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +49,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnKeyListen
 
 //        etUserName.setOnKeyListener(this);
 //        etPwd.setOnKeyListener(this);
+        // 设置监听，更改Login按钮的样式
+        etUserName.addTextChangedListener(this);
+        etPwd.addTextChangedListener(this);
 
     }
 
@@ -62,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnKeyListen
                 } else {
                     OsUser user = JsonUtil.parseJSONObject(jsonData, OsUser.class);
                     System.out.println(user);
-                    application.setUser(user);
+                    MyApplication.map.put("user", user);
                     SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
 //                    if (sp.getString("username", null) == null) {
                     SharedPreferences.Editor editor = sp.edit();
@@ -71,18 +84,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnKeyListen
                             .putString("password", user.getPassword())
                             .apply();
 //                    }
+                    runOnUiThread(() -> {
+                        Toast.makeText(LoginActivity.this, "登录成功!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    });
+
                 }
             }
         });
     }
 
     @Override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
-        if (etUserName.getText().length() == 0 && etPwd.getText().length() == 0) {
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        if (Objects.requireNonNull(etUserName.getText()).length() == 0
+                || Objects.requireNonNull(etPwd.getText()).length() == 0) {
             tvBtnLogin.setBackground(getDrawable(R.drawable.login_btn_disable_shape));
         } else {
             tvBtnLogin.setBackground(getDrawable(R.drawable.login_btn_able_shape));
         }
-        return true;
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 }

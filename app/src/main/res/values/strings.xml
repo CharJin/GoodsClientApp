@@ -26,6 +26,7 @@
     <string name="cart_edit">编辑</string>
 
 
+    <string name="profile_user_name">未登录</string>
     <string name="profile_personal_recommend_title">个性推荐</string>
     <string name="profile_personal_recommend_title_decorate">更多适合你的好货</string>
 
@@ -35,6 +36,7 @@
 
 
     <string name="goods_detail_title">商品详情</string>
+    <string name="cart_bottom_checkout">去结算(%s)</string>
 
 
 </resources>

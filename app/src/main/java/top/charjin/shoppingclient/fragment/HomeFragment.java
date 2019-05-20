@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment {
             if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
                 initGoods();
                 isRefresh = false;
-                Toast.makeText(this.context, "fdsfdsafdsa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.context, "HomeFragment:已滑到了底部!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -128,6 +128,9 @@ public class HomeFragment extends Fragment {
     }
 
 
+    /**
+     * 初始化顶部 4 个推荐搜索的text
+     */
     private void initRecommend() {
         HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "recommend/getRecommend", new Callback() {
             @Override
@@ -180,6 +183,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    /**
+     * 下拉刷新后 对数据进行重新加载
+     */
     private void refreshGoods() {
         new Thread(() -> {
             try {

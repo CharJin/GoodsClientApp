@@ -42,7 +42,8 @@
     <color name="cart_shop_color">#EEFCFCFC</color>
     <color name="cart_shop_text_color">#333333</color>
     <color name="cart_shop_price_color">#FF6100</color>
-    <color name="cart_check_out_bg_text_color">#CFCFCF</color>
+    <color name="cart_check_out_bg_text_color">#E6E6E6</color>
+    <color name="cart_item_divider_color">#C2C2C2</color>
     <color name="cart_check_out_text_color">#FFFFFF</color>
     <color name="cart_sum_text_color">#333333</color>
 

@@ -7,8 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#e2e2e2">
+        android:layout_height="45dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,16 +17,15 @@
             android:layout_marginStart="15dp"
             android:text="我的订单"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             android:text="全部订单 >"
-            android:textColor="@color/home_text_price_color"
             android:textSize="15sp" />
 
 
@@ -54,7 +52,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="待付款" />
+                android:text="待付款"
+                android:textColor="@color/app_base_black_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -71,7 +70,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="待付款" />
+                android:text="待收货"
+                android:textColor="@color/app_base_black_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -88,7 +88,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="待付款" />
+                android:text="待评论"
+                android:textColor="@color/app_base_black_color" />
         </LinearLayout>
 
         <LinearLayout
@@ -105,7 +106,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="待付款" />
+                android:text="退款/售后"
+                android:textColor="@color/app_base_black_color" />
         </LinearLayout>
 
     </LinearLayout>
