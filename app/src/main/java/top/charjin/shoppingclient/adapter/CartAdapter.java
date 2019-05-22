@@ -2,30 +2,37 @@ package top.charjin.shoppingclient.adapter;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.activity.GoodsActivity;
 import top.charjin.shoppingclient.model.CartGoodsModel;
 import top.charjin.shoppingclient.model.CartShopModel;
+import top.charjin.shoppingclient.utils.HttpUtil;
+import top.charjin.shoppingclient.utils.Router;
 
-public class CartAdapter extends BaseExpandableListAdapter implements CompoundButton.OnCheckedChangeListener {
+public class CartAdapter extends BaseExpandableListAdapter implements Callback {
 
     private Context context;
     private List<CartShopModel> shopList;
@@ -34,7 +41,8 @@ public class CartAdapter extends BaseExpandableListAdapter implements CompoundBu
     private int chosenNum = 0;
 
 
-    private OnShopItemSelectedListener onShopItemSelectedListener;
+    private OnItemSelectedListener onItemSelectedListener;
+    private OnCartGoodsChangedListener onCartGoodsChangedListener;
 
     public CartAdapter(Context context, List<CartShopModel> shopList, Map<CartShopModel, List<CartGoodsModel>> cartMap) {
         this.context = context;
@@ -61,6 +69,7 @@ public class CartAdapter extends BaseExpandableListAdapter implements CompoundBu
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
+        Log.e("Cart", "fdsafdsa");
         return Objects.requireNonNull(this.cartMap.get(this.shopList.get(groupPosition))).get(childPosition);
     }
 
@@ -109,10 +118,10 @@ public class CartAdapter extends BaseExpandableListAdapter implements CompoundBu
         // property, bind event---
         holder.tvShopName.setText(shop.getName());
         holder.cbShopChoose.setChecked(shop.isChecked());
-        holder.cbShopChoose.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            onShopItemSelectedListener.onItemSelected(buttonView.isChecked(), groupPosition);
+        holder.cbShopChoose.setOnClickListener(v -> {
+            shop.setChecked(holder.cbShopChoose.isChecked());
+            onItemSelectedListener.onShopItemSelected(holder.cbShopChoose.isChecked(), groupPosition);
 //            Toast.makeText(context, buttonView.getText() + "  " + isChecked + "", Toast.LENGTH_SHORT).show();
-
         });
 
         return view;
@@ -154,29 +163,77 @@ public class CartAdapter extends BaseExpandableListAdapter implements CompoundBu
         // property, bind event---
         holder.cbChoose.setChecked(goods.isChecked());
         if (goods.isChecked()) chosenNum++;
-        Toast.makeText(context, "selected", Toast.LENGTH_SHORT).show();
         holder.tvGoodsName.setText(goods.getName());
+        holder.tvGoodsNum.setText(String.format("%d", goods.getGoodsNum()));    //初始化商品的数量
+
         holder.cbChoose.setChecked(goods.isChecked());
         view.setOnClickListener(e -> {
-            Toast.makeText(context, "parent", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(context, GoodsActivity.class);
             intent.putExtra("goods", goods);
             context.startActivity(intent);
         });
         // 设置商品数量增减
         holder.btnPlus.setOnClickListener(e -> {
-            int num = Integer.parseInt(holder.tvGoodsNum.getText().toString());
-            holder.tvGoodsNum.setText(String.format("%d", num + 1));
+            int num = Integer.parseInt(holder.tvGoodsNum.getText().toString()), newNum = num + 1;
+
+            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + 1 + "&goodsId=" + goods.getId() + "&number=" + newNum, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    onCartGoodsChangedListener.onCartGoodsChanged(false);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    int affectedNum = 0;
+                    if (response.body() != null) {
+                        affectedNum = Integer.parseInt(response.body().string());
+                    }
+                    // 修改成功执行回调函数
+                    if (affectedNum > 0) {
+                        goods.setGoodsNum(newNum);
+                        ((Activity) context).runOnUiThread(() -> {
+                            holder.tvGoodsNum.setText(String.format("%d", newNum));
+                            onCartGoodsChangedListener.onCartGoodsChanged(true);
+                        });
+                    }
+                }
+            });
         });
+        // 减少商品数量
         holder.btnSubtract.setOnClickListener(e -> {
-            int num = Integer.parseInt(holder.tvGoodsNum.getText().toString());
-            if (num == 1) {
+            int num = Integer.parseInt(holder.tvGoodsNum.getText().toString()), newNum = num - 1;
+            if (newNum == 0) {
                 Toast.makeText(context, "商品数量不能再少啦!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            holder.tvGoodsNum.setText(String.format("%d", num - 1));
+            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + 1 + "&goodsId=" + goods.getId() + "&number=" + newNum, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    onCartGoodsChangedListener.onCartGoodsChanged(false);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    int affectedNum = 0;
+                    if (response.body() != null) {
+                        affectedNum = Integer.parseInt(response.body().string());
+                        onCartGoodsChangedListener.onCartGoodsChanged(false);
+                    }
+                    // 修改成功执行回调函数
+                    if (affectedNum > 0) {
+                        goods.setGoodsNum(newNum);
+                        ((Activity) context).runOnUiThread(() -> {
+                            holder.tvGoodsNum.setText(String.format("%d", newNum));
+                            onCartGoodsChangedListener.onCartGoodsChanged(true);
+                        });
+                    }
+                }
+            });
         });
-        holder.cbChoose.setOnCheckedChangeListener(this);
+        holder.cbChoose.setOnClickListener(v -> {
+            goods.setChecked(holder.cbChoose.isChecked());
+            onItemSelectedListener.onGoodsItemSelected(holder.cbChoose.isChecked(), groupPosition, childPosition);
+        });
         holder.tvGoodsPrice.setText(String.format("%s", goods.getPrice()));
 
         return view;
@@ -187,21 +244,42 @@ public class CartAdapter extends BaseExpandableListAdapter implements CompoundBu
         return false;
     }
 
+
+    public OnItemSelectedListener getOnItemSelectedListener() {
+        return onItemSelectedListener;
+    }
+
+    public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener) {
+        this.onItemSelectedListener = onItemSelectedListener;
+    }
+
+    public OnCartGoodsChangedListener getOnCartGoodsChangedListener() {
+        return onCartGoodsChangedListener;
+    }
+
+    public void setOnCartGoodsChangedListener(OnCartGoodsChangedListener onCartGoodsChangedListener) {
+        this.onCartGoodsChangedListener = onCartGoodsChangedListener;
+    }
+
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+    public void onFailure(Call call, IOException e) {
+
     }
 
-    public OnShopItemSelectedListener getOnShopItemSelectedListener() {
-        return onShopItemSelectedListener;
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
+
     }
 
-    public void setOnShopItemSelectedListener(OnShopItemSelectedListener onShopItemSelectedListener) {
-        this.onShopItemSelectedListener = onShopItemSelectedListener;
+    public enum GoodsOperatorType {
+        GOODS_ADD,
+        GOODS_SUBTRACT
     }
 
+    public interface OnItemSelectedListener {
+        void onShopItemSelected(boolean isChecked, int shopPos);
 
-    public interface OnShopItemSelectedListener {
-        void onItemSelected(boolean isChecked, int shopPos);
+        void onGoodsItemSelected(boolean isChecked, int shopPos, int goodsPos);
     }
 
     class ViewHolderGoods {
@@ -218,5 +296,9 @@ public class CartAdapter extends BaseExpandableListAdapter implements CompoundBu
     class ViewHolderShop {
         CheckBox cbShopChoose;
         TextView tvShopName;
+    }
+
+    public interface OnCartGoodsChangedListener {
+        void onCartGoodsChanged(boolean isSucceeded);
     }
 }

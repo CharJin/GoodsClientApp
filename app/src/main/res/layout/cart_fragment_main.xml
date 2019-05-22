@@ -81,10 +81,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/tv_cart_sum"
+                android:layout_toStartOf="@+id/tv_cart_sum_prefix"
                 android:text="合计:"
                 android:textColor="@color/message_title_color"
                 android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_cart_sum_prefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tv_cart_sum"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/tv_cart_sum"
+                android:paddingBottom="5dp"
+                android:text="￥"
+                android:textColor="@color/cart_shop_price_color"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_cart_sum"
@@ -93,16 +105,17 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="22dp"
                 android:layout_toStartOf="@id/tv_btn_cart_chock_out"
-                android:text="￥0"
+                android:text="0"
                 android:textColor="@color/cart_shop_price_color"
-                android:textSize="20sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/tv_btn_cart_chock_out"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:background="@color/cart_check_out_bg_text_color"
+                android:background="@drawable/cart_checkout_btn_selector"
+                android:enabled="false"
                 android:gravity="center"
                 android:text="@string/cart_bottom_checkout"
                 android:textColor="@color/cart_check_out_text_color" />

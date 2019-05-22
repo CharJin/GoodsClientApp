@@ -29,7 +29,6 @@ import com.youth.banner.loader.ImageLoader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -101,14 +100,13 @@ public class HomeFragment extends Fragment {
             if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
                 initGoods();
                 isRefresh = false;
-                Toast.makeText(this.context, "HomeFragment:已滑到了底部!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.context, "HomeFragment:已滑到了底!", Toast.LENGTH_SHORT).show();
             }
         });
 
 
         // 点击搜索 跳转到新页面
         rlHomeSearch.setOnClickListener(e -> startActivity(new Intent(this.getActivity(), SearchActivity.class)));
-
 
         initBannerAdsResource();
 
@@ -193,7 +191,7 @@ public class HomeFragment extends Fragment {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
+            activity.runOnUiThread(() -> {
                 initRecommend();
                 initGoods();
                 swipeRefreshLayout.setRefreshing(false);

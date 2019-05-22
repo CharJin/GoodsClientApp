@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,6 +37,7 @@ public class AppActivity extends AppCompatActivity {
     private MyApplication application;
     private TabLayout mTabLayout;
     private Fragment[] mFragments;
+    private Fragment currentFragment = new Fragment();
 
     private ImmersionBar mImmersionBar;
 
@@ -70,7 +72,7 @@ public class AppActivity extends AppCompatActivity {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                replaceShownFragment(tab.getPosition());
+                changeFragment(tab.getPosition());
                 // Tab 选中之后，改变各个Tab的状态
                 for (int i = 0; i < mTabLayout.getTabCount(); i++) {
                     // 获取自定义的Tab
@@ -108,7 +110,7 @@ public class AppActivity extends AppCompatActivity {
      *
      * @param position
      */
-    private void replaceShownFragment(int position) {
+    private void changeFragment(int position) {
         Fragment fragment = null;
         switch (position) {
             case 0:
@@ -126,10 +128,16 @@ public class AppActivity extends AppCompatActivity {
         }
         // 替换显示的Fragment.
         if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.home_container, fragment)
-                    .commit();
+            if (currentFragment != fragment) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.hide(currentFragment);
+                currentFragment = fragment;
+                if (!fragment.isAdded()) { //  判断此fragment是否已经被add()过
+                    fragmentTransaction.add(R.id.home_container, fragment).show(fragment).commit();
+                } else {
+                    fragmentTransaction.show(fragment).commit();
+                }
+            }
         }
     }
 
