@@ -92,7 +92,7 @@ public class SearchResultActivity extends AppCompatActivity implements Callback 
 
     }
 
-    public void finish(View view) {
+    public void finishOnClick(View view) {
         this.finish();
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.RegisterActivity">
 
     <!--android:background="@color/goods_buy_bg_color"-->
 
@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="12dp"
             android:gravity="center"
-            android:text="登录"
+            android:text="注册"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -112,7 +112,7 @@
                     app:hintEnabled="false">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_login_user_name"
+                        android:id="@+id/et_register_user_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -145,11 +145,10 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:hintEnabled="false"
-                    app:passwordToggleEnabled="true">
+                    app:hintEnabled="false">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_login_password"
+                        android:id="@+id/et_register_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -164,56 +163,55 @@
 
             <include layout="@layout/separator_line_horizontal" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="8dp">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:text="确认密码"
+                    android:textColor="@color/app_base_black_color"
+                    android:textSize="16sp" />
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintEnabled="false">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/et_register_password_confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:hint="6-16位登录密码"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:textCursorDrawable="@drawable/login_input_cursor_shape" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
             <TextView
-                android:id="@+id/tv_btn_login"
+                android:id="@+id/tv_btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/login_btn_selector"
                 android:enabled="false"
                 android:gravity="center"
-                android:onClick="login"
-                android:text="登录"
+                android:onClick="registerOnClick"
+                android:text="注册"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />
 
         </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="25dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="registerOnClick"
-                android:text="注册账号"
-                android:textColor="@color/login_bottom_register_tv_color" />
-
-
-            <include
-                layout="@layout/separator_line_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="找回密码"
-                android:textColor="@color/login_bottom_forget_pwd_tv_color" />
-        </LinearLayout>
-
 
     </android.support.constraint.ConstraintLayout>
 

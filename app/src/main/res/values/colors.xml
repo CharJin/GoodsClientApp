@@ -62,4 +62,6 @@
     <color name="login_bottom_register_tv_color">#378DFC</color>
     <color name="login_bottom_forget_pwd_tv_color">#378DFC</color>
 
+    <color name="order_main_bg_color">#FAFAFA</color>
+
 </resources>

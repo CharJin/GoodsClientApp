@@ -1,10 +1,8 @@
 package top.charjin.shoppingclient.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,11 +37,9 @@ import top.charjin.shoppingclient.model.CartShopModel;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.Router;
 
-public class CartFragment extends Fragment implements CartAdapter.OnItemSelectedListener {
+public class CartFragment extends BaseFragment implements CartAdapter.OnItemSelectedListener {
 
     View homeView;
-
-    private Activity activity;
 
     private ExpandableListView elvCart;
     private CartAdapter cartAdapter;
@@ -65,7 +61,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnItemSelected
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View homeView = inflater.inflate(R.layout.cart_fragment_main, container, false);
 
-        activity = getActivity();
+//        activity = getActivity();
 
         tvBtnCheckout = homeView.findViewById(R.id.tv_btn_cart_chock_out);
         tvCartSum = homeView.findViewById(R.id.tv_cart_sum);
@@ -95,6 +91,8 @@ public class CartFragment extends Fragment implements CartAdapter.OnItemSelected
     @Override
     public void onResume() {
         super.onResume();
+        System.out.println(context);
+        checkUser();
         if (isLoaded)
             initCartData();
         Log.e("Cart", "onResume");

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.SearchResultActivity">
 
 
     <LinearLayout
@@ -12,14 +13,15 @@
         android:layout_height="55dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingEnd="10dp">
+        android:paddingEnd="10dp"
+        tools:ignore="RtlSymmetry">
 
         <ImageView
             android:layout_width="26dp"
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:onClick="finish"
+            android:onClick="finishOnClick"
             android:scaleType="fitXY"
             android:src="@drawable/search_back_icon" />
 

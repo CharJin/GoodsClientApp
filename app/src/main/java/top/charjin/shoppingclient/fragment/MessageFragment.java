@@ -3,7 +3,6 @@ package top.charjin.shoppingclient.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +18,7 @@ import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.adapter.MessageAdapter;
 import top.charjin.shoppingclient.model.MessageModel;
 
-public class MessageFragment extends Fragment {
+public class MessageFragment extends BaseFragment {
     private View viewMessage;
 
     private RecyclerView rvMessage;

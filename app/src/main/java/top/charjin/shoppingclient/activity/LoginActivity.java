@@ -1,5 +1,6 @@
 package top.charjin.shoppingclient.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher {
 
     }
 
-    public void finish(View view) {
+    public void finishOnClick(View view) {
         this.finish();
     }
 
@@ -104,14 +105,18 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher {
 
         if (Objects.requireNonNull(etUserName.getText()).length() == 0
                 || Objects.requireNonNull(etPwd.getText()).length() == 0) {
-            tvBtnLogin.setBackground(getDrawable(R.drawable.login_btn_disable_shape));
+            tvBtnLogin.setEnabled(false);
         } else {
-            tvBtnLogin.setBackground(getDrawable(R.drawable.login_btn_able_shape));
+            tvBtnLogin.setEnabled(true);
         }
     }
 
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    public void registerOnClick(View view) {
+        startActivity(new Intent(this, RegisterActivity.class));
     }
 }

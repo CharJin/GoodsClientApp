@@ -1,7 +1,6 @@
 package top.charjin.shoppingclient.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -15,7 +14,6 @@ import top.charjin.shoppingclient.fragment.ProfileFragment;
 public class TestTabActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private AppBarLayout appBarLayout;
     private ViewPager viewPager;
 
     @Override
@@ -23,7 +21,6 @@ public class TestTabActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_viewpaper);
         tabLayout = findViewById(R.id.tablayout);
-        appBarLayout = findViewById(R.id.appbar_layout);
 
         viewPager = findViewById(R.id.viewpager);
         Fragment[] tabFgs = {new ProfileFragment(), new CartFragment()};
