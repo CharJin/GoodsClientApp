@@ -51,7 +51,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         TextView tvShopTitle;
         TextView tvLatestMsg;
 
-        public ViewHolder(@NonNull View view) {
+        ViewHolder(@NonNull View view) {
             super(view);
             civShopPic = view.findViewById(R.id.iv_list_item_message_shop_img);
             tvShopTitle = view.findViewById(R.id.tv_list_item_message_title);

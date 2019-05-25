@@ -16,10 +16,12 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="15dp"
             android:text="我的订单"
+
             android:textColor="#000000"
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/tv_btn_order_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

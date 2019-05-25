@@ -8,12 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.activity.LoginActivity;
+import top.charjin.shoppingclient.activity.OrderActivity;
 
 public class ProfileFragment extends BaseFragment {
 
+    TextView tvBtnAllOrder;
     private View homeView;
     private RelativeLayout rlUser;
 
@@ -26,6 +29,10 @@ public class ProfileFragment extends BaseFragment {
         rlUser.setOnClickListener(e -> startActivity(new Intent(getContext(), LoginActivity.class)));
 //        CardView cardView
 
+        tvBtnAllOrder = homeView.findViewById(R.id.tv_btn_order_all);
+        tvBtnAllOrder.setOnClickListener(v -> {
+            startActivity(new Intent(context, OrderActivity.class));
+        });
 
         return homeView;
     }

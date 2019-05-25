@@ -4,12 +4,12 @@
     android:id="@+id/cv_order_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="4dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginBottom="6dp"
     android:elevation="5dp"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/iv_order_header_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="18dp"
+                android:layout_height="16dp"
                 android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,13 +38,13 @@
                 app:srcCompat="@drawable/goods_bottom_img_shop" />
 
             <TextView
-                android:id="@+id/tv_order_name"
+                android:id="@+id/tv_order_shop_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="12dp"
                 android:text="Shop'Name"
                 android:textColor="@color/app_base_black_color"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_order_header_icon"
                 app:layout_constraintStart_toEndOf="@+id/iv_order_header_icon"
                 app:layout_constraintTop_toTopOf="@+id/iv_order_header_icon"
@@ -52,12 +52,12 @@
 
             <ImageView
                 android:id="@+id/iv_shop_next_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_order_name"
-                app:layout_constraintStart_toEndOf="@+id/tv_order_name"
-                app:layout_constraintTop_toTopOf="@+id/tv_order_name"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_order_shop_name"
+                app:layout_constraintStart_toEndOf="@+id/tv_order_shop_name"
+                app:layout_constraintTop_toTopOf="@+id/tv_order_shop_name"
                 app:srcCompat="@drawable/ic_navigate_next_grey_900_24dp" />
 
             <TextView
@@ -67,16 +67,16 @@
                 android:layout_marginEnd="16dp"
                 android:text="TextView"
                 android:textColor="@color/colorPrimary"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+            android:id="@+id/cl_order_main"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
+            android:layout_height="86dp"
             android:background="@color/order_main_bg_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -84,8 +84,8 @@
 
             <ImageView
                 android:id="@+id/iv_order_goods"
-                android:layout_width="74dp"
-                android:layout_height="74dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_marginStart="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +102,7 @@
                 android:maxLines="2"
                 android:text="Info"
                 android:textColor="@color/app_base_black_color"
+                android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/iv_order_goods"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,6 +115,7 @@
                 android:layout_marginBottom="66dp"
                 android:text="$70.00"
                 android:textColor="@color/app_base_black_color"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -134,11 +136,11 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/cl_order_main">
 
             <TextView
                 android:id="@+id/id_order_bottom_freight"
@@ -153,13 +155,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_order_bottom_sum_price"
+                android:id="@+id/tv_order_bottom_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:text="$75.00"
                 android:textColor="@color/app_base_black_color"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/id_order_bottom_freight"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -172,7 +174,7 @@
                 android:text="总价:"
                 android:textColor="@color/app_base_black_color"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_order_bottom_sum_price"
+                app:layout_constraintEnd_toStartOf="@+id/tv_order_bottom_amount"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 

@@ -282,6 +282,10 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
         void onGoodsItemSelected(boolean isChecked, int shopPos, int goodsPos);
     }
 
+    public interface OnCartGoodsChangedListener {
+        void onCartGoodsChanged(boolean isSucceeded);
+    }
+
     class ViewHolderGoods {
         CheckBox cbChoose;
         ImageView ivGoods;
@@ -296,9 +300,5 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
     class ViewHolderShop {
         CheckBox cbShopChoose;
         TextView tvShopName;
-    }
-
-    public interface OnCartGoodsChangedListener {
-        void onCartGoodsChanged(boolean isSucceeded);
     }
 }

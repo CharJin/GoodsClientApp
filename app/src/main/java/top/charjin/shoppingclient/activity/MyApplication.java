@@ -8,10 +8,8 @@ import java.util.Map;
 
 public class MyApplication extends Application {
 
-    private Context context;
-
     public static final Map<String, Object> map = new HashMap<>();
-
+    private Context context;
 
     @Override
     public void onCreate() {

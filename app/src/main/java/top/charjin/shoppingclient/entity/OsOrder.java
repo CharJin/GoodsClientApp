@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class OsOrder implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Integer id;
+    private Integer orderId;
     /**
      * 外键,用户id
      */
@@ -13,22 +13,38 @@ public class OsOrder implements Serializable {
     /**
      * 外键,商品id
      */
-    private Integer commodityId;
+    private Integer goodsId;
     /**
-     * 订单建立时间
+     * 商品数量
      */
-    private Date orderDate;
+    private Integer goodsNumber;
     /**
-     * 订单是否支付
+     * 订单编号(保留字段 不使用,订单时间+用户id+商品id)
      */
-    private Boolean isPaid;
+    private String orderNumber;
+    /**
+     * 订单总金额
+     */
+    private Double orderAmount;
+    /**
+     * 订单状态(0:待付款 1:待发货 2:待收货 3:待评论)
+     */
+    private Byte orderStatus;
+    /**
+     * 订单创建时间
+     */
+    private Date createDate;
+    /**
+     * 订单支付时间
+     */
+    private Date payTime;
 
-    public Integer getId() {
-        return id;
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getUserId() {
@@ -39,27 +55,78 @@ public class OsOrder implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getCommodityId() {
-        return commodityId;
+    public Integer getGoodsId() {
+        return goodsId;
     }
 
-    public void setCommodityId(Integer commodityId) {
-        this.commodityId = commodityId;
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public Date getOrderDate() {
-        return orderDate;
+    public Integer getGoodsNumber() {
+        return goodsNumber;
     }
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public void setGoodsNumber(Integer goodsNumber) {
+        this.goodsNumber = goodsNumber;
     }
 
-    public Boolean getIsPaid() {
-        return isPaid;
+    public String getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setIsPaid(Boolean isPaid) {
-        this.isPaid = isPaid;
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public Double getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(Double orderAmount) {
+        this.orderAmount = orderAmount;
+    }
+
+    public Byte getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(Byte orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(Date payTime) {
+        this.payTime = payTime;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", orderId=").append(orderId);
+        sb.append(", userId=").append(userId);
+        sb.append(", goodsId=").append(goodsId);
+        sb.append(", goodsNumber=").append(goodsNumber);
+        sb.append(", orderNumber=").append(orderNumber);
+        sb.append(", orderAmount=").append(orderAmount);
+        sb.append(", orderStatus=").append(orderStatus);
+        sb.append(", createDate=").append(createDate);
+        sb.append(", payTime=").append(payTime);
+        sb.append("]");
+        return sb.toString();
     }
 }
