@@ -23,7 +23,7 @@ import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.JsonUtil;
 import top.charjin.shoppingclient.utils.Router;
 
-public class OrderActivity extends AppCompatActivity {
+public class OrderActivity1 extends AppCompatActivity implements TabLayout.BaseOnTabSelectedListener {
 
 
     private TabLayout tlOrder;
@@ -44,10 +44,7 @@ public class OrderActivity extends AppCompatActivity {
         rvOrderCommon.setAdapter(adapter);
 
 
-        for (int i = 0; i < tlOrder.getTabCount(); i++) {
-            TabLayout.Tab tab = tlOrder.getTabAt(i);
-            Log.e("Order", tab.getText().toString());
-        }
+        tlOrder.addOnTabSelectedListener(this);
 
     }
 
@@ -82,4 +79,20 @@ public class OrderActivity extends AppCompatActivity {
     public void finishOnClick(View view) {
         finish();
     }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        orderList.stream().filter(order -> order.getOrderStatus() == 0);
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
 }

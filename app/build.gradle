@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 //apply plugin: 'com.android.library'
 //apply plugin: 'com.jakewharton.butterknife'
 
@@ -49,9 +51,13 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
 //    implementation 'com.jakewharton:butterknife:10.1.0'
 //    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
+}
+repositories {
+    mavenCentral()
 }
