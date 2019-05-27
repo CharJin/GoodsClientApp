@@ -39,4 +39,9 @@
     <string name="cart_bottom_checkout">去结算(%s)</string>
 
 
+    <string name="shop_name_title">%s</string>
+    <string name="shop_goods_price">¥%s</string>
+    <string name="shop_goods_checkout">月销%d笔</string>
+
+
 </resources>

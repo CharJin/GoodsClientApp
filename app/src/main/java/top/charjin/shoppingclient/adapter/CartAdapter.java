@@ -27,6 +27,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.activity.GoodsActivity;
+import top.charjin.shoppingclient.activity.ShopActivity;
 import top.charjin.shoppingclient.model.CartGoodsModel;
 import top.charjin.shoppingclient.model.CartShopModel;
 import top.charjin.shoppingclient.utils.HttpUtil;
@@ -117,6 +118,12 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
         }
         // property, bind event---
         holder.tvShopName.setText(shop.getName());
+        holder.tvShopName.setOnClickListener(v -> {
+            int shopId = shop.getId();
+            Intent intent = new Intent(context, ShopActivity.class);
+            intent.putExtra("shop", shop);
+            context.startActivity(intent);
+        });
         holder.cbShopChoose.setChecked(shop.isChecked());
         holder.cbShopChoose.setOnClickListener(v -> {
             shop.setChecked(holder.cbShopChoose.isChecked());
