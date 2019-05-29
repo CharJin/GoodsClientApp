@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context=".activity.ShopActivity">
 
+    <include layout="@layout/separator_line_horizontal" />
 
     <RelativeLayout
         android:layout_width="match_parent"

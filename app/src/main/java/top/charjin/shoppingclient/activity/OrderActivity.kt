@@ -16,6 +16,7 @@ import top.charjin.shoppingclient.utils.HttpUtil
 import top.charjin.shoppingclient.utils.JsonUtil
 import top.charjin.shoppingclient.utils.Router
 import java.io.IOException
+import java.io.Serializable
 import java.util.stream.Collectors
 
 class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
@@ -25,18 +26,23 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     private lateinit var rvOrderCommon: RecyclerView
     private lateinit var adapter: OrderAdapter
+
+    private lateinit var orderType: OrderType
     private val orderList = ArrayList<OsOrderModel>()
-    private val allOrderList = mutableListOf<OsOrderModel>()
+    private val allOrderList = arrayListOf<OsOrderModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_activity_main)
+
+
         initComponent()
 
         adapter = OrderAdapter(this, orderList)
         rvOrderCommon.layoutManager = LinearLayoutManager(this)
         rvOrderCommon.adapter = adapter
 
+        orderType = intent.getSerializableExtra("OrderType") as OrderType
 
         tlOrder.addOnTabSelectedListener(this)
 
@@ -79,7 +85,7 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
          */
         val sTab = tab.text
         val filterList: List<OsOrderModel>
-        val bufferList = mutableListOf<OsOrderModel>()
+        val bufferList = arrayListOf<OsOrderModel>()
         bufferList.addAll(allOrderList)
 //        Log.e("Order", "size : ${bufferList.size}")
 
@@ -101,6 +107,15 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     override fun onTabReselected(tab: TabLayout.Tab) {
 
+    }
+
+
+    enum class OrderType : Serializable {
+        All,                // 全部
+        OBLIGATION,         // 待付款
+        WAIT_SENDING,       // 待发货
+        WAIT_RECEIVING,     // 待收货
+        WAIT_COMMENT        // 待评论
     }
 
 }

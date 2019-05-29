@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_profile_my_order"
         android:layout_width="match_parent"
         android:layout_height="45dp">
 
@@ -16,7 +17,6 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="15dp"
             android:text="我的订单"
-
             android:textColor="#000000"
             android:textSize="16sp" />
 
@@ -41,13 +41,14 @@
         android:padding="10dp">
 
         <LinearLayout
+            android:id="@+id/ll_shop_order_obligation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
+            <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp" />
 
@@ -59,13 +60,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_shop_order_wait_receiving"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
+            <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp" />
 
@@ -77,13 +79,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_shop_order_comment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
+            <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp" />
 
@@ -101,7 +104,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
+            <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp" />
 

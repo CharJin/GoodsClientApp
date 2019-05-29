@@ -52,8 +52,8 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     private CheckBox cbChooseAll;
     private boolean isChooseAll = false;
 
-    private int goods_num = 0;
-    private double sum_price = 0.0;
+    private int goods_num = 0;          //商品的价格
+    private double sum_price = 0.0;     //合计总价格
     private boolean isLoaded = true;
 
     @Nullable
@@ -74,6 +74,9 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
 
         cbChooseAll = homeView.findViewById(R.id.cb_cart_choose_all);
         cbChooseAll.setOnClickListener(this::onChooseAllClick);
+
+        // 初始总额为0
+        tvBtnCheckout.setText(String.format(getResources().getString(R.string.cart_bottom_checkout), 0 + ""));
         return homeView;
     }
 

@@ -22,7 +22,7 @@ import java.io.IOException
 class ShopActivity : AppCompatActivity() {
 
     private lateinit var adapter: ShopGoodsAdapter
-    private val goodsList = mutableListOf<OsGoods>()
+    private val goodsList = arrayListOf<OsGoods>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
