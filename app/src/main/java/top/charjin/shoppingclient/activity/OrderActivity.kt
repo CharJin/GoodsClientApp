@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import okhttp3.Call
 import okhttp3.Callback
@@ -28,6 +29,7 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
     private lateinit var adapter: OrderAdapter
 
     private lateinit var orderType: OrderType
+    private var isFirst = true              // 取消首次监听执行
     private val orderList = ArrayList<OsOrderModel>()
     private val allOrderList = arrayListOf<OsOrderModel>()
 
@@ -42,10 +44,18 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         rvOrderCommon.layoutManager = LinearLayoutManager(this)
         rvOrderCommon.adapter = adapter
 
-        orderType = intent.getSerializableExtra("OrderType") as OrderType
 
         tlOrder.addOnTabSelectedListener(this)
 
+        orderType = intent.getSerializableExtra("orderType") as OrderType
+        Log.e("Order", orderType.name)
+        when (orderType) {
+            OrderType.All -> tlOrder.getTabAt(0)!!.select()
+            OrderType.OBLIGATION -> tlOrder.getTabAt(1)!!.select()
+            OrderType.WAIT_SENDING -> tlOrder.getTabAt(2)!!.select()
+            OrderType.WAIT_RECEIVING -> tlOrder.getTabAt(3)!!.select()
+            OrderType.WAIT_COMMENT -> tlOrder.getTabAt(4)!!.select()
+        }
     }
 
     override fun onResume() {
@@ -54,6 +64,7 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
     }
 
     private fun initOrderData() {
+        allOrderList.clear()
         HttpUtil.sendOkHttpRequestByGet(Router.ORDER_URL + "getAllOrdersByUserId?userId=" + 1, object : Callback {
             override fun onFailure(call: Call, e: IOException) {
 
@@ -65,7 +76,8 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 //                Log.e("Order", jsonData)
                 allOrderList.addAll(JsonUtil.parseJSONObjectInStringToEntityList(jsonData, OsOrderModel::class.java))
                 orderList.addAll(allOrderList)
-                runOnUiThread { adapter.notifyDataSetChanged() }
+//                runOnUiThread { adapter.notifyDataSetChanged() }
+                runOnUiThread { onTabSelected(tlOrder.getTabAt(tlOrder.selectedTabPosition)!!) }
             }
         })
     }
@@ -80,6 +92,10 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
     }
 
     override fun onTabSelected(tab: TabLayout.Tab) {
+//        if (isFirst) {
+//            isFirst = false
+//            return
+//        }
         /**
          * 订单状态(0:待付款 1:待发货 2:待收货 3:待评论)
          */
@@ -87,7 +103,6 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         val filterList: List<OsOrderModel>
         val bufferList = arrayListOf<OsOrderModel>()
         bufferList.addAll(allOrderList)
-//        Log.e("Order", "size : ${bufferList.size}")
 
         filterList = when (sTab) {
             "待付款" -> bufferList.stream().filter { it.orderStatus.toInt() == 1 }.collect(Collectors.toList())

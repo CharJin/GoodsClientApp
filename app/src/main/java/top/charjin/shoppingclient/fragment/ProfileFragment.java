@@ -33,7 +33,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
         rlMyOrder.setOnClickListener(v -> {
             Intent intent = new Intent(context, OrderActivity.class);
-            intent.putExtra("OrderType", OrderActivity.OrderType.All);
+            intent.putExtra("orderType", OrderActivity.OrderType.All);
             startActivity(intent);
         });
 //

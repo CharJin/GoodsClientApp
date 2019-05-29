@@ -2,7 +2,9 @@ package top.charjin.shoppingclient.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import top.charjin.shoppingclient.R;
+import top.charjin.shoppingclient.activity.GoodsActivity;
+import top.charjin.shoppingclient.activity.ShopActivity;
+import top.charjin.shoppingclient.entity.OsShop;
 import top.charjin.shoppingclient.model.OsOrderModel;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
@@ -36,11 +41,27 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         OsOrderModel order = orderList.get(i);
         holder.tvShopName.setText(order.getShopName());
-        holder.tvOrderStatus.setText(order.getOrderStatus() + "");
+        holder.tvOrderStatus.setText(String.format("%s", order.getOrderStatus()));
         holder.tvGoodsName.setText(order.getGoodsName());
         holder.tvGoodsPrice.setText(String.format("%s", order.getPrice()));
         holder.tvGoodsNum.setText(String.format("x%d", order.getGoodsNumber()));
         holder.tvOrderAmount.setText(String.format("%s", order.getOrderAmount()));
+
+        holder.clOrderHeader.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ShopActivity.class);
+            OsShop shop = new OsShop();
+            shop.setId(order.getShopId());
+            shop.setName(order.getShopName());
+            intent.putExtra("shop", shop);
+            context.startActivity(intent);
+        });
+
+        holder.clOrderMain.setOnClickListener(v -> {
+            Intent intent = new Intent(context, GoodsActivity.class);
+
+            intent.putExtra("goodsId", order.getShopId());
+            context.startActivity(intent);
+        });
 //        holder.ivGoods.setText(order);
     }
 
@@ -50,6 +71,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        ConstraintLayout clOrderHeader, clOrderMain;
+
         TextView tvShopName;
         TextView tvOrderStatus;
 
@@ -63,6 +86,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
         ViewHolder(@NonNull View view) {
             super(view);
+            clOrderHeader = view.findViewById(R.id.cl_order_header);
+            clOrderMain = view.findViewById(R.id.cl_order_main);
+
             tvShopName = view.findViewById(R.id.tv_order_shop_name);
             tvOrderStatus = view.findViewById(R.id.tv_order_header_status);
 

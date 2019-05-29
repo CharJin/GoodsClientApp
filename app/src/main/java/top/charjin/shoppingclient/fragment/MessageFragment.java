@@ -23,8 +23,9 @@ public class MessageFragment extends BaseFragment {
 
     private RecyclerView rvMessage;
     private MessageAdapter adapter;
-    private List<MessageModel> data;
     private SwipeRefreshLayout srlMessage;
+    private List<MessageModel> data = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -35,15 +36,13 @@ public class MessageFragment extends BaseFragment {
         rvMessage = viewMessage.findViewById(R.id.rv_message);
         rvMessage.setLayoutManager(new LinearLayoutManager(container.getContext()));
 
-        data = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            data.add(new MessageModel("", "这是标题" + i, "[最新消息]"));
-        }
         adapter = new MessageAdapter(data);
 
         rvMessage.addItemDecoration(new DividerItemDecoration(container.getContext(), DividerItemDecoration.VERTICAL));
         rvMessage.setAdapter(adapter);
 
+
+        initMessageList();
 
         // SwipeRefreshLayout
         srlMessage = viewMessage.findViewById(R.id.swipe_layout_message);
@@ -52,6 +51,16 @@ public class MessageFragment extends BaseFragment {
 
         return viewMessage;
     }
+
+    private void initMessageList() {
+        new Thread(() -> {
+            for (int i = 0; i < 20; i++) {
+                data.add(new MessageModel("", "这是标题" + i, "[最新消息]"));
+            }
+            activity.runOnUiThread(() -> adapter.notifyDataSetChanged());
+        }).start();
+    }
+
 
     private void refreshMsg() {
         new Thread(() -> {

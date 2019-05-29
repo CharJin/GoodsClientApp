@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -27,6 +28,7 @@ import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.entity.OsGoods;
 import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.utils.HttpUtil;
+import top.charjin.shoppingclient.utils.JsonUtil;
 import top.charjin.shoppingclient.utils.Router;
 
 public class GoodsActivity extends AppCompatActivity {
@@ -56,16 +58,40 @@ public class GoodsActivity extends AppCompatActivity {
         setContentView(R.layout.goods_activity_main);
         application = (MyApplication) this.getApplication();
         // 获取点击商品后传来的商品实体类
-        goods = (OsGoods) this.getIntent().getSerializableExtra("goods");
 
         initComponent();
-        initBanner();
 
         // 设置基本显示内容
-        tvGoodsName.setText(goods.getName());
-        tvGoodsPrice.setText(String.format("%s", goods.getPrice()));
-        tvSaleVolume.setText(String.format("销量 %s", goods.getSalesVolume()));
-        tvRegion.setText(goods.getRegion());
+
+        goods = (OsGoods) this.getIntent().getSerializableExtra("goods");
+        if (goods != null) {
+            tvGoodsName.setText(goods.getName());
+            tvGoodsPrice.setText(String.format("%s", goods.getPrice()));
+            tvSaleVolume.setText(String.format("销量 %s", goods.getSalesVolume()));
+            tvRegion.setText(goods.getRegion());
+            initBanner();
+        } else {
+            int goodsId = getIntent().getIntExtra("goodsId", -1);
+            if (goodsId != -1)
+                HttpUtil.sendOkHttpRequestByGet(Router.Goods_URL + "getGoodsById?goodsId=" + goodsId, new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        Toasty.error(GoodsActivity.this, "商品请求错误!").show();
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String jsonData = response.body().string();
+                        goods = JsonUtil.parseJSONObject(jsonData, OsGoods.class);
+                        runOnUiThread(() -> {
+                            tvGoodsName.setText(goods.getName());
+                            tvGoodsPrice.setText(String.format("%s", goods.getPrice()));
+                            tvSaleVolume.setText(String.format("销量 %s", goods.getSalesVolume()));
+                            tvRegion.setText(goods.getRegion());
+                        });
+                    }
+                });
+        }
 
     }
 
