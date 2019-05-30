@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="#FFFFFF"
+        android:paddingStart="12dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="12dp">
+
+        <ImageView
+            android:id="@+id/iv_goods_standard_item"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_add_grey_800_36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.015"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_goods_price_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/app_price_prefix"
+            android:textColor="@color/home_text_price_color"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_goods_standard_item"
+            app:layout_constraintStart_toEndOf="@+id/iv_goods_standard_item"
+            app:layout_constraintTop_toTopOf="@+id/iv_goods_standard_item"
+            app:layout_constraintVertical_bias="0.33" />
+
+        <TextView
+            android:id="@+id/tv_goods_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="22.00"
+            android:textColor="@color/home_text_price_color"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_goods_price_prefix"
+            app:layout_constraintStart_toEndOf="@+id/tv_goods_price_prefix"
+            app:layout_constraintTop_toTopOf="@+id/tv_goods_price_prefix"
+            app:layout_constraintVertical_bias="0.75" />
+
+        <TextView
+            android:id="@+id/tv_goods_item_stock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/goods_item_stock"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_goods_price_prefix"
+            app:layout_constraintTop_toBottomOf="@+id/tv_goods_price_prefix" />
+
+        <TextView
+            android:id="@+id/tv_goods_item_send_region"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="配送至: %s"
+            android:textColor="@color/app_base_black_color"
+            app:layout_constraintStart_toStartOf="@+id/tv_goods_item_stock"
+            app:layout_constraintTop_toBottomOf="@+id/tv_goods_item_stock" />
+
+
+        <include
+            layout="@layout/separator_line_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
+
+            app:layout_constraintStart_toStartOf="@id/iv_goods_standard_item"
+            app:layout_constraintTop_toBottomOf="@id/iv_goods_standard_item" />
+
+        <TextView
+            android:id="@+id/tv_goods_item_buy_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/goods_item_buy_number"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_goods_standard_item" />
+
+        <TextView
+            android:id="@+id/tv_goods_item_buy_limited_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="(限购%d件)"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_goods_item_buy_number"
+            app:layout_constraintStart_toEndOf="@+id/tv_goods_item_buy_number"
+            app:layout_constraintTop_toTopOf="@+id/tv_goods_item_buy_number" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/cart_number_border_shape"
+            android:orientation="horizontal"
+            android:paddingLeft="3dp"
+            android:paddingTop="2dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_goods_item_buy_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_goods_item_buy_number">
+
+            <Button
+                android:id="@+id/btn_goods_item_subtract"
+                android:layout_width="28dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="-" />
+
+            <include layout="@layout/separator_line_vertical" />
+
+            <TextView
+                android:id="@+id/tv_goods_item_choose_number"
+                android:layout_width="28dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="1"
+                android:textSize="12sp" />
+
+            <include layout="@layout/separator_line_vertical" />
+
+            <Button
+                android:id="@+id/btn_goods_item_plus"
+                android:layout_width="28dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="+" />
+        </LinearLayout>
+
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/separator_line_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+
+            android:layout_marginTop="18dp"
+            app:layout_constraintStart_toStartOf="@id/tv_goods_item_buy_limited_number"
+            app:layout_constraintTop_toBottomOf="@id/tv_goods_item_buy_limited_number" />
+
+
+        <TextView
+            android:id="@+id/tv_btn_confirm_goods_item"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/goods_item_btn_confirm_shape"
+            android:enabled="false"
+            android:gravity="center"
+            android:onClick="login"
+            android:text="确定"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.166"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

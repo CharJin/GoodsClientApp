@@ -25,4 +25,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="PopWindowBottom">
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowEnterAnimation">@anim/pop_window_show_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_window_hidden_anim</item>
+    </style>
+
 </resources>

@@ -42,6 +42,10 @@
     <string name="shop_name_title">%s</string>
     <string name="shop_goods_price">¥%s</string>
     <string name="shop_goods_checkout">月销%d笔</string>
+    <string name="app_price_prefix">￥</string>
 
+
+    <string name="goods_item_stock">库存%d件</string>
+    <string name="goods_item_buy_number">购买数量</string>
 
 </resources>

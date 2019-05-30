@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +18,6 @@ import com.youth.banner.loader.ImageLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -30,6 +30,7 @@ import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.JsonUtil;
 import top.charjin.shoppingclient.utils.Router;
+import top.charjin.shoppingclient.view.GoodsPopupWindow;
 
 public class GoodsActivity extends AppCompatActivity {
 
@@ -99,9 +100,13 @@ public class GoodsActivity extends AppCompatActivity {
      * 获取图片路径 Banner 显示
      */
     private void initBanner() {
-        List<String> imgUrls = new ArrayList<>();
-        String[] urls = goods.getImage().split("~");
-        Collections.addAll(imgUrls, urls);
+        List<Integer> imgUrls = new ArrayList<>();
+//        String[] urls = goods.getImage().split("~");
+//        Collections.addAll(imgUrls, urls);
+
+        imgUrls.add(R.drawable.background);
+        imgUrls.add(R.drawable.background);
+        imgUrls.add(R.drawable.background);
         banner.setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
@@ -126,6 +131,14 @@ public class GoodsActivity extends AppCompatActivity {
     }
 
     public void addCart(View view) {
+        View contentView = LayoutInflater.from(this).inflate(R.layout.goods_standard_popup_window, null);
+        GoodsPopupWindow popupWindow = new GoodsPopupWindow(this, contentView);
+
+        popupWindow.openPopupWindow();
+
+        if (contentView != null)
+            return;
+
         OsUser user = (OsUser) MyApplication.map.get("user");
         if (user == null) {
             Toast.makeText(this, "请登录", Toast.LENGTH_SHORT).show();
