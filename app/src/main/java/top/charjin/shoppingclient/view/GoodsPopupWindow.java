@@ -69,7 +69,7 @@ public class GoodsPopupWindow extends PopupWindow {
     /**
      * 关闭弹出窗口
      */
-    public void closePopupWindow() {
+    private void closePopupWindow() {
         new Thread(() -> {
             float alpha = 0.5f;
             while (alpha < 1f) {

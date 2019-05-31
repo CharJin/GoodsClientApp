@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,9 @@ public class GoodsActivity extends AppCompatActivity {
     private TextView tvSaleVolume;
     private TextView tvRegion;
 
+    private GoodsPopupWindow popupWindow;
+    private View popupWindowContentView;
+
 
     private void initComponent() {
         banner = findViewById(R.id.banner_goods_pic);
@@ -62,8 +66,7 @@ public class GoodsActivity extends AppCompatActivity {
 
         initComponent();
 
-        // 设置基本显示内容
-
+        // 根据传入的实体类或者goodsId初始化基本内容
         goods = (OsGoods) this.getIntent().getSerializableExtra("goods");
         if (goods != null) {
             tvGoodsName.setText(goods.getName());
@@ -94,6 +97,59 @@ public class GoodsActivity extends AppCompatActivity {
                 });
         }
 
+
+        // 初始化底部弹出窗口信息
+        popupWindowContentView = LayoutInflater.from(this).inflate(R.layout.goods_standard_popup_window, null);
+        popupWindow = new GoodsPopupWindow(this, popupWindowContentView);
+
+    }
+
+    /**
+     * 初始化弹出窗口属性及事件
+     */
+    private void initPopupWindowEvent() {
+        ImageView ivGoodsItem = popupWindowContentView.findViewById(R.id.iv_goods_standard_item);
+        TextView tvGoodsItemPrice = popupWindowContentView.findViewById(R.id.tv_goods_item_price);
+        TextView tvGoodsItemStock = popupWindowContentView.findViewById(R.id.tv_goods_item_stock);
+        TextView tvGoodsItemSendRegion = popupWindowContentView.findViewById(R.id.tv_goods_item_send_region);
+        TextView tvGoodsItemBuyLimited = popupWindowContentView.findViewById(R.id.tv_goods_item_buy_limited_number);
+        TextView tvGoodsItemChooseNumber = popupWindowContentView.findViewById(R.id.tv_goods_item_choose_number);
+        Button btnPlus = popupWindowContentView.findViewById(R.id.btn_goods_item_plus);
+        Button btnSubtract = popupWindowContentView.findViewById(R.id.btn_goods_item_subtract);
+
+        TextView tvBtnBuyConfirm = popupWindowContentView.findViewById(R.id.tv_btn_confirm_goods_item);
+        tvGoodsItemChooseNumber.setText(getResources().getString(R.string.app_goods_chosen_buy_number, 1));
+
+        int maxBuyNumber = 3;
+        btnPlus.setOnClickListener(v -> {
+            int nowNum = Integer.parseInt(tvGoodsItemChooseNumber.getText().toString());
+            if (nowNum == maxBuyNumber)
+                Toasty.warning(GoodsActivity.this, "已经超过限购数量啦！").show();
+            else
+                tvGoodsItemChooseNumber.setText(getResources().getString(R.string.app_goods_chosen_buy_number, nowNum + 1));
+        });
+
+        btnSubtract.setOnClickListener(v -> {
+            int nowNum = Integer.parseInt(tvGoodsItemChooseNumber.getText().toString());
+            if (nowNum == 1)
+                Toasty.warning(GoodsActivity.this, "商品数量不能再少啦！").show();
+            else
+                tvGoodsItemChooseNumber.setText(getResources().getString(R.string.app_goods_chosen_buy_number, nowNum - 1));
+        });
+
+        tvBtnBuyConfirm.setOnClickListener(v -> {
+
+        });
+
+//        String imgUri = goods.get
+        Glide.with(this).load(R.drawable.background).into(ivGoodsItem);
+
+        // 固定的数据 需要再添加数据库字段  后补充
+        tvGoodsItemPrice.setText(getResources().getString(R.string.goods_item_pop_price, goods.getPrice()));
+        tvGoodsItemStock.setText(getResources().getString(R.string.goods_item_pop_stock, 99));
+        tvGoodsItemSendRegion.setText(getResources().getString(R.string.goods_item_pop_send_region, goods.getRegion()));
+        tvGoodsItemBuyLimited.setText(getResources().getString(R.string.goods_item_pop_buy_limited, maxBuyNumber));
+
     }
 
     /**
@@ -110,7 +166,7 @@ public class GoodsActivity extends AppCompatActivity {
         banner.setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
-                Glide.with(context.getApplicationContext())
+                Glide.with(GoodsActivity.this)
                         .load(path)
                         .into(imageView);
             }
@@ -131,13 +187,13 @@ public class GoodsActivity extends AppCompatActivity {
     }
 
     public void addCart(View view) {
-        View contentView = LayoutInflater.from(this).inflate(R.layout.goods_standard_popup_window, null);
-        GoodsPopupWindow popupWindow = new GoodsPopupWindow(this, contentView);
 
         popupWindow.openPopupWindow();
+        initPopupWindowEvent();     // 注： 只需执行一次
 
-        if (contentView != null)
-            return;
+
+        if (popupWindow != null) return;
+
 
         OsUser user = (OsUser) MyApplication.map.get("user");
         if (user == null) {

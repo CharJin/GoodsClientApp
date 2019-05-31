@@ -45,7 +45,11 @@
     <string name="app_price_prefix">￥</string>
 
 
-    <string name="goods_item_stock">库存%d件</string>
+    <string name="goods_item_pop_stock">库存%d件</string>
     <string name="goods_item_buy_number">购买数量</string>
+    <string name="goods_item_pop_price">%.2f</string>
+    <string name="goods_item_pop_send_region">配送至: %s</string>
+    <string name="goods_item_pop_buy_limited">(限购%d件)</string>
+    <string name="app_goods_chosen_buy_number">%d</string>
 
 </resources>

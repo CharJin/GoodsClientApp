@@ -50,8 +50,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/order_type_obligation" />
 
@@ -72,8 +72,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/order_type_wait_receiving" />
 
@@ -95,8 +95,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/order_type_wait_comment" />
 
@@ -116,8 +116,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/order_type_after_sale" />
 

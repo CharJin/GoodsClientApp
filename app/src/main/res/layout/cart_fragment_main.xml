@@ -105,7 +105,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="22dp"
                 android:layout_toStartOf="@id/tv_btn_cart_chock_out"
-                android:text="0"
+                android:text="0.0"
                 android:textColor="@color/cart_shop_price_color"
                 android:textSize="24sp" />
 
