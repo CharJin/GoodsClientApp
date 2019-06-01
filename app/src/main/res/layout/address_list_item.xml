@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+
+    <TextView
+        android:id="@+id/tv_list_item_address_receiver"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="金志超"
+        android:textColor="@color/app_base_black_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_list_item_address_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="浙江省温州市永嘉县 上塘镇 码道西街 33号"
+        app:layout_constraintStart_toStartOf="@+id/tv_list_item_address_receiver"
+        app:layout_constraintTop_toBottomOf="@+id/tv_list_item_address_receiver" />
+
+
+    <TextView
+        android:id="@+id/tv_list_item_address_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="18267886900"
+        android:textColor="@color/app_base_black_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_list_item_address_receiver"
+        app:layout_constraintStart_toEndOf="@+id/tv_list_item_address_receiver"
+        app:layout_constraintTop_toTopOf="@+id/tv_list_item_address_receiver" />
+
+
+    <include
+        layout="@layout/separator_line_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_btn_list_item_address_edit"
+        app:layout_constraintEnd_toStartOf="@id/tv_btn_list_item_address_edit"
+        app:layout_constraintTop_toTopOf="@+id/tv_btn_list_item_address_edit" />
+
+
+    <TextView
+        android:id="@+id/tv_btn_list_item_address_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="编辑"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="#CE0202"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:text="默认"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_list_item_address_phone"
+        app:layout_constraintStart_toEndOf="@+id/tv_list_item_address_phone"
+        app:layout_constraintTop_toTopOf="@+id/tv_list_item_address_phone" />
+
+</android.support.constraint.ConstraintLayout>

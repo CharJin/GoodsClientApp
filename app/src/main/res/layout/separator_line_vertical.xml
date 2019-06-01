@@ -5,9 +5,10 @@
     android:orientation="vertical">
 
     <View
-        android:layout_width="0.5dp"
+        android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:alpha="0.6"
-        android:background="@android:color/darker_gray" />
+        android:alpha="1"
+        android:background="#EEEEEE" />
+    <!--android:background="@android:color/darker_gray" />-->
 
 </LinearLayout>

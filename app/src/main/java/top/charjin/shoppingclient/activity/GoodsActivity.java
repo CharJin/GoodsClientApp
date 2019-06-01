@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,8 +48,16 @@ public class GoodsActivity extends AppCompatActivity {
     private TextView tvSaleVolume;
     private TextView tvRegion;
 
+    private RelativeLayout rlGoodsHeader;
+    private ImageView ivGoodsHeaderBack;
+    private ImageView ivGoodsHeaderShare;
+    private TextView tvGoodsHeaderTitle;
+    private ScrollView slGoodsMain;
+
     private GoodsPopupWindow popupWindow;
     private View popupWindowContentView;
+
+    private int windowHeight = 0;
 
 
     private void initComponent() {
@@ -55,6 +66,19 @@ public class GoodsActivity extends AppCompatActivity {
         tvGoodsPrice = findViewById(R.id.tv_goods_price);
         tvSaleVolume = findViewById(R.id.tv_goods_sale_volume);
         tvRegion = findViewById(R.id.tv_goods_region);
+
+        rlGoodsHeader = findViewById(R.id.rl_goods_header);
+        slGoodsMain = findViewById(R.id.sl_goods_main);
+        ivGoodsHeaderBack = findViewById(R.id.iv_goods_header_back);
+        ivGoodsHeaderShare = findViewById(R.id.iv_goods_header_share);
+        tvGoodsHeaderTitle = findViewById(R.id.tv_goods_header_title);
+
+
+        ivGoodsHeaderBack.getBackground().mutate().setAlpha(50);
+        ivGoodsHeaderShare.getBackground().mutate().setAlpha(50);
+
+        tvGoodsHeaderTitle.setAlpha(0.0f);
+        rlGoodsHeader.getBackground().mutate().setAlpha(0); // 标题栏的背景将背景透明度做初始化
     }
 
     @Override
@@ -65,6 +89,26 @@ public class GoodsActivity extends AppCompatActivity {
         // 获取点击商品后传来的商品实体类
 
         initComponent();
+        windowHeight = getWindowManager().getDefaultDisplay().getHeight();
+        slGoodsMain.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+
+            Log.e("Goods", windowHeight + "");
+            if (scrollY >= 0 && scrollY < 765) {
+                float f = (float) scrollY / 765;
+                Log.e("Goods", scrollY + "");
+                tvGoodsHeaderTitle.setAlpha(f);
+                rlGoodsHeader.getBackground().mutate().setAlpha(scrollY / 3);
+//                back.setImageDrawable(getResources().getDrawable(R.mipmap.icon_back_white));
+//                iv_more.setImageDrawable(getResources().getDrawable(R.mipmap.ic_more_white));
+            }
+            /*else if (scrollY >= banner.getHeight()) {
+                tvGoodsHeaderTitle.setAlpha(1.0f);
+                rlGoodsHeader.getBackground().mutate().setAlpha(255);
+//                back.setImageDrawable(getResources().getDrawable(R.mipmap.ic_back));
+//                iv_more.setImageDrawable(getResources().getDrawable(R.mipmap.ic_more));
+            }*/
+
+        });
 
         // 根据传入的实体类或者goodsId初始化基本内容
         goods = (OsGoods) this.getIntent().getSerializableExtra("goods");
@@ -202,8 +246,8 @@ public class GoodsActivity extends AppCompatActivity {
             return;
         }
         // 输出请求url
-        System.out.println(Router.BASE_URL + "cart/addGoods?userId=" + user.getId() + "&goodsId=" + goods.getId());
-        HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "cart/addGoods?userId=" + user.getId() + "&goodsId=" + goods.getId(), new Callback() {
+        System.out.println(Router.BASE_URL + "cart/addGoods?userId=" + user.getUserId() + "&goodsId=" + goods.getId());
+        HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "cart/addGoods?userId=" + user.getUserId() + "&goodsId=" + goods.getId(), new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
 

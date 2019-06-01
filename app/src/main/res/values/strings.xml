@@ -52,4 +52,9 @@
     <string name="goods_item_pop_buy_limited">(限购%d件)</string>
     <string name="app_goods_chosen_buy_number">%d</string>
 
+
+    <string name="user_info_base_format">%s</string>
+    <string name="user_info_item_title">%s</string>
+    <string name="user_info_item_content">%s</string>
+
 </resources>

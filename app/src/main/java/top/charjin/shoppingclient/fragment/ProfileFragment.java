@@ -12,8 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.activity.LoginActivity;
 import top.charjin.shoppingclient.activity.OrderActivity;
+import top.charjin.shoppingclient.activity.UserInfoActivity;
 
 public class ProfileFragment extends BaseFragment implements View.OnClickListener {
 
@@ -29,7 +29,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         homeView = inflater.inflate(R.layout.profile_fragment_main, container, false);
         intiComponent();
 
-        rlUser.setOnClickListener(e -> startActivity(new Intent(getContext(), LoginActivity.class)));
+//        rlUser.setOnClickListener(e -> startActivity(new Intent(getContext(), LoginActivity.class)));
+        rlUser.setOnClickListener(e -> startActivity(new Intent(getContext(), UserInfoActivity.class)));
+
 
         rlMyOrder.setOnClickListener(v -> {
             Intent intent = new Intent(context, OrderActivity.class);
