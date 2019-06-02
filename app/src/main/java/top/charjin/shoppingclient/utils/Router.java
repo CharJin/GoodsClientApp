@@ -10,4 +10,5 @@ public class Router {
     public static final String USER_URL = BASE_URL + "user/";
     public static final String SHOP_URL = BASE_URL + "shop/";
     public static final String Goods_URL = BASE_URL + "goods/";
+    public static final String ADDRESS_URL = BASE_URL + "address/";
 }

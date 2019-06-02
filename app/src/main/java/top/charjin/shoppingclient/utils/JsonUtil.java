@@ -1,6 +1,7 @@
 package top.charjin.shoppingclient.utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -36,7 +37,10 @@ public class JsonUtil {
     }
 
     public static <T> List<T> parseJSONObjectInStringToEntityList(String jsonData, Class<T> clazz) {
-        Gson gson = new Gson();
+//        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .create();
         List<T> data = new ArrayList<>();
         JsonArray array = new JsonParser().parse(jsonData).getAsJsonArray();
         for (JsonElement e : array) {

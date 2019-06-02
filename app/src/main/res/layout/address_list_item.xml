@@ -63,7 +63,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_list_item_address_is_default"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -73,6 +73,7 @@
         android:text="默认"
         android:textColor="#FFFFFF"
         android:textSize="10sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/tv_list_item_address_phone"
         app:layout_constraintStart_toEndOf="@+id/tv_list_item_address_phone"
         app:layout_constraintTop_toTopOf="@+id/tv_list_item_address_phone" />

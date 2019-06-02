@@ -1,5 +1,6 @@
 package top.charjin.shoppingclient.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -41,6 +42,7 @@ class UserInfoActivity : AppCompatActivity() {
 
     fun settingItemOnClick(view: View) {
         val viewId = view.id
+        startActivity(Intent(this, AddressActivity::class.java))
 //        val intent = Intent(this,)
 //        when(viewId){
 //            R.id.ll_user_info_address ->
