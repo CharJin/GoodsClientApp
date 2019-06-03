@@ -29,6 +29,7 @@ class AddressAdapter(val context: Context, val data: List<OsAddress>) : Recycler
         holder.tvBtnEdit.setOnClickListener {
 
             val intent = Intent(context, AddressModifyActivity::class.java)
+            intent.putExtra("addressOperatorType", AddressModifyActivity.ADDRESS_UPDATE)   // 0 : add, 1 : update
             intent.putExtra("address", address)
             (context as Activity).startActivity(intent)
             //            Toast.makeText(context, "show", Toast.LENGTH_SHORT).show()

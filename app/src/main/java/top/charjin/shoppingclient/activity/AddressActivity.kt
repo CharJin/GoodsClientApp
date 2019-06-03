@@ -30,8 +30,14 @@ class AddressActivity : AppCompatActivity(), Callback {
         rv_address.layoutManager = LinearLayoutManager(this)
         rv_address.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         rv_address.adapter = adapter
-        HttpUtil.sendOkHttpRequestByGet(Router.ADDRESS_URL + "getAllAddressByUserId?userId=1", this)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 在onResume中进行数据请求以避免从另一页面修改地址后转回而数据不更新
+        addressList.clear()
+        HttpUtil.sendOkHttpRequestByGet(Router.ADDRESS_URL + "getAllAddressByUserId?userId=1", this)
     }
 
     fun finishOnClick(view: View) = finish()
