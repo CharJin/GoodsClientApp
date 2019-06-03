@@ -4,83 +4,212 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.AddressActivity">
+    tools:context=".activity.AddressModifyActivity">
 
-
-    <LinearLayout
-        android:id="@+id/ll_search_header"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="50dp">
 
         <ImageView
-            android:layout_width="26dp"
-            android:layout_height="23dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:onClick="finishOnClick"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_arrow_back_white_24dp" />
-
+            android:src="@drawable/search_back_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:layout_marginStart="12dp"
             android:gravity="center"
-            android:text="我的收货地址"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="编辑收货地址"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="20sp" />
 
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="#EEEEEE" />
-
-
-    <LinearLayout
-        android:id="@+id/ll_address_add_new"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:gravity="center_vertical"
-        android:onClick="addNewAddress"
-        android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="添加新地址"
-            android:textColor="@color/app_base_black_color"
-            android:textSize="16sp" />
-
-        <ImageView
+            android:id="@+id/tv_btn_address_modify_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_navigate_next_grey_600_24dp" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="10dp"
+            android:onClick="deleteOnClick"
+            android:text="删除"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/separator_line_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:text="收件人"
+                android:textColor="@color/app_base_black_color"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_address_modify_receiver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="请填写收货人姓名"
+                android:textCursorDrawable="@drawable/login_input_cursor_shape"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <include layout="@layout/separator_line_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:text="手机号码"
+                android:textColor="@color/app_base_black_color"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_address_modify_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="请填写收货人手机号"
+                android:textCursorDrawable="@drawable/login_input_cursor_shape"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <include layout="@layout/separator_line_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:text="所在区域"
+                android:textColor="@color/app_base_black_color"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_address_modify_district"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="省市区县、乡镇等"
+                android:textCursorDrawable="@drawable/login_input_cursor_shape"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <include layout="@layout/separator_line_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:text="详细地址"
+                android:textColor="@color/app_base_black_color"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_address_modify_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="街道、楼牌号等"
+                android:lines="2"
+                android:textCursorDrawable="@drawable/login_input_cursor_shape"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="start|center_vertical"
+                android:text="设为默认地址"
+                android:textColor="@color/app_base_black_color"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/cb_address_modify_is_default"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/address_modify_cb_selector"
+                android:button="@null" />
+
+
+        </RelativeLayout>
+
+        <include layout="@layout/separator_line_horizontal" />
+
 
     </LinearLayout>
 
-    <View
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="#EEEEEE" />
+        android:layout_height="60dp">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_address"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <Button
+            android:id="@+id/btn_address_modify_save"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/address_modify_btn_confirm_shape"
+            android:text="保存"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
+    </RelativeLayout>
 
 </LinearLayout>

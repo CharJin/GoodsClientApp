@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import kotlinx.android.synthetic.main.address_modify_activity_main.*
+import kotlinx.android.synthetic.main.address_activity_main.*
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -23,7 +23,7 @@ class AddressActivity : AppCompatActivity(), Callback {
     private val addressList = mutableListOf<OsAddress>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.address_modify_activity_main)
+        setContentView(R.layout.address_activity_main)
 
         // 初始化地址信息
         adapter = AddressAdapter(this, addressList)

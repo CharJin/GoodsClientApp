@@ -32,4 +32,8 @@
         <item name="android:windowExitAnimation">@anim/pop_window_hidden_anim</item>
     </style>
 
+    <style name="address_modify_cb_is_default">
+        <item name="android:state_selected">@color/colorPrimary</item>
+    </style>
+
 </resources>
