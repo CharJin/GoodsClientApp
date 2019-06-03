@@ -19,18 +19,19 @@
             android:src="@drawable/search_back_icon" />
 
         <TextView
+            android:id="@+id/tv_address_modify_header_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:layout_marginStart="12dp"
             android:gravity="center"
-            android:text="编辑收货地址"
+            android:text="@string/address_modify_header_title_tv_edit"
             android:textColor="@color/app_base_black_color"
             android:textSize="20sp" />
 
 
         <TextView
-            android:id="@+id/tv_btn_address_modify_delete"
+            android:id="@+id/tv_btn_address_modify_header_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

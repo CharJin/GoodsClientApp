@@ -66,4 +66,8 @@
     <color name="order_tab_text_color">#B6B6B6</color>
     <color name="app_base_bg_text">#B4B4B4</color>
 
+
+    <color name="address_modify_alert_dialog_confirm_pressed_color">#A6FF5D49</color>
+
+
 </resources>

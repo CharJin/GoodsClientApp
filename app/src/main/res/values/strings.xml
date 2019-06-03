@@ -57,4 +57,8 @@
     <string name="user_info_item_title">%s</string>
     <string name="user_info_item_content">%s</string>
 
+
+    <string name="address_modify_header_title_tv_edit">编辑收货地址</string>
+    <string name="address_modify_header_title_tv_add">新增收货地址</string>
+
 </resources>

@@ -1,6 +1,8 @@
 package top.charjin.shoppingclient.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
@@ -30,16 +32,16 @@ class AddressModifyActivity : AppCompatActivity(), TextWatcher {
     private var district: String = ""
 
     companion object {
-        val ADDRESS_ADD = 0
-        val ADDRESS_UPDATE = 1
+        const val ADDRESS_ADD = 0
+        const val ADDRESS_UPDATE = 1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.address_modify_activity_main)
 
-        val extraAddress = intent.getSerializableExtra("address")
-        address = if (extraAddress != null) extraAddress as OsAddress else OsAddress()
+        address = intent.getSerializableExtra("address") as OsAddress
+//        address = if (extraAddress != null) extraAddress as OsAddress else OsAddress()
 
         type = intent.getIntExtra("addressOperatorType", ADDRESS_ADD)   // 默认数值为0 : add
 
@@ -53,8 +55,12 @@ class AddressModifyActivity : AppCompatActivity(), TextWatcher {
         et_address_modify_district.addTextChangedListener(this)
         et_address_modify_detail.addTextChangedListener(this)
 
-        if (type == ADDRESS_ADD) return // 添加状态不做数据初始化
-
+        // 添加状态不做数据初始化,但需修改数据header界面
+        if (type == ADDRESS_ADD) {
+            tv_address_modify_header_title.text = resources.getString(R.string.address_modify_header_title_tv_add)
+            tv_btn_address_modify_header_delete.visibility = View.GONE
+            return
+        }
 
         province = address.province
         city = address.city
@@ -75,9 +81,14 @@ class AddressModifyActivity : AppCompatActivity(), TextWatcher {
     fun saveOnClick(view: View) {
         address.receiver = et_address_modify_receiver.text.toString()
         address.phone = et_address_modify_phone.text.toString()
-        address.district = district
+        address.province = this.province
+        address.city = this.city
+        address.district = this.district
         address.addressDetail = et_address_modify_detail.text.toString()
         address.isDefault = cb_address_modify_is_default.isChecked
+
+        address.createTime = null
+        address.updateTime = null   // 如果是更新, 把更新时间字段置为null, 使数据库自动更新时间
 
         val jsonAddress = Gson().toJson(address)
         val requestUrl: String = when (type) {
@@ -85,21 +96,25 @@ class AddressModifyActivity : AppCompatActivity(), TextWatcher {
             else -> Router.ADDRESS_URL + "update"
         }
 
-        address.createTime = null
-        address.updateTime = null   // 如果是更新, 把更新时间字段置为null, 使数据库自动更新时间
 
         HttpUtil.sendOkHttpRequestByPost(requestUrl, jsonAddress, object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-
+                runOnUiThread {
+                    Toasty.error(this@AddressModifyActivity, "地址修改请求失败！").show()
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {
+                val isSucceed = response.body()?.string()?.toInt() ?: 0 > 0 // 如果不为空则取返回值并进行格式转换,否则为0
                 runOnUiThread {
-                    when (type) {
-                        ADDRESS_ADD -> Toasty.info(this@AddressModifyActivity, "地址创建成功！").show()
-                        else -> Toasty.info(this@AddressModifyActivity, "地址修改成功！").show()
-                    }
-
+                    if (isSucceed) {
+                        when (type) {
+                            ADDRESS_ADD -> Toasty.success(this@AddressModifyActivity, "地址创建成功！").show()
+                            else -> Toasty.success(this@AddressModifyActivity, "地址修改成功！").show()
+                        }
+                        finish()
+                    } else
+                        Toasty.error(this@AddressModifyActivity, "地址修改未成功！").show()
                 }
             }
 
@@ -107,7 +122,53 @@ class AddressModifyActivity : AppCompatActivity(), TextWatcher {
 
     }
 
-    fun deleteOnClick(view: View) {}
+
+    /**
+     * 删除当前地址
+     */
+    @SuppressLint("InflateParams")
+    fun deleteOnClick(view: View) {
+
+/*
+        val alertView: View = LayoutInflater.from(this).inflate(R.layout.address_modify_delete_alert_dialog, null, false)
+        val layoutParams = alertView.layoutParams
+        layoutParams.height = 300
+        layoutParams.width = 150
+        alertView.layoutParams = layoutParams
+*/
+
+
+        AlertDialog.Builder(this)
+//                .setView(view)
+                .setTitle("是否删除该地址")
+                .setPositiveButton("删除地址") { _, _ ->
+                    HttpUtil.sendOkHttpRequestByGet(Router.ADDRESS_URL + "deleteById?addressId=" + address.addressId, object : Callback {
+                        override fun onFailure(call: Call, e: IOException) {
+                            runOnUiThread {
+                                Toasty.error(this@AddressModifyActivity, "地址数据请求失败！").show()
+                            }
+                        }
+
+                        override fun onResponse(call: Call, response: Response) {
+                            val isSucceed = response.body()?.string()?.toInt() ?: 0 > 0 // 如果不为空则取返回值并进行格式转换,否则为0
+                            runOnUiThread {
+                                if (isSucceed)
+                                    Toasty.success(this@AddressModifyActivity, "地址删除成功！").show()
+                                else
+                                    Toasty.error(this@AddressModifyActivity, "地址删除未成功！").show()
+                                finish()
+
+                            }
+                        }
+
+
+                    })
+                }
+                .setNegativeButton("取消") { _, _ -> }
+                .show()
+
+
+    }
 
     fun finishOnClick(view: View) = finish()
 

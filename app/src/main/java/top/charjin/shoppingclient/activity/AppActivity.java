@@ -38,7 +38,7 @@ public class AppActivity extends AppCompatActivity {
 //        mImmersionBar = ImmersionBar.with(this);
 //        mImmersionBar.init();
         initView();
-        new CheckUser().execute();
+//        new CheckUser().execute();
 
     }
 

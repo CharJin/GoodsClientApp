@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/address_modify_alert_dialog_bg_normal">
+
+    <!--android:layout_width="300dp"-->
+    <!--android:layout_height="150dp"-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="是否删除地址"
+        android:textColor="@color/app_base_black_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_address_modify_alert_dialog_cancel"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/address_modify_alert_dialog_cancel_btn_selector"
+        android:text="取消"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_address_modify_alert_dialog_confirm"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_address_modify_alert_dialog_confirm"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@drawable/address_modify_alert_dialog_confirm_btn_selector"
+        android:text="删除地址"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_address_modify_alert_dialog_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_address_modify_alert_dialog_cancel"
+        app:layout_constraintTop_toTopOf="@+id/btn_address_modify_alert_dialog_cancel" />
+</android.support.constraint.ConstraintLayout>
