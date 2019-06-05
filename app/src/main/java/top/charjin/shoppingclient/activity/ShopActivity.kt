@@ -43,7 +43,7 @@ class ShopActivity : AppCompatActivity() {
 
     private fun intiGoodsData(shopId: Int) {
         if (shopId == -1) return
-        HttpUtil.sendOkHttpRequestByGet(Router.Goods_URL + "getAllGoodsByShopId?shopId=$shopId", object : Callback {
+        HttpUtil.sendOkHttpRequestByGet(Router.GOODS_URL + "getAllGoodsByShopId?shopId=$shopId", object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 Toasty.warning(this@ShopActivity, "商品信息请求错误！").show()
             }

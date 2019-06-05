@@ -121,7 +121,7 @@ public class GoodsActivity extends AppCompatActivity {
         } else {
             int goodsId = getIntent().getIntExtra("goodsId", -1);
             if (goodsId != -1)
-                HttpUtil.sendOkHttpRequestByGet(Router.Goods_URL + "getGoodsById?goodsId=" + goodsId, new Callback() {
+                HttpUtil.sendOkHttpRequestByGet(Router.GOODS_URL + "getGoodsById?goodsId=" + goodsId, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Toasty.error(GoodsActivity.this, "商品请求错误!").show();

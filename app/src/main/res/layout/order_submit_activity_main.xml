@@ -63,7 +63,6 @@
                 app:cardCornerRadius="10dp"
                 app:cardUseCompatPadding="true">
 
-                <?xml version="1.0" encoding="utf-8"?>
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="100dp">

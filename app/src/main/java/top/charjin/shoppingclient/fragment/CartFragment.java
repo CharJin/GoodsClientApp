@@ -1,5 +1,6 @@
 package top.charjin.shoppingclient.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,6 +31,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.activity.MyApplication;
+import top.charjin.shoppingclient.activity.OrderSubmitActivity;
 import top.charjin.shoppingclient.adapter.CartAdapter;
 import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.model.CartGoodsModel;
@@ -77,6 +79,11 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
 
         // 初始总额为0
         tvBtnCheckout.setText(String.format(getResources().getString(R.string.cart_bottom_checkout), 0 + ""));
+        tvBtnCheckout.setOnClickListener(v -> {
+            Intent intent = new Intent(context, OrderSubmitActivity.class);
+
+            startActivity(intent);
+        });
         return homeView;
     }
 

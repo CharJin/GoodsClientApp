@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="12dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
+
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_order_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="订单备注"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_order_submit_list_item_send_type"
+            app:layout_constraintTop_toBottomOf="@+id/tv_order_submit_list_item_send_type" />
+
+        <ImageView
+            android:id="@+id/iv_order_submit_list_item_type"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/goods_bottom_img_shop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="成都文理商品店"
+            android:textColor="@color/app_base_black_color"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_order_submit_list_item_type"
+            app:layout_constraintStart_toEndOf="@id/iv_order_submit_list_item_type"
+            app:layout_constraintTop_toTopOf="@+id/iv_order_submit_list_item_type" />
+
+        <ImageView
+            android:id="@+id/iv_order_submit_list_item_goods"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_order_submit_list_item_type"
+            app:srcCompat="@drawable/goods_back_bg_shape" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:maxLines="2"
+            android:text="商品描述"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/iv_order_submit_list_item_goods"
+            app:layout_constraintTop_toTopOf="@id/iv_order_submit_list_item_goods" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_plan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="颜色分类: %s"
+            app:layout_constraintStart_toStartOf="@id/tv_order_submit_list_item_goods_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_submit_list_item_goods_name" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="299.00"
+            android:textColor="@color/app_base_black_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_order_submit_list_item_goods_name" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_price_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:text="￥"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_submit_list_item_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_order_submit_list_item_price" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="x%"
+            app:layout_constraintEnd_toEndOf="@id/tv_order_submit_list_item_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_submit_list_item_price" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_send_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="配送方式"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_order_submit_list_item_goods"
+            app:layout_constraintTop_toBottomOf="@id/iv_order_submit_list_item_goods" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_send_type_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通配送"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_submit_list_item_send_type"
+            app:layout_constraintStart_toStartOf="@id/tv_order_submit_list_item_goods_name"
+            app:layout_constraintTop_toTopOf="@id/tv_order_submit_list_item_send_type" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:drawableEnd="@drawable/ic_navigate_next_grey_600_24dp"
+            android:gravity="center_vertical"
+            android:text="快递 免邮"
+            android:textColor="@color/app_base_black_color"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_submit_list_item_send_type_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_order_submit_list_item_send_type_value" />
+
+        <EditText
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="选填,请先与商家协商一致"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_order_submit_list_item_order_remark"
+            app:layout_constraintStart_toStartOf="@+id/tv_order_submit_list_item_send_type_value"
+            app:layout_constraintTop_toTopOf="@+id/tv_order_submit_list_item_order_remark" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
