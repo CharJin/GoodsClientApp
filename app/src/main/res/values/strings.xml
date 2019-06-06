@@ -60,5 +60,7 @@
 
     <string name="address_modify_header_title_tv_edit">编辑收货地址</string>
     <string name="address_modify_header_title_tv_add">新增收货地址</string>
+    <string name="preorder_list_item_goods_plan">颜色分类: %s</string>
+    <string name="preorder_list_item_goods_num">x%d</string>
 
 </resources>

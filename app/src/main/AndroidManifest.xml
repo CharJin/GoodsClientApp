@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.OrderSubmitActivity"></activity>
+        <activity
+            android:name=".activity.OrderSubmitActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".activity.AddressModifyActivity" />
         <activity android:name=".activity.AddressActivity" />
         <activity android:name=".activity.UserInfoActivity" />

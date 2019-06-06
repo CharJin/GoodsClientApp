@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical"
     tools:context=".activity.OrderSubmitActivity">
+
+    <!--android:descendantFocusability="blocksDescendants"-->
 
     <LinearLayout
         android:id="@+id/ll_search_header"
@@ -52,7 +53,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="5dp">
 
 
             <android.support.v7.widget.CardView
@@ -60,25 +62,24 @@
                 android:layout_height="wrap_content"
                 android:elevation="10dp"
                 android:onClick="changeAddressOnClick"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="20dp"
                 app:cardUseCompatPadding="true">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp">
+                    android:layout_height="90dp">
 
                     <TextView
                         android:id="@+id/tv_list_item_address_receiver"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="28dp"
                         android:text="金志超"
                         android:textColor="@color/app_base_black_color"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toEndOf="@+id/iv_order_submit_address"
+                        app:layout_constraintTop_toTopOf="@+id/iv_order_submit_address" />
 
 
                     <TextView
@@ -130,6 +131,16 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_navigate_next_grey_600_24dp" />
 
+                    <ImageView
+                        android:id="@+id/iv_order_submit_address"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/order_submit_address_ic" />
+
                 </android.support.constraint.ConstraintLayout>
 
 
@@ -137,6 +148,7 @@
 
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_order_submit_goods"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -149,17 +161,44 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp">
+        android:layout_height="60dp">
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
             android:layout_marginEnd="8dp"
+            android:background="@drawable/order_submit_bottom_bg_btn"
+            android:onClick="submitOrderOnClick"
             android:text="提交订单"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_sum_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="12dp"
+            android:text="￥"
+            android:textColor="#C40000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="8dp"
+            android:text="10086.00"
+            android:textColor="#C40000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_order_submit_sum_prefix" />
     </android.support.constraint.ConstraintLayout>
 
 

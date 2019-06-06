@@ -2,6 +2,7 @@
   <dictionary name="charjin">
     <words>
       <w>gson</w>
+      <w>preorder</w>
       <w>shoppingclient</w>
     </words>
   </dictionary>

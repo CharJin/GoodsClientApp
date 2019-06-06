@@ -29,7 +29,12 @@ public class JsonUtil {
     }
 
     public static <T> T parseJSONObject(String jsonObject, Class<T> clazz) {
-        return new Gson().fromJson(jsonObject, clazz);
+
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .create();
+
+        return gson.fromJson(jsonObject, clazz);
     }
 
     public static <T> T parseJSONObjectInStringToEntity(String jsonData, Class<T> clazz) {

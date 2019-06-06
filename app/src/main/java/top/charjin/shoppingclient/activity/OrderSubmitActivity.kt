@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.order_submit_activity_main.*
@@ -11,7 +12,9 @@ import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import top.charjin.shoppingclient.R
+import top.charjin.shoppingclient.adapter.PreOrderAdapter
 import top.charjin.shoppingclient.entity.OsAddress
+import top.charjin.shoppingclient.model.PreOrderGoodsModel
 import top.charjin.shoppingclient.utils.HttpUtil
 import top.charjin.shoppingclient.utils.JsonUtil
 import top.charjin.shoppingclient.utils.Router
@@ -21,6 +24,8 @@ class OrderSubmitActivity : AppCompatActivity() {
 
     private lateinit var address: OsAddress
 
+    private val preOrderList = arrayListOf<PreOrderGoodsModel>()
+
     companion object {
         const val CHANGE_ADDRESS = 0
     }
@@ -28,7 +33,28 @@ class OrderSubmitActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_submit_activity_main)
+        initDefaultAddress()
+        initPreOrderData()
+
     }
+
+    /**
+     * 初始化pre订单数据(商品信息)
+     */
+    private fun initPreOrderData() {
+        val adapter = PreOrderAdapter(this, preOrderList)
+        rv_order_submit_goods.layoutManager = LinearLayoutManager(this)
+        rv_order_submit_goods.adapter = adapter
+
+        val goodsList: ArrayList<PreOrderGoodsModel> = intent.getSerializableExtra("goods") as ArrayList<PreOrderGoodsModel>
+        preOrderList.addAll(goodsList)
+        adapter.notifyDataSetChanged()
+
+        var sum = 0.0
+        preOrderList.forEach { sum += it.goodsNum * it.price }
+        this.tv_order_submit_sum.text = String.format("%.2f", sum)
+    }
+
 
     /**
      * 获取默认地址, 若用户未设置默认地址, 则使用最近使用过或者修改过的地址
@@ -61,6 +87,7 @@ class OrderSubmitActivity : AppCompatActivity() {
      */
     fun changeAddressOnClick(view: View) {
         val intent = Intent(this, AddressActivity::class.java)
+        intent.putExtra("flag", CHANGE_ADDRESS)
         startActivityForResult(intent, CHANGE_ADDRESS)
     }
 
@@ -69,7 +96,7 @@ class OrderSubmitActivity : AppCompatActivity() {
      * 根据从地址页面返回的address可序列化对象 重新加载地址数据
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
+        if (requestCode == CHANGE_ADDRESS && resultCode == Activity.RESULT_OK) {
             address = data!!.getSerializableExtra("address") as OsAddress
             tv_list_item_address_receiver.text = address.receiver
             tv_list_item_address_phone.text = address.phone
@@ -77,6 +104,10 @@ class OrderSubmitActivity : AppCompatActivity() {
                     address.province, address.city, address.district, address.addressDetail)
 
         }
+    }
+
+    fun submitOrderOnClick(view: View) {
+
     }
 
 

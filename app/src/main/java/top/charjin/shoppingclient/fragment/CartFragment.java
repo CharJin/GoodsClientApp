@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,7 @@ import top.charjin.shoppingclient.adapter.CartAdapter;
 import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.model.CartGoodsModel;
 import top.charjin.shoppingclient.model.CartShopModel;
+import top.charjin.shoppingclient.model.PreOrderGoodsModel;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.Router;
 
@@ -80,9 +82,31 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
         // 初始总额为0
         tvBtnCheckout.setText(String.format(getResources().getString(R.string.cart_bottom_checkout), 0 + ""));
         tvBtnCheckout.setOnClickListener(v -> {
-            Intent intent = new Intent(context, OrderSubmitActivity.class);
+            List<PreOrderGoodsModel> list = new ArrayList<>();
 
+            cartMap.forEach((shop, goodsList) -> {
+                for (CartGoodsModel goods : goodsList) {
+                    if (goods.isChecked()) {
+                        PreOrderGoodsModel preOrder = new PreOrderGoodsModel(shop.getId(), shop.getName());
+                        preOrder.setId(goods.getId());
+                        preOrder.setName(goods.getName());
+                        preOrder.setImage(goods.getImage());
+                        preOrder.setPrice(goods.getPrice());
+                        preOrder.setGoodsNum(goods.getGoodsNum());
+
+//                        preOrder.setShopId(shop.getId());
+//                        preOrder.setShopName(shop.getName());
+                        list.add(preOrder);
+                    }
+                }
+            });
+
+            list.forEach(System.out::println);
+
+            Intent intent = new Intent(context, OrderSubmitActivity.class);
+            intent.putExtra("goods", (Serializable) list);
             startActivity(intent);
+
         });
         return homeView;
     }

@@ -8,7 +8,7 @@ public class OsGoods implements Serializable {
     /**
      * 商品(id)
      */
-    private Integer commodityTypeId;
+    private Integer goodsTypeId;
     /**
      * 店铺(id)
      */
@@ -46,12 +46,12 @@ public class OsGoods implements Serializable {
         this.id = id;
     }
 
-    public Integer getCommodityTypeId() {
-        return commodityTypeId;
+    public Integer getGoodsTypeId() {
+        return goodsTypeId;
     }
 
-    public void setCommodityTypeId(Integer commodityTypeId) {
-        this.commodityTypeId = commodityTypeId;
+    public void setGoodsTypeId(Integer goodsTypeId) {
+        this.goodsTypeId = goodsTypeId;
     }
 
     public Integer getShopId() {

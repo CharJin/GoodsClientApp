@@ -15,6 +15,8 @@ import top.charjin.shoppingclient.entity.OsAddress
 
 class AddressAdapter(val context: Context, val data: List<OsAddress>) : RecyclerView.Adapter<AddressAdapter.ViewHolder>() {
 
+    var onItemClickListener: OnItemClickListener? = null
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder = ViewHolder(LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.address_list_item, viewGroup, false))
 
@@ -33,19 +35,26 @@ class AddressAdapter(val context: Context, val data: List<OsAddress>) : Recycler
             intent.putExtra("address", address)
             (context as Activity).startActivity(intent)
             //            Toast.makeText(context, "show", Toast.LENGTH_SHORT).show()
-
         }
 
+        holder.clAddress.setOnClickListener {
+            onItemClickListener?.onItemClick(address)
+        }
 
     }
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val clAddress = view.cl_list_item_address
         val tvReceiver = view.tv_list_item_address_receiver!!
         val tvReceiverPhone = view.tv_list_item_address_phone!!
         val tvAddressDetail = view.tv_list_item_address_detail!!
         val tvIsDefault = view.tv_list_item_address_is_default!!
         val tvBtnEdit = view.tv_btn_list_item_address_edit!!
 
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(address: OsAddress)
     }
 }

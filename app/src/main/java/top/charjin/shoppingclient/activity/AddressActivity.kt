@@ -1,5 +1,6 @@
 package top.charjin.shoppingclient.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -38,6 +39,21 @@ class AddressActivity : AppCompatActivity(), Callback {
         rv_address.layoutManager = LinearLayoutManager(this)
         rv_address.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         rv_address.adapter = adapter
+
+
+        // 从订单提交页面转来，则添加item点击监听以回传address数据
+        val flag = intent.getIntExtra("flag", -1)
+        if (flag == OrderSubmitActivity.CHANGE_ADDRESS) {
+            adapter.onItemClickListener = object : AddressAdapter.OnItemClickListener {
+                override fun onItemClick(address: OsAddress) {
+                    val resultIntent = Intent()
+                    resultIntent.putExtra("address", address)
+                    setResult(Activity.RESULT_OK, resultIntent)
+                    finish()
+                }
+
+            }
+        }
 
     }
 
