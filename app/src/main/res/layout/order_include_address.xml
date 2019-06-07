@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="90dp">
+
+    <TextView
+        android:id="@+id/tv_order_address_receiver"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
+        android:text="金志超"
+        android:textColor="@color/app_base_black_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/iv_order_address"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_order_address_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="浙江省温州市永嘉县 上塘镇 码道西街 33号"
+        app:layout_constraintStart_toStartOf="@+id/tv_order_address_receiver"
+        app:layout_constraintTop_toBottomOf="@+id/tv_order_address_receiver" />
+
+
+    <TextView
+        android:id="@+id/tv_order_address_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="18267886900"
+        android:textColor="@color/app_base_black_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_order_address_receiver"
+        app:layout_constraintStart_toEndOf="@+id/tv_order_address_receiver"
+        app:layout_constraintTop_toTopOf="@+id/tv_order_address_receiver" />
+
+
+    <TextView
+        android:id="@+id/tv_order_address_is_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="#CE0202"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:text="默认"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_order_address_phone"
+        app:layout_constraintStart_toEndOf="@+id/tv_order_address_phone"
+        app:layout_constraintTop_toTopOf="@+id/tv_order_address_phone" />
+
+    <ImageView
+        android:id="@+id/iv_order_address_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_navigate_next_grey_600_24dp" />
+
+    <ImageView
+        android:id="@+id/iv_order_address"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/order_submit_address_ic" />
+
+</android.support.constraint.ConstraintLayout>

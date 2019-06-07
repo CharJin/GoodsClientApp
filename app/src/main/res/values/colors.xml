@@ -70,4 +70,8 @@
     <color name="address_modify_alert_dialog_confirm_pressed_color">#A6FF5D49</color>
 
 
+    <color name="order_detail_header_bg_color">#FC6855</color>
+    <color name="order_detail_goods_service_bg_color">#19FC6855</color>
+
+
 </resources>

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.order_include_address.*
 import kotlinx.android.synthetic.main.order_submit_activity_main.*
 import okhttp3.Call
 import okhttp3.Callback
@@ -71,9 +72,9 @@ class OrderSubmitActivity : AppCompatActivity() {
                         val jsonData = response.body()!!.string()
                         address = JsonUtil.parseJSONObject(jsonData, OsAddress::class.java)
                         runOnUiThread {
-                            tv_list_item_address_receiver.text = address.receiver
-                            tv_list_item_address_phone.text = address.phone
-                            tv_list_item_address_detail.text = String.format("%s%s%s %s",
+                            tv_order_address_receiver.text = address.receiver
+                            tv_order_address_phone.text = address.phone
+                            tv_order_address_detail.text = String.format("%s%s%s %s",
                                     address.province, address.city, address.district, address.addressDetail)
 
                         }
@@ -98,15 +99,16 @@ class OrderSubmitActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == CHANGE_ADDRESS && resultCode == Activity.RESULT_OK) {
             address = data!!.getSerializableExtra("address") as OsAddress
-            tv_list_item_address_receiver.text = address.receiver
-            tv_list_item_address_phone.text = address.phone
-            tv_list_item_address_detail.text = String.format("%s%s%s %s",
+            tv_order_address_receiver.text = address.receiver
+            tv_order_address_phone.text = address.phone
+            tv_order_address_detail.text = String.format("%s%s%s %s",
                     address.province, address.city, address.district, address.addressDetail)
 
         }
     }
 
     fun submitOrderOnClick(view: View) {
+        startActivity(Intent(this, OrderDetailActivity::class.java))
 
     }
 
