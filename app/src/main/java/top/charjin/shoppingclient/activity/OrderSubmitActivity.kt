@@ -25,7 +25,7 @@ class OrderSubmitActivity : AppCompatActivity() {
 
     private lateinit var address: OsAddress
 
-    private val preOrderList = arrayListOf<PreOrderGoodsModel>()
+    private val preOrderGoodsList = arrayListOf<PreOrderGoodsModel>()
 
     companion object {
         const val CHANGE_ADDRESS = 0
@@ -43,16 +43,28 @@ class OrderSubmitActivity : AppCompatActivity() {
      * 初始化pre订单数据(商品信息)
      */
     private fun initPreOrderData() {
-        val adapter = PreOrderAdapter(this, preOrderList)
+        val adapter = PreOrderAdapter(this, preOrderGoodsList)
         rv_order_submit_goods.layoutManager = LinearLayoutManager(this)
         rv_order_submit_goods.adapter = adapter
 
-        val goodsList: ArrayList<PreOrderGoodsModel> = intent.getSerializableExtra("goods") as ArrayList<PreOrderGoodsModel>
-        preOrderList.addAll(goodsList)
-        adapter.notifyDataSetChanged()
+//        val goodsList: ArrayList<PreOrderGoodsModel> = intent.getSerializableExtra("goods") as ArrayList<PreOrderGoodsModel>
+//        preOrderGoodsList.addAll(goodsList)
+//        adapter.notifyDataSetChanged()
 
+        val goodsList: ArrayList<PreOrderGoodsModel> = intent.getSerializableExtra("preOrderGoodsList") as ArrayList<PreOrderGoodsModel>
+
+        preOrderGoodsList.clear()
+        preOrderGoodsList.addAll(goodsList)
+
+
+        /*
+         *
+         */
         var sum = 0.0
-        preOrderList.forEach { sum += it.goodsNum * it.price }
+        preOrderGoodsList.forEach { preOrderModel ->
+            preOrderModel.goodsList.forEach { sum += it.goodsNum * it.price }
+        }
+
         this.tv_order_submit_sum.text = String.format("%.2f", sum)
     }
 

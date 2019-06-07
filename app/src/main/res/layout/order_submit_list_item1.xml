@@ -72,20 +72,69 @@
             app:layout_constraintStart_toEndOf="@id/iv_order_submit_list_item_type"
             app:layout_constraintTop_toTopOf="@+id/iv_order_submit_list_item_type" />
 
-        <LinearLayout
-            android:id="@+id/ll_order_submit_list_item_goods"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/iv_order_submit_list_item_goods"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="14dp"
-            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_order_submit_list_item_type"
-            app:srcCompat="@drawable/goods_back_bg_shape">
+            app:srcCompat="@drawable/goods_back_bg_shape" />
 
-            <include layout="@layout/order_submit_include_goods_item" />
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:maxLines="2"
+            android:text="商品描述"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/iv_order_submit_list_item_goods"
+            app:layout_constraintTop_toTopOf="@id/iv_order_submit_list_item_goods" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_plan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/preorder_list_item_goods_plan"
+            app:layout_constraintStart_toStartOf="@id/tv_order_submit_list_item_goods_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_submit_list_item_goods_name" />
 
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="2dp"
+            android:text="299.00"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_order_submit_list_item_goods_name"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_price_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:text="￥"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_submit_list_item_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_order_submit_list_item_price" />
+
+        <TextView
+            android:id="@+id/tv_order_submit_list_item_goods_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/preorder_list_item_goods_num"
+            app:layout_constraintEnd_toEndOf="@id/tv_order_submit_list_item_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_submit_list_item_price" />
 
         <TextView
             android:id="@+id/tv_order_submit_list_item_send_type"
@@ -96,8 +145,8 @@
             android:text="配送方式"
             android:textColor="@color/app_base_black_color"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/ll_order_submit_list_item_goods"
-            app:layout_constraintTop_toBottomOf="@id/ll_order_submit_list_item_goods" />
+            app:layout_constraintStart_toStartOf="@+id/iv_order_submit_list_item_goods"
+            app:layout_constraintTop_toBottomOf="@id/iv_order_submit_list_item_goods" />
 
         <TextView
             android:id="@+id/tv_order_submit_list_item_send_type_value"
@@ -119,7 +168,7 @@
             android:text="快递 免邮"
             android:textColor="@color/app_base_black_color"
             app:layout_constraintBottom_toBottomOf="@id/tv_order_submit_list_item_send_type_value"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_order_submit_list_item_goods_num"
             app:layout_constraintTop_toTopOf="@id/tv_order_submit_list_item_send_type_value" />
 
         <EditText

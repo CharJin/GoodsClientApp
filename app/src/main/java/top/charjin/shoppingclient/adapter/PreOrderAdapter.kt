@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.order_submit_list_item.view.*
 import top.charjin.shoppingclient.R
 import top.charjin.shoppingclient.model.PreOrderGoodsModel
+import top.charjin.shoppingclient.view.OrderSubmitGoodsView
 
 
 class PreOrderAdapter(val context: Context, val data: List<PreOrderGoodsModel>) : RecyclerView.Adapter<PreOrderAdapter.ViewHolder>() {
@@ -22,13 +23,16 @@ class PreOrderAdapter(val context: Context, val data: List<PreOrderGoodsModel>) 
 //        holder.ivShopType
 //        holder.ivGoods.text =  preOrder
 
+        var sum = 0.0
+        holder.llGoodsView.removeAllViews()
+        preOrder.goodsList.forEach {
+            holder.llGoodsView.addView(OrderSubmitGoodsView(context, it))
+            sum += it.goodsNum * it.price
+        }
+
         holder.tvShopName.text = preOrder.shopName
-        holder.tvGoodsName.text = preOrder.name
-        holder.tvPlan.text = context.resources.getString(R.string.preorder_list_item_goods_plan, "默认套餐")
-        holder.tvGoodsPrice.text = String.format("%.2f", preOrder.price)
-        holder.tvGoodsNum.text = context.resources.getString(R.string.preorder_list_item_goods_num, preOrder.goodsNum)
         holder.tvSendType.text = "普通配送"
-        holder.tvOrderSum.text = String.format("%.2f", preOrder.price * preOrder.goodsNum)
+        holder.tvOrderSum.text = String.format("%.2f", sum)
         holder.tvBtnSendType.setOnClickListener { }
 
     }
@@ -36,11 +40,12 @@ class PreOrderAdapter(val context: Context, val data: List<PreOrderGoodsModel>) 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivShopType = view.iv_order_submit_list_item_type
         val tvShopName = view.tv_order_submit_list_item_shop_name
-        val ivGoods = view.iv_order_submit_list_item_goods
-        val tvGoodsName = view.tv_order_submit_list_item_goods_name
-        val tvPlan = view.tv_order_submit_list_item_plan
-        val tvGoodsPrice = view.tv_order_submit_list_item_price
-        val tvGoodsNum = view.tv_order_submit_list_item_goods_num
+        val llGoodsView = view.ll_order_submit_list_item_goods
+        //        val ivGoods = view.iv_order_submit_list_item_goods
+//        val tvGoodsName = view.tv_order_submit_list_item_goods_name
+//        val tvPlan = view.tv_order_submit_list_item_plan
+//        val tvGoodsPrice = view.tv_order_submit_list_item_price
+//        val tvGoodsNum = view.tv_order_submit_list_item_goods_num
         val tvSendType = view.tv_order_submit_list_item_send_type_value
         val tvBtnSendType = view.tv_btn_order_submit_list_item_send_type
         val etOrderRemark = view.et_order_submit_list_item_remark

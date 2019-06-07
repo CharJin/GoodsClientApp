@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -81,30 +82,21 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
 
         // 初始总额为0
         tvBtnCheckout.setText(String.format(getResources().getString(R.string.cart_bottom_checkout), 0 + ""));
+        // 点击结算按钮,跳转至订单提交页面
         tvBtnCheckout.setOnClickListener(v -> {
-            List<PreOrderGoodsModel> list = new ArrayList<>();
+            List<PreOrderGoodsModel> preOrderGoodsList = new ArrayList<>();
 
+            // 遍历map, 过滤出被选中的商品存入list中
             cartMap.forEach((shop, goodsList) -> {
-                for (CartGoodsModel goods : goodsList) {
-                    if (goods.isChecked()) {
-                        PreOrderGoodsModel preOrder = new PreOrderGoodsModel(shop.getId(), shop.getName());
-                        preOrder.setId(goods.getId());
-                        preOrder.setName(goods.getName());
-                        preOrder.setImage(goods.getImage());
-                        preOrder.setPrice(goods.getPrice());
-                        preOrder.setGoodsNum(goods.getGoodsNum());
-
-//                        preOrder.setShopId(shop.getId());
-//                        preOrder.setShopName(shop.getName());
-                        list.add(preOrder);
-                    }
+                List<CartGoodsModel> selectedGoodsList = goodsList.stream().filter(CartGoodsModel::isChecked).collect(Collectors.toList());
+                if (selectedGoodsList.size() != 0) {
+                    PreOrderGoodsModel preOrder = new PreOrderGoodsModel(shop.getId(), shop.getName(), selectedGoodsList);
+                    preOrderGoodsList.add(preOrder);
                 }
             });
 
-            list.forEach(System.out::println);
-
             Intent intent = new Intent(context, OrderSubmitActivity.class);
-            intent.putExtra("goods", (Serializable) list);
+            intent.putExtra("preOrderGoodsList", (Serializable) preOrderGoodsList);
             startActivity(intent);
 
         });
