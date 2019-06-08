@@ -11,7 +11,7 @@ import top.charjin.shoppingclient.model.PreOrderGoodsModel
 import top.charjin.shoppingclient.view.OrderSubmitGoodsView
 
 
-class PreOrderAdapter(val context: Context, val data: List<PreOrderGoodsModel>) : RecyclerView.Adapter<PreOrderAdapter.ViewHolder>() {
+class OrderSubmitGoodsAdapter(val context: Context, val data: List<PreOrderGoodsModel>) : RecyclerView.Adapter<OrderSubmitGoodsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(context).inflate(R.layout.order_submit_list_item, viewGroup, false))
 

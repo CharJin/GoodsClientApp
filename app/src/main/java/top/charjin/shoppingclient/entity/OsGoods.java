@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class OsGoods implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Integer id;
+    private Integer goodsId;
     /**
      * 商品(id)
      */
@@ -16,7 +16,7 @@ public class OsGoods implements Serializable {
     /**
      * 商品名
      */
-    private String name;
+    private String goodsName;
     /**
      * 商品展示图片,存放路径,多图片使用分隔符"^^^"
      */
@@ -38,12 +38,14 @@ public class OsGoods implements Serializable {
      */
     private String description;
 
-    public Integer getId() {
-        return id;
+    private OsShop shop;
+
+    public Integer getGoodsId() {
+        return goodsId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setGoodsId(Integer id) {
+        this.goodsId = id;
     }
 
     public Integer getGoodsTypeId() {
@@ -62,12 +64,12 @@ public class OsGoods implements Serializable {
         this.shopId = shopId;
     }
 
-    public String getName() {
-        return name;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGoodsName(String name) {
+        this.goodsName = name;
     }
 
     public String getImage() {
@@ -108,5 +110,13 @@ public class OsGoods implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public OsShop getShop() {
+        return shop;
+    }
+
+    public void setShop(OsShop shop) {
+        this.shop = shop;
     }
 }

@@ -4,40 +4,62 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class OsOrder implements Serializable {
-    private static final long serialVersionUID = 1L;
     private Integer orderId;
+
     /**
      * 外键,用户id
      */
     private Integer userId;
+
+    private static final long serialVersionUID = 1L;
     /**
-     * 外键,商品id
+     * 外键,商店id，一次提交订单按店铺生成
      */
-    private Integer goodsId;
+    private Integer shopId;
     /**
-     * 商品数量
+     * 地址id(来自地址表)
      */
-    private Integer goodsNumber;
+    private Integer addressId;
     /**
      * 订单编号(保留字段 不使用,订单时间+用户id+商品id)
      */
-    private String orderNumber;
+    private String orderNo;
     /**
      * 订单总金额
      */
-    private Double orderAmount;
+    private Double orderAmountTotal;
+    /**
+     * 订单实际支付金额
+     */
+    private Double orderAmountActual;
+    /**
+     * 运费
+     */
+    private Integer orderFreight;
+    /**
+     * 订单创建时间
+     */
+    private Date orderCreateTime;
+    /**
+     * 订单支付时间
+     */
+    private Date orderPayTime;
+    /**
+     * 订单完成事件(用户确认收货后)
+     */
+    private Date orderFulfilTime;
     /**
      * 订单状态(0:待付款 1:待发货 2:待收货 3:待评论)
      */
     private Byte orderStatus;
     /**
-     * 订单创建时间
+     * 物流单号
      */
-    private Date createDate;
+    private String logisticsNo;
     /**
-     * 订单支付时间
+     * shopId 来自支付渠道表,支付方式(支付宝，信用卡，各种银行等)
      */
-    private Date payTime;
+    private Integer payChannel;
 
     public Integer getOrderId() {
         return orderId;
@@ -55,36 +77,76 @@ public class OsOrder implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public Integer getShopId() {
+        return shopId;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
     }
 
-    public Integer getGoodsNumber() {
-        return goodsNumber;
+    public Integer getAddressId() {
+        return addressId;
     }
 
-    public void setGoodsNumber(Integer goodsNumber) {
-        this.goodsNumber = goodsNumber;
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public Double getOrderAmount() {
-        return orderAmount;
+    public Double getOrderAmountTotal() {
+        return orderAmountTotal;
     }
 
-    public void setOrderAmount(Double orderAmount) {
-        this.orderAmount = orderAmount;
+    public void setOrderAmountTotal(Double orderAmountTotal) {
+        this.orderAmountTotal = orderAmountTotal;
+    }
+
+    public Double getOrderAmountActual() {
+        return orderAmountActual;
+    }
+
+    public void setOrderAmountActual(Double orderAmountActual) {
+        this.orderAmountActual = orderAmountActual;
+    }
+
+    public Integer getOrderFreight() {
+        return orderFreight;
+    }
+
+    public void setOrderFreight(Integer orderFreight) {
+        this.orderFreight = orderFreight;
+    }
+
+    public Date getOrderCreateTime() {
+        return orderCreateTime;
+    }
+
+    public void setOrderCreateTime(Date orderCreateTime) {
+        this.orderCreateTime = orderCreateTime;
+    }
+
+    public Date getOrderPayTime() {
+        return orderPayTime;
+    }
+
+    public void setOrderPayTime(Date orderPayTime) {
+        this.orderPayTime = orderPayTime;
+    }
+
+    public Date getOrderFulfilTime() {
+        return orderFulfilTime;
+    }
+
+    public void setOrderFulfilTime(Date orderFulfilTime) {
+        this.orderFulfilTime = orderFulfilTime;
     }
 
     public Byte getOrderStatus() {
@@ -95,20 +157,20 @@ public class OsOrder implements Serializable {
         this.orderStatus = orderStatus;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public String getLogisticsNo() {
+        return logisticsNo;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setLogisticsNo(String logisticsNo) {
+        this.logisticsNo = logisticsNo;
     }
 
-    public Date getPayTime() {
-        return payTime;
+    public Integer getPayChannel() {
+        return payChannel;
     }
 
-    public void setPayTime(Date payTime) {
-        this.payTime = payTime;
+    public void setPayChannel(Integer payChannel) {
+        this.payChannel = payChannel;
     }
 
     @Override
@@ -119,13 +181,18 @@ public class OsOrder implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", orderId=").append(orderId);
         sb.append(", userId=").append(userId);
-        sb.append(", goodsId=").append(goodsId);
-        sb.append(", goodsNumber=").append(goodsNumber);
-        sb.append(", orderNumber=").append(orderNumber);
-        sb.append(", orderAmount=").append(orderAmount);
+        sb.append(", shopId=").append(shopId);
+        sb.append(", addressId=").append(addressId);
+        sb.append(", orderNo=").append(orderNo);
+        sb.append(", orderAmountTotal=").append(orderAmountTotal);
+        sb.append(", orderAmountActual=").append(orderAmountActual);
+        sb.append(", orderFreight=").append(orderFreight);
+        sb.append(", orderCreateTime=").append(orderCreateTime);
+        sb.append(", orderPayTime=").append(orderPayTime);
+        sb.append(", orderFulfilTime=").append(orderFulfilTime);
         sb.append(", orderStatus=").append(orderStatus);
-        sb.append(", createDate=").append(createDate);
-        sb.append(", payTime=").append(payTime);
+        sb.append(", logisticsNo=").append(logisticsNo);
+        sb.append(", payChannel=").append(payChannel);
         sb.append("]");
         return sb.toString();
     }

@@ -5,27 +5,32 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
 import android.view.View
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.order_include_address.*
+import kotlinx.android.synthetic.main.order_pay_pop_window.view.*
 import kotlinx.android.synthetic.main.order_submit_activity_main.*
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import top.charjin.shoppingclient.R
-import top.charjin.shoppingclient.adapter.PreOrderAdapter
+import top.charjin.shoppingclient.adapter.OrderSubmitGoodsAdapter
 import top.charjin.shoppingclient.entity.OsAddress
 import top.charjin.shoppingclient.model.PreOrderGoodsModel
 import top.charjin.shoppingclient.utils.HttpUtil
 import top.charjin.shoppingclient.utils.JsonUtil
 import top.charjin.shoppingclient.utils.Router
+import top.charjin.shoppingclient.view.GoodsPopupWindow
 import java.io.IOException
 
 class OrderSubmitActivity : AppCompatActivity() {
 
     private lateinit var address: OsAddress
 
-    private val preOrderGoodsList = arrayListOf<PreOrderGoodsModel>()
+    private val orderGoodsList = arrayListOf<PreOrderGoodsModel>()
+
+    private var sum = 0.0
 
     companion object {
         const val CHANGE_ADDRESS = 0
@@ -43,25 +48,25 @@ class OrderSubmitActivity : AppCompatActivity() {
      * 初始化pre订单数据(商品信息)
      */
     private fun initPreOrderData() {
-        val adapter = PreOrderAdapter(this, preOrderGoodsList)
+        val adapter = OrderSubmitGoodsAdapter(this, orderGoodsList)
         rv_order_submit_goods.layoutManager = LinearLayoutManager(this)
         rv_order_submit_goods.adapter = adapter
 
 //        val goodsList: ArrayList<PreOrderGoodsModel> = intent.getSerializableExtra("goods") as ArrayList<PreOrderGoodsModel>
-//        preOrderGoodsList.addAll(goodsList)
+//        orderGoodsList.addAll(goodsList)
 //        adapter.notifyDataSetChanged()
 
-        val goodsList: ArrayList<PreOrderGoodsModel> = intent.getSerializableExtra("preOrderGoodsList") as ArrayList<PreOrderGoodsModel>
+        val goodsList: ArrayList<PreOrderGoodsModel> = intent.getSerializableExtra("orderGoodsList") as ArrayList<PreOrderGoodsModel>
 
-        preOrderGoodsList.clear()
-        preOrderGoodsList.addAll(goodsList)
+        orderGoodsList.clear()
+        orderGoodsList.addAll(goodsList)
 
 
         /*
          *
          */
-        var sum = 0.0
-        preOrderGoodsList.forEach { preOrderModel ->
+
+        orderGoodsList.forEach { preOrderModel ->
             preOrderModel.goodsList.forEach { sum += it.goodsNum * it.price }
         }
 
@@ -119,9 +124,22 @@ class OrderSubmitActivity : AppCompatActivity() {
         }
     }
 
-    fun submitOrderOnClick(view: View) {
-        startActivity(Intent(this, OrderDetailActivity::class.java))
 
+    /**
+     * 订单提交按钮监听事件
+     */
+    fun submitOrderOnClick(view: View) {
+        val orderPayContentView: View = LayoutInflater.from(this).inflate(R.layout.order_pay_pop_window, null)
+        val orderPayPopWindow = GoodsPopupWindow(this, orderPayContentView)
+        orderPayContentView.tv_order_pay_order_number.text = "43243434324322"
+        orderPayContentView.tv_order_pay_amount.text = sum.toString()
+        orderPayContentView.tv_btn_order_pay_cancel.setOnClickListener { orderPayPopWindow.dismiss() }
+        orderPayContentView.tv_btn_order_pay_confirm.setOnClickListener {
+            val intent = Intent(this, OrderDetailActivity::class.java)
+            intent.putExtra("orderGoodsList", orderGoodsList)
+            startActivity(intent)
+        }
+        orderPayPopWindow.openPopupWindow()
     }
 
 

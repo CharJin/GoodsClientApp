@@ -66,9 +66,7 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
     private fun initOrderData() {
         allOrderList.clear()
         HttpUtil.sendOkHttpRequestByGet(Router.ORDER_URL + "getAllOrdersByUserId?userId=" + 1, object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-
-            }
+            override fun onFailure(call: Call, e: IOException) {}
 
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {

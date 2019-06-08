@@ -84,19 +84,19 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
         tvBtnCheckout.setText(String.format(getResources().getString(R.string.cart_bottom_checkout), 0 + ""));
         // 点击结算按钮,跳转至订单提交页面
         tvBtnCheckout.setOnClickListener(v -> {
-            List<PreOrderGoodsModel> preOrderGoodsList = new ArrayList<>();
+            List<PreOrderGoodsModel> orderGoodsList = new ArrayList<>();
 
             // 遍历map, 过滤出被选中的商品存入list中
             cartMap.forEach((shop, goodsList) -> {
                 List<CartGoodsModel> selectedGoodsList = goodsList.stream().filter(CartGoodsModel::isChecked).collect(Collectors.toList());
                 if (selectedGoodsList.size() != 0) {
-                    PreOrderGoodsModel preOrder = new PreOrderGoodsModel(shop.getId(), shop.getName(), selectedGoodsList);
-                    preOrderGoodsList.add(preOrder);
+                    PreOrderGoodsModel preOrder = new PreOrderGoodsModel(shop.getShopId(), shop.getShopName(), selectedGoodsList);
+                    orderGoodsList.add(preOrder);
                 }
             });
 
             Intent intent = new Intent(context, OrderSubmitActivity.class);
-            intent.putExtra("preOrderGoodsList", (Serializable) preOrderGoodsList);
+            intent.putExtra("orderGoodsList", (Serializable) orderGoodsList);
             startActivity(intent);
 
         });
@@ -118,9 +118,9 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     public void onResume() {
         super.onResume();
         System.out.println(context);
-        checkUser();
-        if (isLoaded)
-            initCartData();
+//        checkUser();
+//        if (isLoaded)
+        initCartData();
         Log.e("Cart", "onResume");
 
     }

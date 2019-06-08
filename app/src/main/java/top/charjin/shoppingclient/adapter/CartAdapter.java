@@ -117,9 +117,9 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
             holder = (ViewHolderShop) view.getTag();
         }
         // property, bind event---
-        holder.tvShopName.setText(shop.getName());
+        holder.tvShopName.setText(shop.getShopName());
         holder.tvShopName.setOnClickListener(v -> {
-            int shopId = shop.getId();
+            int shopId = shop.getShopId();
             Intent intent = new Intent(context, ShopActivity.class);
             intent.putExtra("shop", shop);
             context.startActivity(intent);
@@ -170,7 +170,7 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
         // property, bind event---
         holder.cbChoose.setChecked(goods.isChecked());
         if (goods.isChecked()) chosenNum++;
-        holder.tvGoodsName.setText(goods.getName());
+        holder.tvGoodsName.setText(goods.getGoodsName());
         holder.tvGoodsNum.setText(String.format("%d", goods.getGoodsNum()));    //初始化商品的数量
 
         holder.cbChoose.setChecked(goods.isChecked());
@@ -183,7 +183,7 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
         holder.btnPlus.setOnClickListener(e -> {
             int num = Integer.parseInt(holder.tvGoodsNum.getText().toString()), newNum = num + 1;
 
-            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + 1 + "&goodsId=" + goods.getId() + "&number=" + newNum, new Callback() {
+            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + 1 + "&goodsId=" + goods.getGoodsId() + "&number=" + newNum, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     onCartGoodsChangedListener.onCartGoodsChanged(false);
@@ -213,7 +213,7 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
                 Toast.makeText(context, "商品数量不能再少啦!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + 1 + "&goodsId=" + goods.getId() + "&number=" + newNum, new Callback() {
+            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + 1 + "&goodsId=" + goods.getGoodsId() + "&number=" + newNum, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     onCartGoodsChangedListener.onCartGoodsChanged(false);

@@ -82,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@id/iv_order_submit_list_item_type"
             app:srcCompat="@drawable/goods_back_bg_shape">
 
-            <include layout="@layout/order_submit_include_goods_item" />
+            <include layout="@layout/order_include_goods_item" />
 
         </LinearLayout>
 

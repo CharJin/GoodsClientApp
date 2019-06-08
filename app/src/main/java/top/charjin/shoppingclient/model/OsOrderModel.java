@@ -1,55 +1,49 @@
 package top.charjin.shoppingclient.model;
 
 
+import java.util.List;
+
+import top.charjin.shoppingclient.entity.OsAddress;
 import top.charjin.shoppingclient.entity.OsOrder;
+import top.charjin.shoppingclient.entity.OsOrderDetail;
+import top.charjin.shoppingclient.entity.OsPayBusiness;
+import top.charjin.shoppingclient.entity.OsShop;
 
 public class OsOrderModel extends OsOrder {
-    private int shopId;
-    private String shopName;
+    private OsShop shop;
+    private OsAddress address;
+    private OsPayBusiness payBusiness;
+    private List<OsOrderDetail> orderDetail;
 
-
-    private double price;
-    private String goodsName;
-    private String image;
-
-
-    public int getShopId() {
-        return shopId;
+    public OsShop getShop() {
+        return shop;
     }
 
-    public void setShopId(int shopId) {
-        this.shopId = shopId;
+    public void setShop(OsShop shop) {
+        this.shop = shop;
     }
 
-    public String getShopName() {
-        return shopName;
+    public OsAddress getAddress() {
+        return address;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setAddress(OsAddress address) {
+        this.address = address;
     }
 
-    public double getPrice() {
-        return price;
+    public OsPayBusiness getPayBusiness() {
+        return payBusiness;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPayBusiness(OsPayBusiness payBusiness) {
+        this.payBusiness = payBusiness;
     }
 
-    public String getGoodsName() {
-        return goodsName;
+    public List<OsOrderDetail> getOrderDetail() {
+        return orderDetail;
     }
 
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setOrderDetail(List<OsOrderDetail> orderDetail) {
+        this.orderDetail = orderDetail;
     }
 }

@@ -137,7 +137,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_order_submit_list_item_type">
 
-                    <include layout="@layout/order_detail_include_goods_item" />
+                    <include layout="@layout/order_include_goods_item" />
 
                 </LinearLayout>
 
@@ -207,7 +207,7 @@
 
 
                 <include
-                    android:id="@+id/separator_horizontal_line"
+                    android:id="@+id/separator_line_horizontal"
                     layout="@layout/separator_line_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -2,7 +2,6 @@ package top.charjin.shoppingclient.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -15,17 +14,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.activity.GoodsActivity;
-import top.charjin.shoppingclient.activity.ShopActivity;
-import top.charjin.shoppingclient.entity.OsShop;
 import top.charjin.shoppingclient.model.OsOrderModel;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
+public class OrderAdapter1 extends RecyclerView.Adapter<OrderAdapter1.ViewHolder> {
 
     private Context context;
     private List<OsOrderModel> orderList;
 
-    public OrderAdapter(Context context, List<OsOrderModel> orderList) {
+    public OrderAdapter1(Context context, List<OsOrderModel> orderList) {
         this.context = context;
         this.orderList = orderList;
     }
@@ -40,7 +36,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         OsOrderModel order = orderList.get(i);
-        holder.tvShopName.setText(order.getShopName());
+ /*       holder.tvShopName.setText(order.getShopName());
         holder.tvOrderStatus.setText(String.format("%s", order.getOrderStatus()));
         holder.tvGoodsName.setText(order.getGoodsName());
         holder.tvGoodsPrice.setText(String.format("%s", order.getPrice()));
@@ -50,7 +46,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.clOrderHeader.setOnClickListener(v -> {
             Intent intent = new Intent(context, ShopActivity.class);
             OsShop shop = new OsShop();
-            shop.setId(order.getShopId());
+            shop.setShopId(order.getShopId());
             shop.setName(order.getShopName());
             intent.putExtra("shop", shop);
             context.startActivity(intent);
@@ -61,7 +57,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
             intent.putExtra("goodsId", order.getShopId());
             context.startActivity(intent);
-        });
+        });*/
 //        holder.ivGoods.setText(order);
     }
 
@@ -86,16 +82,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
         ViewHolder(@NonNull View view) {
             super(view);
-            clOrderHeader = view.findViewById(R.id.cl_order_header);
-            clOrderMain = view.findViewById(R.id.cl_order_main);
-
-            tvShopName = view.findViewById(R.id.tv_order_shop_name);
-            tvOrderStatus = view.findViewById(R.id.tv_order_header_status);
-
-            tvGoodsName = view.findViewById(R.id.tv_order_goods_name);
-            tvGoodsPrice = view.findViewById(R.id.tv_order_goods_price);
-            tvGoodsNum = view.findViewById(R.id.tv_order_goods_num);
-            tvOrderAmount = view.findViewById(R.id.tv_order_bottom_amount);
+//            clOrderHeader = view.findViewById(R.id.cl_order_header);
+//            clOrderMain = view.findViewById(R.id.cl_order_main);
+//
+//            tvShopName = view.findViewById(R.id.tv_order_shop_name);
+//            tvOrderStatus = view.findViewById(R.id.tv_order_header_status);
+//
+//            tvGoodsName = view.findViewById(R.id.tv_order_goods_name);
+//            tvGoodsPrice = view.findViewById(R.id.tv_order_goods_price);
+//            tvGoodsNum = view.findViewById(R.id.tv_order_goods_num);
+//            tvOrderAmount = view.findViewById(R.id.tv_order_bottom_amount);
 
             ivGoods = view.findViewById(R.id.iv_order_goods);
         }

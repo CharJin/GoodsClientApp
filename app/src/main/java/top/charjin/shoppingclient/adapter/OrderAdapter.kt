@@ -1,0 +1,79 @@
+package top.charjin.shoppingclient.adapter
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import kotlinx.android.synthetic.main.order_list_item.view.*
+import top.charjin.shoppingclient.R
+import top.charjin.shoppingclient.activity.OrderDetailActivity
+import top.charjin.shoppingclient.activity.ShopActivity
+import top.charjin.shoppingclient.entity.OsShop
+import top.charjin.shoppingclient.model.OsOrderModel
+import top.charjin.shoppingclient.view.OrderGoodsView
+
+class OrderAdapter(val context: Context, val orderList: List<OsOrderModel>) : RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.order_list_item, viewGroup, false))
+    }
+
+    @SuppressLint("DefaultLocale")
+    override fun onBindViewHolder(holder: ViewHolder, i: Int) {
+        val order = orderList[i]
+        val shop = order.shop
+        holder.tvShopName.text = shop.shopName
+
+//        Glide.with(holder.ivShopType).load()  商品类型不同,显示的前缀图标也不错 暂不修改
+//        订单状态暂不显示
+//        holder.tvOrderStatus.setText(String.format("%s", order.orderStatus));
+
+        holder.llShopMain.removeAllViews()
+
+        order.orderDetail.forEach {
+            holder.llShopMain.addView(OrderGoodsView(context, it))
+        }
+
+        holder.tvGoodsNum.text = context.resources.getString(R.string.order_goods_item_goods_num, order.orderDetail.size)
+
+        holder.tvGoodsAmount.text = String.format("%.2f", order.orderAmountActual)
+
+        // 点击头部 跳转到店铺
+        holder.llHeaderShop.setOnClickListener {
+            val intent = Intent(context, ShopActivity::class.java)
+            val shop = OsShop()
+            shop.shopId = order.shop.shopId
+            shop.shopName = order.shop.shopName
+            intent.putExtra("shop", shop)
+            context.startActivity(intent)
+        }
+
+        // 点击商品部分 跳转至订单详情页
+        holder.llShopMain.setOnClickListener {
+            val intent = Intent(context, OrderDetailActivity::class.java)
+
+//            传递orderList至详情页面
+//            intent.putExtra("goodsId", order.shop.shopId)
+//            context.startActivity(intent)
+        }
+        //        holder.ivGoods.setText(order);
+    }
+
+    override fun getItemCount(): Int {
+        return orderList.size
+    }
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val llHeaderShop = view.cl_order_list_item_header_shop
+        val ivShopType = view.iv_order_list_item_type
+        val tvShopName = view.tv_order_list_item_shop_name
+
+        val llShopMain = view.ll_order_list_item_goods
+
+        val tvGoodsNum = view.tv_order_list_item_goods_all_num      // 商品的总件数
+        val tvGoodsAmount = view.tv_order_list_item_goods_amount
+    }
+}

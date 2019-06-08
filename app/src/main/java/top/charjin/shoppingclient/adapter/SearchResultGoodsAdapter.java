@@ -42,7 +42,7 @@ public class SearchResultGoodsAdapter extends RecyclerView.Adapter<SearchResultG
         OsGoods goods = this.data.get(position);
 
         Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/simhei.ttf");
-        holder.tv_title.setText(goods.getName());
+        holder.tv_title.setText(goods.getGoodsName());
         holder.tv_title.setTypeface(tf);
         holder.tv_price.setText(goods.getPrice() + "");
         Glide.with(context).load(R.drawable.background).into(holder.iv_pic);

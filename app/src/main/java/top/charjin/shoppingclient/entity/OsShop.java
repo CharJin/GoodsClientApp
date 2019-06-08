@@ -4,27 +4,27 @@ import java.io.Serializable;
 
 public class OsShop implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Integer id;
-    private String name;
+    private Integer shopId;
+    private String shopName;
     /**
      * 商品类型(id)
      */
     private Integer shopTypeId;
 
-    public Integer getId() {
-        return id;
+    public Integer getShopId() {
+        return shopId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setShopId(Integer id) {
+        this.shopId = id;
     }
 
-    public String getName() {
-        return name;
+    public String getShopName() {
+        return shopName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setShopName(String name) {
+        this.shopName = name;
     }
 
     public Integer getShopTypeId() {

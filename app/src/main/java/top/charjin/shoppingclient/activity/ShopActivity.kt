@@ -36,9 +36,9 @@ class ShopActivity : AppCompatActivity() {
         this.rv_shop.adapter = adapter
 
         val shop = intent.getSerializableExtra("shop") as OsShop
-        tv_shop_name.text = shop.name
+        tv_shop_name.text = shop.shopName
 
-        intiGoodsData(shop.id)
+        intiGoodsData(shop.shopId)
     }
 
     private fun intiGoodsData(shopId: Int) {

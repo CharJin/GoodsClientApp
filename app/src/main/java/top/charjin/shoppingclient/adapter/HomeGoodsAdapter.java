@@ -52,7 +52,7 @@ public class HomeGoodsAdapter extends RecyclerView.Adapter<HomeGoodsAdapter.View
         OsGoods goods = this.data.get(position);
 
         Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/simhei.ttf");
-        holder.tv_title.setText(goods.getName());
+        holder.tv_title.setText(goods.getGoodsName());
         holder.tv_title.setTypeface(tf);
         holder.tv_price.setText(String.format("%s", goods.getPrice()));
         holder.tv_sale_volume.setText(String.format("%s人已付款", goods.getSalesVolume()));
