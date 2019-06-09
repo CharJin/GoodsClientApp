@@ -210,6 +210,10 @@ class OrderSubmitActivity : BaseActivity() {
             orderPayContentView.tv_btn_order_pay_cancel.setOnClickListener {
                 Toast.makeText(this, "支付未成功!", Toast.LENGTH_SHORT).show()
                 orderPayPopWindow.dismiss()
+                val intent = Intent(this, OrderResultActivity::class.java)
+                intent.putExtra("orderStatus", false)
+                startActivity(intent)
+                finish()
             }
 
             // 点击确认把, 订单状态改为已支付
@@ -224,10 +228,14 @@ class OrderSubmitActivity : BaseActivity() {
                                 runOnUiThread {
                                     Toast.makeText(this@OrderSubmitActivity, "支付成功!", Toast.LENGTH_SHORT).show()
                                     orderPayPopWindow.dismiss()
-                                    val intent = Intent(this@OrderSubmitActivity, OrderDetailActivity::class.java)
-                                    intent.putExtra("orderGoodsList", orderGoodsList)
-                                    startActivity(intent)
+//                                    val intent = Intent(this@OrderSubmitActivity, OrderDetailActivity::class.java)
+//                                    intent.putExtra("orderGoodsList", orderGoodsList)
+//                                    startActivity(intent)
 
+                                    val intent = Intent(this@OrderSubmitActivity, OrderResultActivity::class.java)
+                                    intent.putExtra("orderStatus", true)
+                                    startActivity(intent)
+                                    finish()
                                 }
                             }
                         })

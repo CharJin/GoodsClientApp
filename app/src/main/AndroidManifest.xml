@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.OrderDetailActivity"></activity>
+        <activity android:name=".activity.OrderResultActivity"></activity>
+        <activity android:name=".activity.OrderDetailActivity" />
         <activity
             android:name=".activity.OrderSubmitActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
