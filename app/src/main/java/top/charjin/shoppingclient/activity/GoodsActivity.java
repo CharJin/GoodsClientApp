@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,9 +39,8 @@ import top.charjin.shoppingclient.utils.JsonUtil;
 import top.charjin.shoppingclient.utils.Router;
 import top.charjin.shoppingclient.view.GoodsPopupWindow;
 
-public class GoodsActivity extends AppCompatActivity {
+public class GoodsActivity extends BaseActivity {
 
-    private MyApplication application;
     private OsGoods goods;
 
     private Banner banner;
@@ -126,7 +124,7 @@ public class GoodsActivity extends AppCompatActivity {
 
 
         // 初始化底部弹出窗口信息
-        popupWindowContentView = LayoutInflater.from(this).inflate(R.layout.goods_standard_popup_window, null);
+        popupWindowContentView = LayoutInflater.from(this).inflate(R.layout.goods_mode_popup_window, null);
 //        tvGoodsNum = popupWindowContentView.findViewById(R.id.tv_goods_item_choose_number);
 //        tvBtnConfirm = popupWindowContentView.findViewById(R.id.tv_btn_confirm_goods_item);
 //        tvBtnConfirm.setOnClickListener(v -> {
@@ -182,6 +180,7 @@ public class GoodsActivity extends AppCompatActivity {
                 tvGoodsItemChooseNumber.setText(getResources().getString(R.string.app_goods_chosen_buy_number, nowNum + 1));
         });
 
+        // 弹唱中减少商品
         btnSubtract.setOnClickListener(v -> {
             int nowNum = Integer.parseInt(tvGoodsItemChooseNumber.getText().toString());
             if (nowNum == 1)
@@ -190,6 +189,7 @@ public class GoodsActivity extends AppCompatActivity {
                 tvGoodsItemChooseNumber.setText(getResources().getString(R.string.app_goods_chosen_buy_number, nowNum - 1));
         });
 
+        // 弹窗中点击确认按钮
         tvBtnBuyConfirm.setOnClickListener(v -> {
 //            OsUser user = (OsUser) MyApplication.map.get("user");
             OsUser user = new OsUser();
@@ -200,7 +200,6 @@ public class GoodsActivity extends AppCompatActivity {
                 return;
             }
             // 输出请求url
-
             int chooseNum = Integer.parseInt(tvGoodsItemChooseNumber.getText().toString());
             System.out.println(Router.BASE_URL + "cart/addGoods?userId=" + user.getUserId() + "&goodsId=" + goods.getGoodsId());
             HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "cart/addGoods?userId=" + user.getUserId() + "&goodsId=" + goods.getGoodsId()

@@ -21,11 +21,16 @@ import top.charjin.shoppingclient.utils.Router;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected MyApplication application;
+    protected OsUser user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         application = (MyApplication) getApplication();
+
+        // 用户信息暂时固定化
+        user = new OsUser();
+        user.setUserId(1);
     }
 
     /**

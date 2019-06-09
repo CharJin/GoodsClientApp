@@ -2,6 +2,8 @@ package top.charjin.shoppingclient.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +36,16 @@ class OrderSubmitGoodsAdapter(val context: Context, val data: List<PreOrderGoods
         holder.tvSendType.text = "普通配送"
         holder.tvOrderSum.text = String.format("%.2f", sum)
         holder.tvBtnSendType.setOnClickListener { }
+        holder.etOrderRemark.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                preOrder.remark = s.toString()
+            }
+
+        })
 
     }
 

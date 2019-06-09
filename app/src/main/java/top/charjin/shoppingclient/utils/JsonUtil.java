@@ -37,9 +37,9 @@ public class JsonUtil {
         return gson.fromJson(jsonObject, clazz);
     }
 
-    public static <T> T parseJSONObjectInStringToEntity(String jsonData, Class<T> clazz) {
-        return new Gson().fromJson(jsonData, clazz);
-    }
+//    public static <T> T parseJSONObjectInStringToEntity(String jsonData, Class<T> clazz) {
+//        return new Gson().fromJson(jsonData, clazz);
+//    }
 
     public static <T> List<T> parseJSONObjectInStringToEntityList(String jsonData, Class<T> clazz) {
 //        Gson gson = new Gson();
@@ -71,5 +71,13 @@ public class JsonUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public static String parseObjectToJSONWithDateFormat(Object object) {
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                .create();
+        return gson.toJson(object);
     }
 }

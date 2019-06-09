@@ -16,6 +16,12 @@ public class OsOrderDetail implements Serializable {
      * 外键,商品id
      */
     private Integer goodsId;
+
+    /**
+     * 订单编号,与商品id构成唯一键
+     */
+    private String orderNo;
+
     /**
      * 商品名称(商品可能被商家删除,故需做记录)
      */
@@ -50,6 +56,21 @@ public class OsOrderDetail implements Serializable {
     private Boolean isExists;
     private OsGoods goods;
 
+    public OsOrderDetail() {
+    }
+
+    public OsOrderDetail(Integer goodsId, String orderNo, String goodsName, Double goodsPrice, String goodsMode, String goodsModeParams, Integer goodsNum, Double goodsAmountTotal, String remark) {
+        this.goodsId = goodsId;
+        this.orderNo = orderNo;
+        this.goodsName = goodsName;
+        this.goodsPrice = goodsPrice;
+        this.goodsMode = goodsMode;
+        this.goodsModeParams = goodsModeParams;
+        this.goodsNum = goodsNum;
+        this.goodsAmountTotal = goodsAmountTotal;
+        this.remark = remark;
+    }
+
     public Integer getOrderDetailId() {
         return orderDetailId;
     }
@@ -72,6 +93,14 @@ public class OsOrderDetail implements Serializable {
 
     public void setGoodsId(Integer goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
     public String getGoodsName() {
