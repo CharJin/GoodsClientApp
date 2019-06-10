@@ -17,7 +17,6 @@
         android:orientation="vertical">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/cl_order_list_item_header_shop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="14dp"
@@ -46,26 +45,42 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ll_order_list_item_goods" />
 
-            <ImageView
-                android:id="@+id/iv_order_list_item_type"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/goods_bottom_img_shop"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_order_list_item_shop_name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll_order_list_item_header_shop"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="商店名称"
-                android:textColor="@color/app_base_black_color"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_order_list_item_type"
-                app:layout_constraintStart_toEndOf="@id/iv_order_list_item_type"
-                app:layout_constraintTop_toTopOf="@+id/iv_order_list_item_type" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_order_list_item_type"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/goods_bottom_img_shop" />
+
+                <TextView
+                    android:id="@+id/tv_order_list_item_shop_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="商店名称"
+                    android:textColor="@color/app_base_black_color"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/tv_order_list_item_go_shop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_navigate_next_grey_600_24dp"
+                    app:srcCompat="@drawable/ic_navigate_next_grey_600_24dp" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/ll_order_list_item_goods"
@@ -74,7 +89,7 @@
                 android:layout_marginTop="14dp"
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_order_list_item_type"
+                app:layout_constraintTop_toBottomOf="@id/ll_order_list_item_header_shop"
                 app:srcCompat="@drawable/goods_back_bg_shape">
 
                 <include layout="@layout/order_include_goods_item" />
@@ -104,18 +119,6 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_order_list_item_sum_title"
                 app:layout_constraintEnd_toStartOf="@+id/tv_order_list_item_sum_title" />
-
-            <ImageView
-                android:id="@+id/tv_order_list_item_go_shop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-
-                android:src="@drawable/ic_navigate_next_grey_600_24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_order_list_item_shop_name"
-                app:layout_constraintStart_toEndOf="@+id/tv_order_list_item_shop_name"
-                app:layout_constraintTop_toTopOf="@+id/tv_order_list_item_shop_name"
-                app:srcCompat="@drawable/ic_navigate_next_grey_600_24dp" />
 
         </android.support.constraint.ConstraintLayout>
 

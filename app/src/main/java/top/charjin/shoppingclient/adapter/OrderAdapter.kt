@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.order_list_item.view.*
 import top.charjin.shoppingclient.R
 import top.charjin.shoppingclient.activity.OrderDetailActivity
 import top.charjin.shoppingclient.activity.ShopActivity
-import top.charjin.shoppingclient.entity.OsShop
 import top.charjin.shoppingclient.model.OsOrderModel
 import top.charjin.shoppingclient.view.OrderGoodsView
 
@@ -33,20 +32,20 @@ class OrderAdapter(val context: Context, val orderList: List<OsOrderModel>) : Re
 
         holder.llShopMain.removeAllViews()
 
-        order.orderDetail.forEach {
+        order.orderDetailList.forEach {
             holder.llShopMain.addView(OrderGoodsView(context, it))
         }
 
-        holder.tvGoodsNum.text = context.resources.getString(R.string.order_goods_item_goods_num, order.orderDetail.size)
+        holder.tvGoodsNum.text = context.resources.getString(R.string.order_goods_item_goods_num, order.orderDetailList.size)
 
         holder.tvGoodsAmount.text = String.format("%.2f", order.orderAmountActual)
 
         // 点击头部 跳转到店铺
         holder.llHeaderShop.setOnClickListener {
             val intent = Intent(context, ShopActivity::class.java)
-            val shop = OsShop()
-            shop.shopId = order.shop.shopId
-            shop.shopName = order.shop.shopName
+//            val shop = OsShop()
+//            shop.shopId = order.shop.shopId
+//            shop.shopName = order.shop.shopName
             intent.putExtra("shop", shop)
             context.startActivity(intent)
         }
@@ -54,6 +53,8 @@ class OrderAdapter(val context: Context, val orderList: List<OsOrderModel>) : Re
         // 点击商品部分 跳转至订单详情页
         holder.llShopMain.setOnClickListener {
             val intent = Intent(context, OrderDetailActivity::class.java)
+            intent.putExtra("order", order)
+            context.startActivity(intent)
 
 //            传递orderList至详情页面
 //            intent.putExtra("goodsId", order.shop.shopId)
@@ -67,7 +68,7 @@ class OrderAdapter(val context: Context, val orderList: List<OsOrderModel>) : Re
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val llHeaderShop = view.cl_order_list_item_header_shop
+        val llHeaderShop = view.ll_order_list_item_header_shop
         val ivShopType = view.iv_order_list_item_type
         val tvShopName = view.tv_order_list_item_shop_name
 

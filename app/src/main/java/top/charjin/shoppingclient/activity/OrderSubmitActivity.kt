@@ -163,7 +163,7 @@ class OrderSubmitActivity : BaseActivity() {
             }
 
             val order = OsOrder(user.userId, it.shopId, address.addressId, orderNo, amountActual, amountActual,
-                    ShoppingClientUtil.getCurrentTime(), null, 1, 1)
+                    ShoppingClientUtil.getCurrentTime(), null, 0, 1)
 
             HttpUtil.sendOkHttpRequestByPost(Router.ORDER_URL + "/addOrder", JsonUtil.parseObjectToJSONWithDateFormat(order), object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
@@ -202,6 +202,10 @@ class OrderSubmitActivity : BaseActivity() {
 
         }
 
+
+        /*
+         * 大于0: 订单创建成功
+         */
         if (orderNoList.size > 0) {
             var orderNos = ""
             orderNoList.forEach { orderNos += "$it " }
@@ -216,10 +220,11 @@ class OrderSubmitActivity : BaseActivity() {
                 finish()
             }
 
-            // 点击确认把, 订单状态改为已支付
+            // 点击确认支付, 订单状态改为已支付
             orderPayContentView.tv_btn_order_pay_confirm.setOnClickListener {
-                // 支付成功待发货 状态为2
-                HttpUtil.sendOkHttpRequestByPost(Router.ORDER_URL + "updateOrderStatusByOrderNo?orderStatus=2", Gson().toJson(orderNoList),
+                // 此处需要修改支付时间(在服务器端进行)
+                // 支付成功 待发货 状态为1
+                HttpUtil.sendOkHttpRequestByPost(Router.ORDER_URL + "updateOrderStatusByOrderNo?orderStatus=1", Gson().toJson(orderNoList),
                         object : Callback {
                             override fun onFailure(call: Call, e: IOException) {}
 

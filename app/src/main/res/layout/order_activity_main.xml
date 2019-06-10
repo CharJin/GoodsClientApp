@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.OrderActivity">
 
     <RelativeLayout
-        android:id="@+id/ll_search_header"
+        android:id="@+id/ll_header"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="28dp"
@@ -42,14 +40,12 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tl_order_header"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/ll_search_header"
+        android:layout_height="wrap_content"
         app:tabBackground="@android:color/transparent"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabRippleColor="@android:color/transparent"
         app:tabSelectedTextColor="@color/app_base_black_color"
-        app:tabTextColor="@color/order_tab_text_color"
-        tools:layout_editor_absoluteX="8dp">
+        app:tabTextColor="@color/order_tab_text_color">
 
         <android.support.design.widget.TabItem
             android:id="@+id/ti_order_all"
@@ -83,13 +79,82 @@
     </android.support.design.widget.TabLayout>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_order_common"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsv_order"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingTop="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tl_order_header" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_order_no_record_tip"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="#F8F8F8"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_order_no_record_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_order_no_tip_one"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/order_no_record_img" />
+
+                <TextView
+                    android:id="@+id/tv_order_no_tip_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="48dp"
+                    android:text="您还没有相关的订单"
+                    android:textColor="@color/app_base_black_color"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@id/iv_order_no_record_tip"
+                    app:layout_constraintTop_toTopOf="@id/iv_order_no_record_tip" />
+
+                <TextView
+                    android:id="@+id/tv_order_no_tip_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="可以去看看有哪些想买的"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@id/tv_order_no_tip_one"
+                    app:layout_constraintStart_toStartOf="@id/tv_order_no_tip_one"
+                    app:layout_constraintTop_toBottomOf="@id/tv_order_no_tip_one" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_order_common"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tl_order_header" />
+
+
+            <include
+                android:id="@+id/ll_order_rv_goods"
+                layout="@layout/goods_display_include_recommend"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
 
     <!--<android.support.v4.view.ViewPager-->
     <!--android:id="@+id/vp_order_fragment"-->
@@ -99,4 +164,4 @@
     <!--app:layout_constraintTop_toBottomOf="@+id/tl_order_header" />-->
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

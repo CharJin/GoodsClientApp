@@ -2,16 +2,21 @@ package top.charjin.shoppingclient.activity
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import kotlinx.android.synthetic.main.goods_display_include_recommend.*
+import kotlinx.android.synthetic.main.order_activity_main.*
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
 import top.charjin.shoppingclient.R
+import top.charjin.shoppingclient.adapter.GoodsDisplayAdapter
 import top.charjin.shoppingclient.adapter.OrderAdapter
+import top.charjin.shoppingclient.entity.OsGoods
 import top.charjin.shoppingclient.model.OsOrderModel
 import top.charjin.shoppingclient.utils.HttpUtil
 import top.charjin.shoppingclient.utils.JsonUtil
@@ -20,7 +25,7 @@ import java.io.IOException
 import java.io.Serializable
 import java.util.stream.Collectors
 
-class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
+class OrderActivity : BaseActivity(), TabLayout.OnTabSelectedListener {
 
 
     private lateinit var tlOrder: TabLayout
@@ -33,6 +38,11 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
     private val orderList = ArrayList<OsOrderModel>()
     private val allOrderList = arrayListOf<OsOrderModel>()
 
+
+    private lateinit var goodsAdapter: GoodsDisplayAdapter
+    private var goodsList = arrayListOf<OsGoods>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_activity_main)
@@ -40,10 +50,15 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
         initComponent()
 
+        // 初始化订单list
         adapter = OrderAdapter(this, orderList)
         rvOrderCommon.layoutManager = LinearLayoutManager(this)
         rvOrderCommon.adapter = adapter
 
+        // 初始化商品推荐list
+        goodsAdapter = GoodsDisplayAdapter(this, goodsList)
+        rv_order_result_goods_display.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        rv_order_result_goods_display.adapter = goodsAdapter
 
         tlOrder.addOnTabSelectedListener(this)
 
@@ -56,6 +71,7 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             OrderType.WAIT_RECEIVING -> tlOrder.getTabAt(3)!!.select()
             OrderType.WAIT_COMMENT -> tlOrder.getTabAt(4)!!.select()
         }
+
     }
 
     override fun onResume() {
@@ -65,17 +81,20 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     private fun initOrderData() {
         allOrderList.clear()
-        HttpUtil.sendOkHttpRequestByGet(Router.ORDER_URL + "getAllOrdersByUserId?userId=" + 1, object : Callback {
+        HttpUtil.sendOkHttpRequestByGet(Router.ORDER_URL + "getAllOrdersByUserId?userId=" + user.userId, object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
 
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
                 val jsonData = response.body()!!.string()
-//                Log.e("Order", jsonData)
+                Log.e("Order", jsonData)
                 allOrderList.addAll(JsonUtil.parseJSONObjectInStringToEntityList(jsonData, OsOrderModel::class.java))
                 orderList.addAll(allOrderList)
 //                runOnUiThread { adapter.notifyDataSetChanged() }
-                runOnUiThread { onTabSelected(tlOrder.getTabAt(tlOrder.selectedTabPosition)!!) }
+                runOnUiThread {
+                    onTabSelected(tlOrder.getTabAt(tlOrder.selectedTabPosition)!!)
+                    initGoodsDisplay()
+                }
             }
         })
     }
@@ -90,6 +109,8 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
     }
 
     override fun onTabSelected(tab: TabLayout.Tab) {
+        cl_order_no_record_tip.visibility = View.GONE
+
 //        if (isFirst) {
 //            isFirst = false
 //            return
@@ -103,15 +124,22 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         bufferList.addAll(allOrderList)
 
         filterList = when (sTab) {
-            "待付款" -> bufferList.stream().filter { it.orderStatus.toInt() == 1 }.collect(Collectors.toList())
-            "待发货" -> bufferList.stream().filter { it.orderStatus.toInt() == 2 }.collect(Collectors.toList())
-            "待收货" -> bufferList.stream().filter { it.orderStatus.toInt() == 3 }.collect(Collectors.toList())
-            "待评论" -> bufferList.stream().filter { it.orderStatus.toInt() == 4 }.collect(Collectors.toList())
+            "待付款" -> bufferList.stream().filter { it.orderStatus.toInt() == 0 }.collect(Collectors.toList())
+            "待发货" -> bufferList.stream().filter { it.orderStatus.toInt() == 1 }.collect(Collectors.toList())
+            "待收货" -> bufferList.stream().filter { it.orderStatus.toInt() == 2 }.collect(Collectors.toList())
+            "待评论" -> bufferList.stream().filter { it.orderStatus.toInt() == 3 }.collect(Collectors.toList())
             else -> bufferList
         }
         orderList.clear()
         orderList.addAll(filterList)
         adapter.notifyDataSetChanged()
+
+        // NestedScrollView 滑至顶部
+        nsv_order.fling(0)
+        nsv_order.smoothScrollTo(0, 0)
+
+        if (orderList.size == 0) cl_order_no_record_tip.visibility = View.VISIBLE
+        initGoodsDisplay()
     }
 
     override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -130,6 +158,29 @@ class OrderActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         WAIT_RECEIVING,     // 待收货
         WAIT_COMMENT        // 待评论
     }
+
+
+    private fun initGoodsDisplay() {
+        // 等待数据加载完成后再显示
+        ll_order_rv_goods.visibility = View.GONE
+        goodsList.clear()
+        HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "goods/getAllGoods", object : Callback {
+
+            override fun onFailure(call: Call, e: IOException) {}
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                val goodsListData = JsonUtil.parseJSONObjectInStringToEntityList(response.body()!!.string(), OsGoods::class.java)
+                goodsList.addAll(goodsListData)
+                runOnUiThread {
+                    goodsAdapter.notifyDataSetChanged()
+                    ll_order_rv_goods.visibility = View.VISIBLE
+                    Toast.makeText(this@OrderActivity, "数据已更新", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
 
 }
 

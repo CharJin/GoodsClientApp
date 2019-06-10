@@ -106,7 +106,7 @@
                     app:layout_constraintEnd_toEndOf="@id/tv_order_detail_center_goods_order_pay" />
 
                 <ImageView
-                    android:id="@+id/iv_order_submit_list_item_type"
+                    android:id="@+id/iv_order_detail_shop_type"
                     android:layout_width="22dp"
                     android:layout_height="22dp"
                     android:layout_marginStart="16dp"
@@ -115,16 +115,16 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_order_submit_list_item_shop_name"
+                    android:id="@+id/tv_order_detail_shop_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:text="成都文理商品店"
                     android:textColor="@color/app_base_black_color"
                     android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_order_submit_list_item_type"
-                    app:layout_constraintStart_toEndOf="@id/iv_order_submit_list_item_type"
-                    app:layout_constraintTop_toTopOf="@+id/iv_order_submit_list_item_type" />
+                    app:layout_constraintBottom_toBottomOf="@id/iv_order_detail_shop_type"
+                    app:layout_constraintStart_toEndOf="@id/iv_order_detail_shop_type"
+                    app:layout_constraintTop_toTopOf="@id/iv_order_detail_shop_type" />
 
 
                 <LinearLayout
@@ -135,7 +135,7 @@
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_order_submit_list_item_type">
+                    app:layout_constraintTop_toBottomOf="@+id/iv_order_detail_shop_type">
 
                     <include layout="@layout/order_include_goods_item" />
 
@@ -250,12 +250,20 @@
             <include layout="@layout/order_detail_include_info" />
 
 
-            <TextView
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:paddingHorizontal="20dp"-->
+            <!--android:text="——待完善: 猜你喜欢推荐内容——" />-->
+
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingHorizontal="20dp"
-                android:text="——待完善: 猜你喜欢推荐内容——" />
+                android:layout_height="10dp"
+                android:background="#EEEEEE" />
+
+            <include layout="@layout/goods_display_include_recommend" />
 
         </LinearLayout>
 

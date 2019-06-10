@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.goods_display_include_recommend.*
 import kotlinx.android.synthetic.main.order_result_activity_main.*
 import okhttp3.Call
 import okhttp3.Callback
@@ -27,6 +29,22 @@ class OrderResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_result_activity_main)
+
+        when (intent.getBooleanExtra("orderStatus", false)) {
+            true -> {
+
+            }
+            false -> {
+                Glide.with(this)
+                        .load(R.drawable.order_result_unsuccess_icon_fill_white)
+                        .into(iv_order_result_status)
+                tv_order_result_status.text = "交易失败"
+                tv_order_result_tip.text = "快去为你的宝贝买单吧~"
+                tv_btn_order_result_evaluate.text = "立即支付"
+            }
+        }
+
+        tv_btn_order_result_go_home
 
         adapter = GoodsDisplayAdapter(this, goodsList)
         rv_order_result_goods_display.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

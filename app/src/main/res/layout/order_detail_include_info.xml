@@ -43,7 +43,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/tv_order_detail_order_"
+            android:id="@+id/tv_order_detail_pay_channel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -71,7 +71,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/tv_order_detail_order_number"
+            android:id="@+id/tv_order_detail_order_no"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -179,7 +179,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/tv_order_detail_order_finish_time"
+            android:id="@+id/tv_order_detail_order_fulfil_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
