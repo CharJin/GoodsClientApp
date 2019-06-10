@@ -162,9 +162,9 @@ public class HomeFragment extends BaseFragment {
                 goodsList.addAll(goodsListData);
 
 //                isRefresh = true;
-//                data.addAll(HomeFragment.this.goodsList);
+//                goodsList.addAll(HomeFragment.this.goodsList);
                 activity.runOnUiThread(() -> {
-//                    adapter.setData(HomeFragment.this.goodsList);
+//                    adapter.setGoodsList(HomeFragment.this.goodsList);
                     adapter.notifyDataSetChanged();
                     Toast.makeText(context, "数据已更新", Toast.LENGTH_SHORT).show();
                 });

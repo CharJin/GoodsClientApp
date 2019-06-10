@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context=".activity.ShopActivity">
 
-    <include layout="@layout/separator_line_horizontal" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,10 +31,13 @@
 
     </RelativeLayout>
 
+    <include layout="@layout/separator_line_horizontal" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_shop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingTop="4dp" />
 
 
 </LinearLayout>

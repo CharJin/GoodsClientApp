@@ -175,20 +175,6 @@
             app:layout_constraintHorizontal_bias="0.166"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/avi_loading"
-            style="@style/AVLoadingIndicatorView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:visibility="visible"
-            app:indicatorColor="#FF00FF"
-            app:indicatorName="BallPulseIndicator"
-            app:layout_constraintBottom_toTopOf="@+id/tv_btn_confirm_goods_item"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
-
 
     </android.support.constraint.ConstraintLayout>
 

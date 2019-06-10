@@ -1,8 +1,6 @@
 package top.charjin.shoppingclient.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import es.dmoral.toasty.Toasty
@@ -19,7 +17,7 @@ import top.charjin.shoppingclient.utils.JsonUtil
 import top.charjin.shoppingclient.utils.Router
 import java.io.IOException
 
-class ShopActivity : AppCompatActivity() {
+class ShopActivity : BaseActivity() {
 
     private lateinit var adapter: ShopGoodsAdapter
     private val goodsList = arrayListOf<OsGoods>()
@@ -27,12 +25,31 @@ class ShopActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shop_activity_main)
-        adapter = ShopGoodsAdapter(this, goodsList, ShopGoodsAdapter.ItemClickListener {
-            val intent = Intent(this, GoodsActivity::class.java)
-            intent.putExtra("goods", it)
-            startActivity(intent)
-        })
-        rv_shop.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        adapter = ShopGoodsAdapter(this, goodsList)
+        adapter.onCartClickListener = object : ShopGoodsAdapter.OnCartClickListener {
+            override fun onCartClick(goods: OsGoods) {
+                HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoods?userId=${user.userId}&goodsId=${goods.goodsId}&goodsNum=1",
+                        object : Callback {
+                            override fun onFailure(call: Call, e: IOException) {
+                                Toasty.error(this@ShopActivity, "购物车添加请求失败!").show()
+                            }
+
+                            override fun onResponse(call: Call, response: Response) {
+                                val affectedRow = response.body()!!.string().toInt()
+                                runOnUiThread {
+                                    if (affectedRow > 0)
+                                        Toasty.success(this@ShopActivity, "已加至购物车!").show()
+                                    else
+                                        Toasty.success(this@ShopActivity, "添加失败,似乎出现了问题!").show()
+                                }
+                            }
+
+                        })
+            }
+        }
+
+        rv_shop.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         this.rv_shop.adapter = adapter
 
         val shop = intent.getSerializableExtra("shop") as OsShop
@@ -50,8 +67,8 @@ class ShopActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 val jsonData = response.body()?.string()
-                val goodsDataList = JsonUtil.parseJSONObjectInStringToEntityList(jsonData, OsGoods::class.java)
-                goodsList.addAll(goodsDataList)
+                val goodsListData = JsonUtil.parseJSONObjectInStringToEntityList(jsonData, OsGoods::class.java)
+                goodsList.addAll(goodsListData)
                 runOnUiThread(adapter::notifyDataSetChanged)
             }
         })

@@ -10,7 +10,6 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="14dp"
-        android:background="@drawable/order_goods_iv_bg_radius"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/separator_line_horizontal"
         app:layout_constraintStart_toStartOf="parent"

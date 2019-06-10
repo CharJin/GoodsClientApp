@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class SharedPreferencesUtil {
     public static boolean isFirstLaunched(Context context) {
-        SharedPreferences sp = context.getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences("goodsList", Context.MODE_PRIVATE);
         boolean isFirst = sp.getBoolean("isFirst", true);
         if (isFirst) {
             SharedPreferences.Editor editor = sp.edit();

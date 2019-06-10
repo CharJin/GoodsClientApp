@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="5dp"
+    app:cardCornerRadius="6dp">
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+
+
+        <ImageView
+            android:id="@+id/iv_shop_goods"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="14dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/background" />
+
+        <TextView
+            android:id="@+id/tv_shop_goods_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="14dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/goods_display_ads_title"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/iv_shop_goods"
+            app:layout_constraintTop_toTopOf="@id/iv_shop_goods" />
+
+        <TextView
+            android:id="@+id/tv_shop_goods_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="From Description"
+            android:textColor="#DA9963"
+            app:layout_constraintStart_toStartOf="@id/tv_shop_goods_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_shop_goods_name" />
+
+
+        <TextView
+            android:id="@+id/tv_shop_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="299.00"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_shop_goods_price_prefix"
+            app:layout_constraintStart_toEndOf="@+id/tv_shop_goods_price_prefix" />
+
+        <TextView
+            android:id="@+id/tv_shop_goods_price_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:text="￥"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_shop_goods"
+            app:layout_constraintStart_toStartOf="@+id/tv_shop_goods_mode" />
+
+        <TextView
+            android:id="@+id/tv_shop_goods_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="包邮"
+            android:textColor="#A8A8A8"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_shop_goods_price_prefix"
+            app:layout_constraintStart_toStartOf="@+id/tv_shop_goods_price_prefix" />
+
+        <TextView
+            android:id="@+id/tv_shop_goods_sale_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:paddingBottom="2dp"
+            android:text="@string/shop_goods_sale_volume"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_shop_goods_price"
+            app:layout_constraintStart_toEndOf="@+id/tv_shop_goods_price" />
+
+        <ImageView
+            android:id="@+id/iv_shop_goods_cart"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_shop_goods_sale_volume"
+            app:layout_constraintEnd_toEndOf="@id/tv_shop_goods_name"
+            app:srcCompat="@drawable/shop_goods_cart_orange" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.CardView>

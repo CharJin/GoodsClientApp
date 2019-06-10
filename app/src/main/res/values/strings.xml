@@ -42,6 +42,7 @@
     <string name="shop_name_title">%s</string>
     <string name="shop_goods_price">¥%s</string>
     <string name="shop_goods_checkout">月销%d笔</string>
+    <string name="shop_goods_sale_volume">%d人付款</string>
     <string name="app_price_prefix">￥</string>
 
 

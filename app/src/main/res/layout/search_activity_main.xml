@@ -28,7 +28,10 @@
             android:layout_height="35dp"
             android:layout_weight="1"
             android:background="@drawable/home_toolbar_search"
-            android:hint="都是好货"
+            android:hint="小米"
+            android:imeActionId="1"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:paddingStart="15dp"
             android:textColorHighlight="#ffffff"
             android:textSize="16sp" />
