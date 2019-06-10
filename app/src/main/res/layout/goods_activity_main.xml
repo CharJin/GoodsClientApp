@@ -109,9 +109,13 @@
 
                     <TextView
                         android:id="@+id/tv_goods_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:text="这里是商品名称 很长"
                         android:textColor="@color/app_base_black_color"
                         android:textSize="18sp"
@@ -122,13 +126,14 @@
                         android:id="@+id/tv_goods_freight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="80dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="4dp"
                         android:text="运费 0 元"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/tv_goods_price_prefix"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
+                        app:layout_goneMarginBottom="4dp" />
 
                     <TextView
                         android:id="@+id/tv_goods_sale_volume"

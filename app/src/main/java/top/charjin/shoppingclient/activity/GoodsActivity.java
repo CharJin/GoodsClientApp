@@ -292,6 +292,7 @@ public class GoodsActivity extends BaseActivity {
         orderGoodsList.add(orderGoodsModel);
         intent.putExtra("orderGoodsList", orderGoodsList);
         startActivity(intent);
+//        finish();
     }
 
     public void goShop(View view) {

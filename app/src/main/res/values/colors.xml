@@ -74,4 +74,8 @@
     <color name="order_detail_goods_service_bg_color">#19FC6855</color>
 
 
+    <color name="goods_display_free_shipping_tv_yellow">#FFAC4E</color>
+    <color name="goods_display_free_shipping_tv_opaque_yellow">#22FFAC4E</color>
+
+
 </resources>

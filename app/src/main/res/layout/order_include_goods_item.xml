@@ -19,13 +19,18 @@
 
     <TextView
         android:id="@+id/tv_order_goods_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
         android:maxLines="2"
         android:text="商品描述"
         android:textColor="@color/app_base_black_color"
         android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_order_price_prefix"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@id/iv_order_goods"
         app:layout_constraintTop_toTopOf="@id/iv_order_goods" />
 
@@ -43,19 +48,19 @@
         android:id="@+id/tv_order_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="12dp"
         android:text="299.00"
         android:textColor="@color/app_base_black_color"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/tv_order_goods_name"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_order_price_prefix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
+        android:paddingBottom="2dp"
         android:text="￥"
         android:textColor="@color/app_base_black_color"
         android:textSize="10sp"

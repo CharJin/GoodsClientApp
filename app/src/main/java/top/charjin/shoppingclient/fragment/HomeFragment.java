@@ -32,10 +32,9 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.activity.GoodsActivity;
 import top.charjin.shoppingclient.activity.SearchActivity;
 import top.charjin.shoppingclient.activity.SearchResultActivity;
-import top.charjin.shoppingclient.adapter.HomeGoodsAdapter;
+import top.charjin.shoppingclient.adapter.GoodsDisplayAdapter;
 import top.charjin.shoppingclient.entity.OsGoods;
 import top.charjin.shoppingclient.entity.OsRecommend;
 import top.charjin.shoppingclient.utils.HttpUtil;
@@ -44,8 +43,8 @@ import top.charjin.shoppingclient.utils.Router;
 
 public class HomeFragment extends BaseFragment {
 
-    List<OsGoods> goodsList = new ArrayList<>();
-    HomeGoodsAdapter adapter;
+    private List<OsGoods> goodsList = new ArrayList<>();
+    private GoodsDisplayAdapter adapter;
     private View viewHome;
     private RecyclerView rvGoods;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -80,11 +79,9 @@ public class HomeFragment extends BaseFragment {
         initRecommend();
 
         // RecyclerView
-        adapter = new HomeGoodsAdapter(context, goodsList, goods -> {
-            Intent intent = new Intent(this.context, GoodsActivity.class);
-            intent.putExtra("goods", goods);
-            startActivity(intent);
-        });
+        adapter = new GoodsDisplayAdapter(context, goodsList);
+
+
         rvGoods.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         rvGoods.setAdapter(adapter);
 
@@ -160,15 +157,14 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                goodsList = JsonUtil.parseJSONObjectInStringToEntityList(response.body().string(), OsGoods.class);
-                List<OsGoods> data = adapter.getData();
-//                if (isRefresh) {
-//                    data.clear();
-//                }
-                isRefresh = true;
-                data.addAll(goodsList);
+                List<OsGoods> goodsListData = JsonUtil.parseJSONObjectInStringToEntityList(response.body().string(), OsGoods.class);
+                goodsList.clear();
+                goodsList.addAll(goodsListData);
+
+//                isRefresh = true;
+//                data.addAll(HomeFragment.this.goodsList);
                 activity.runOnUiThread(() -> {
-                    adapter.setData(goodsList);
+//                    adapter.setData(HomeFragment.this.goodsList);
                     adapter.notifyDataSetChanged();
                     Toast.makeText(context, "数据已更新", Toast.LENGTH_SHORT).show();
                 });

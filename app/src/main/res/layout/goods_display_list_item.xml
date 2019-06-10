@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_margin="6dp"
+    app:cardCornerRadius="8dp">
+
+    <!--android:layout_height="300dp"-->
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/iv_goods_display"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_goods_display_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:maxLines="2"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/goods_display_ads_title"
+            android:textColor="@color/app_base_black_color"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/iv_goods_display" />
+
+        <TextView
+            android:id="@+id/tv_goods_display_price_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="14dp"
+            android:paddingBottom="4dp"
+            android:text="¥"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_goods_display_welfare" />
+
+        <TextView
+            android:id="@+id/tv_goods_display_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:text="299"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_goods_display_price_prefix"
+            app:layout_constraintStart_toEndOf="@+id/tv_goods_display_price_prefix" />
+
+        <TextView
+            android:id="@+id/tv_goods_display_sale_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:paddingBottom="4dp"
+            android:text="@string/goods_display_sale_volume"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_goods_display_price"
+            app:layout_constraintStart_toEndOf="@+id/tv_goods_display_price" />
+
+        <TextView
+            android:id="@+id/tv_goods_display_welfare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:width="40dp"
+            android:background="@drawable/goods_display_welfare_bg_tv"
+            android:gravity="center"
+            android:text="包邮"
+            android:textColor="@color/goods_display_free_shipping_tv_yellow"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_goods_display_title" />
+
+        <TextView
+            android:id="@+id/tv_goods_display_region"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="浙江"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_goods_display_welfare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_goods_display_welfare" />
+
+        <ImageView
+            android:id="@+id/iv_goods_display_more"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_goods_display_price"
+            app:srcCompat="@drawable/app_more_icon_horizontal_white" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.CardView>

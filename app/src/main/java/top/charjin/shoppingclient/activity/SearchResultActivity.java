@@ -1,6 +1,5 @@
 package top.charjin.shoppingclient.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +18,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.adapter.HomeGoodsAdapter;
-import top.charjin.shoppingclient.adapter.SearchResultGoodsAdapter;
+import top.charjin.shoppingclient.adapter.GoodsDisplayAdapter;
 import top.charjin.shoppingclient.entity.OsGoods;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.Router;
@@ -28,37 +26,23 @@ import top.charjin.shoppingclient.utils.Router;
 public class SearchResultActivity extends AppCompatActivity implements Callback {
 
     private RecyclerView rvRsGoods;
-    private SearchResultGoodsAdapter adapter;
-    private HomeGoodsAdapter adapter1;
+    private GoodsDisplayAdapter adapter;
     private List<OsGoods> goodsList = new ArrayList<>();
 
     private TextView tvSearchKey;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result_activity);
-
         initComponent();
 
         // 设置搜索框，内容
-        String key = getIntent().getStringExtra("key");
+        key = getIntent().getStringExtra("key");
         tvSearchKey.setText(key);
 
-        ///////////
-
-        adapter1 = new HomeGoodsAdapter(this, goodsList, goods -> {
-            Intent intent = new Intent(this, GoodsActivity.class);
-            intent.putExtra("goods", goods);
-            startActivity(intent);
-        });
-        rvRsGoods.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        rvRsGoods.setAdapter(adapter1);
-        HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "goods/getGoodsByKey?key=" + key, this);
-
-        //////////
-
-
+        initGoodsData();
     }
 
     private void initComponent() {
@@ -66,7 +50,12 @@ public class SearchResultActivity extends AppCompatActivity implements Callback 
         rvRsGoods = findViewById(R.id.rv_search_result_goods);
     }
 
-    private void initGoods() {
+    private void initGoodsData() {
+
+        adapter = new GoodsDisplayAdapter(this, goodsList);
+        rvRsGoods.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        rvRsGoods.setAdapter(adapter);
+        HttpUtil.sendOkHttpRequestByGet(Router.GOODS_URL + "getGoodsByKey?key=" + key, this);
 
 
 //        Retrofit retrofit = new Retrofit.Builder()
@@ -108,14 +97,12 @@ public class SearchResultActivity extends AppCompatActivity implements Callback 
         System.out.println(jsonData);
 
         Gson gson = new Gson();
-        goodsList = gson.fromJson(jsonData, new TypeToken<List<OsGoods>>() {
+        List<OsGoods> goodsListData = gson.fromJson(jsonData, new TypeToken<List<OsGoods>>() {
         }.getType());
+        this.goodsList.clear();
+        this.goodsList.addAll(goodsListData);
 
-        runOnUiThread(() -> {
-            adapter1.getData().clear();
-            adapter1.getData().addAll(goodsList);
-            adapter1.notifyDataSetChanged();
-        });
+        runOnUiThread(() -> adapter.notifyDataSetChanged());
 
 
     }
