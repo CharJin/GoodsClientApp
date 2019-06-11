@@ -23,9 +23,9 @@ public class IntroSliderAdapter extends PagerAdapter {
     private int[] slide_images = {R.drawable.eat_icon, R.drawable.sleep_icon, R.drawable.code_icon};
     private String[] slide_headings = {"EAT", "SLEEP", "CODE"};
     private String[] slide_descs = {
-            "fdsohfodshgfusdhgufsdhugifhsd\nfdsafjidfdsafdsa"
-            , "54325432543254325432543\nfdsafdasfdsafdasfdsa\nfdsafdsafd"
-            , "54325555555555555544444444444444444444\nfdsafdsa\nfdsafdsaf"};
+            "测试数据\nfdsafjidfdsafdsa"
+            , "54325432543254325432543\n都是测试数据\nfdsafdsafd"
+            , "54325555555555555544444444444444444444\nfdsafdsa\n就是测试数据"};
 
     public IntroSliderAdapter(Context context) {
         this.context = context;

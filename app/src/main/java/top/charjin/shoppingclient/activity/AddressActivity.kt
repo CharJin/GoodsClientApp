@@ -3,7 +3,6 @@ package top.charjin.shoppingclient.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -15,24 +14,19 @@ import okhttp3.Response
 import top.charjin.shoppingclient.R
 import top.charjin.shoppingclient.adapter.AddressAdapter
 import top.charjin.shoppingclient.entity.OsAddress
-import top.charjin.shoppingclient.entity.OsUser
 import top.charjin.shoppingclient.utils.HttpUtil
 import top.charjin.shoppingclient.utils.JsonUtil
 import top.charjin.shoppingclient.utils.Router
 import java.io.IOException
 
-class AddressActivity : AppCompatActivity(), Callback {
-    private lateinit var user: OsUser
+class AddressActivity : BaseActivity(), Callback {
+
     private lateinit var adapter: AddressAdapter
 
     private val addressList = mutableListOf<OsAddress>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.address_activity_main)
-
-        // 通过 application 对象获取用户对象, 此处简单处理
-        user = OsUser()
-        user.userId = 1
 
         // 初始化地址信息
         adapter = AddressAdapter(this, addressList)
@@ -61,7 +55,7 @@ class AddressActivity : AppCompatActivity(), Callback {
         super.onResume()
         // 在onResume中进行数据请求以避免从另一页面修改地址后转回而数据不更新
         addressList.clear()
-        HttpUtil.sendOkHttpRequestByGet(Router.ADDRESS_URL + "getAllAddressByUserId?userId=1", this)
+        HttpUtil.sendOkHttpRequestByGet(Router.ADDRESS_URL + "getAllAddressByUserId?userId=${user.userId}", this)
     }
 
     fun finishOnClick(view: View) = finish()

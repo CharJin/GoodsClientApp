@@ -18,7 +18,7 @@
             android:layout_height="65dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:src="#FFFFFF" />
+            android:src="@drawable/background" />
 
         <TextView
             android:id="@+id/tv_user_name"

@@ -11,23 +11,31 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import top.charjin.shoppingclient.R;
+import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.activity.OrderActivity;
 import top.charjin.shoppingclient.activity.UserInfoActivity;
+import top.charjin.shoppingclient.entity.OsUser;
 
 public class ProfileFragment extends BaseFragment implements View.OnClickListener {
 
-    private TextView tvBtnAllOrder;
     private RelativeLayout rlMyOrder;
     private LinearLayout llOrderObligation, llWaitReceiving, llOrderComment;
+    private TextView tvUserName;
+    private CircleImageView civHeaderPortrait;
     private View homeView;
     private RelativeLayout rlUser;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         homeView = inflater.inflate(R.layout.profile_fragment_main, container, false);
         intiComponent();
+
 
 //        rlUser.setOnClickListener(e -> startActivity(new Intent(getContext(), LoginActivity.class)));
         rlUser.setOnClickListener(e -> {
@@ -57,13 +65,33 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
 
     private void intiComponent() {
+        tvUserName = homeView.findViewById(R.id.tv_user_name);
         rlUser = homeView.findViewById(R.id.rl_profile_top);
+        civHeaderPortrait = homeView.findViewById(R.id.civ_user_head_portrait);
         rlMyOrder = homeView.findViewById(R.id.rl_profile_my_order);
         llOrderObligation = homeView.findViewById(R.id.ll_shop_order_obligation);
         llWaitReceiving = homeView.findViewById(R.id.ll_shop_order_wait_receiving);
         llOrderComment = homeView.findViewById(R.id.ll_shop_order_comment);
+    }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        OsUser user = ShoppingApplication.getUser();
+        if (user != null) {
+            tvUserName.setText(user.getUsername());
+            Glide.with(this)
+                    .load(user.getHeadPortrait())
+                    .centerCrop()
+                    .into(civHeaderPortrait);
+        } else {
+            tvUserName.setText("用户未登录");
+            Glide.with(this)
+                    .load(R.drawable.background)
+                    .centerCrop()
+                    .into(civHeaderPortrait);
+        }
     }
 
     @Override

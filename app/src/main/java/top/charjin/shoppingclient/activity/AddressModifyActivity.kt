@@ -3,7 +3,6 @@ package top.charjin.shoppingclient.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -21,7 +20,7 @@ import top.charjin.shoppingclient.utils.Router
 import java.io.IOException
 
 
-class AddressModifyActivity : AppCompatActivity(), TextWatcher {
+class AddressModifyActivity : BaseActivity(), TextWatcher {
 
 
 //    private var options1Items = arrayListOf<ProvinceModel>()
@@ -50,7 +49,6 @@ class AddressModifyActivity : AppCompatActivity(), TextWatcher {
 //        initAreaInfo()
 
         address = intent.getSerializableExtra("address") as OsAddress
-//        address = if (extraAddress != null) extraAddress as OsAddress else OsAddress()
 
         type = intent.getIntExtra("addressOperatorType", ADDRESS_ADD)   // 默认数值为0 : add
 
@@ -67,7 +65,7 @@ class AddressModifyActivity : AppCompatActivity(), TextWatcher {
         // 添加状态不做数据初始化,但需修改数据header界面
         if (type == ADDRESS_ADD) {
             tv_address_modify_header_title.text = resources.getString(R.string.address_modify_header_title_tv_add)
-            tv_btn_address_modify_header_delete.visibility = View.GONE
+            tv_btn_address_modify_header_delete.visibility = View.GONE     // 新增时候,删除按钮不可见
             return
         }
 
@@ -77,7 +75,7 @@ class AddressModifyActivity : AppCompatActivity(), TextWatcher {
 
         et_address_modify_receiver.setText(address.receiver)
         et_address_modify_phone.setText(address.phone.toString())
-        et_address_modify_district.setText(String.format("%s%s%s", province, city, district))
+        et_address_modify_district.setText(String.format("%s %s %s", province, city, district))
         et_address_modify_detail.setText(address.addressDetail)
         cb_address_modify_is_default.isChecked = address.isDefault
 
@@ -90,9 +88,19 @@ class AddressModifyActivity : AppCompatActivity(), TextWatcher {
     fun saveOnClick(view: View) {
         address.receiver = et_address_modify_receiver.text.toString()
         address.phone = et_address_modify_phone.text.toString()
-        address.province = this.province
-        address.city = this.city
-        address.district = this.district
+
+        // 基本地址部分 暂时固定用空格分开,其后预模拟京东地址添加方式
+//        val oldBasicAddress = arrayOf(address.province, address.city, address.district)
+        val basicAddressArr = et_address_modify_district.text.split(" ")
+
+//        for (i in 0 until if (basicAddressArr.size > 3) 3 else basicAddressArr.size)
+//            oldBasicAddress[i] = basicAddressArr[i]
+
+        address.province = province
+        address.city = city
+        address.district = district
+
+
         address.addressDetail = et_address_modify_detail.text.toString()
         address.isDefault = cb_address_modify_is_default.isChecked
 

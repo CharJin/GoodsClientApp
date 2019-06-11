@@ -16,6 +16,9 @@ import top.charjin.shoppingclient.view.OrderGoodsView
 
 class OrderAdapter(val context: Context, val orderList: List<OsOrderModel>) : RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
 
+
+    var isAllOrder: Boolean = false
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.order_list_item, viewGroup, false))
     }
@@ -26,7 +29,7 @@ class OrderAdapter(val context: Context, val orderList: List<OsOrderModel>) : Re
         val shop = order.shop
         holder.tvShopName.text = shop.shopName
 
-//        Glide.with(holder.ivShopType).load()  商品类型不同,显示的前缀图标也不错 暂不修改
+//        Glide.with(context).load("").into(holder.ivShopType)  //商品类型不同,显示的前缀图标也不错 暂不修改
 //        订单状态暂不显示
 //        holder.tvOrderStatus.setText(String.format("%s", order.orderStatus));
 
@@ -39,6 +42,19 @@ class OrderAdapter(val context: Context, val orderList: List<OsOrderModel>) : Re
         holder.tvGoodsNum.text = context.resources.getString(R.string.order_goods_item_goods_num, order.orderDetailList.size)
 
         holder.tvGoodsAmount.text = String.format("%.2f", order.orderAmountActual)
+
+        if (isAllOrder) {
+            holder.tvOrderStatus.visibility = View.VISIBLE
+            when (order.orderStatus) {
+                -1 -> holder.tvOrderStatus.text = "订单已取消"
+                0 -> holder.tvOrderStatus.text = "未支付"
+                1 -> holder.tvOrderStatus.text = "待发货"
+                2 -> holder.tvOrderStatus.text = "待收货"
+                3 -> holder.tvOrderStatus.text = "待评论"
+            }
+
+        } else
+            holder.tvOrderStatus.visibility = View.GONE
 
         // 点击头部 跳转到店铺
         holder.llHeaderShop.setOnClickListener {
@@ -71,6 +87,7 @@ class OrderAdapter(val context: Context, val orderList: List<OsOrderModel>) : Re
         val llHeaderShop = view.ll_order_list_item_header_shop
         val ivShopType = view.iv_order_list_item_type
         val tvShopName = view.tv_order_list_item_shop_name
+        val tvOrderStatus = view.tv_order_list_item_order_status
 
         val llShopMain = view.ll_order_list_item_goods
 

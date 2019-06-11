@@ -1,10 +1,14 @@
 package top.charjin.shoppingclient.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.bumptech.glide.Glide
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.user_info_activity_main.*
 import top.charjin.shoppingclient.R
+import top.charjin.shoppingclient.ShoppingApplication
 
 class UserInfoActivity : BaseActivity() {
 
@@ -17,6 +21,10 @@ class UserInfoActivity : BaseActivity() {
     }
 
     private fun initComponentData() {
+        Glide.with(this)
+                .load(user.headPortrait)
+                .centerCrop()
+                .into(civ_info_setting_head_portrait)
         tv_info_setting_nickname.text = user.nickname
         tv_info_setting_username.text = user.username
         tv_user_info_content_sex.text = user.sex
@@ -27,12 +35,15 @@ class UserInfoActivity : BaseActivity() {
 
 
     fun settingItemOnClick(view: View) {
-        val viewId = view.id
-        startActivity(Intent(this, AddressActivity::class.java))
-//        val intent = Intent(this,)
-//        when(viewId){
-//            R.id.ll_user_info_address ->
-//        }
+        when (view.id) {
+            R.id.tv_btn_user_info_quit -> {
+                ShoppingApplication.setUser(null)
+                getSharedPreferences("user", Context.MODE_PRIVATE).edit().clear().apply()
+                Toasty.success(this, "已退出").show()
+                finish()
+            }
+            else -> startActivity(Intent(this, AddressActivity::class.java))
+        }
     }
 
     fun finishOnClick(view: View) = finish()

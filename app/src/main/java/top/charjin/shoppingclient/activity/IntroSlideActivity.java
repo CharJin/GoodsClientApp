@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.adapter.IntroSliderAdapter;
+import top.charjin.shoppingclient.utils.SharedPreferencesUtil;
 
 public class IntroSlideActivity extends AppCompatActivity {
 
@@ -30,10 +31,10 @@ public class IntroSlideActivity extends AppCompatActivity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-//        if (!SharedPreferencesUtil.isFirstLaunched(this)) {
-        startActivity(new Intent(this, AppActivity.class));
-        this.finish();
-//        }
+        if (!SharedPreferencesUtil.isFirstLaunched(this)) {
+            startActivity(new Intent(this, AppActivity.class));
+            this.finish();
+        }
 
         setContentView(R.layout.intro_activity_main);
 
@@ -61,10 +62,10 @@ public class IntroSlideActivity extends AppCompatActivity {
                 if (i == 0) btnPre.setVisibility(View.INVISIBLE);
                 else {
                     btnPre.setVisibility(View.VISIBLE);
-                    if (i == mDots.length - 1) btnNext.setText("FINISH");
+                    if (i == mDots.length - 1) btnNext.setText("进入");
                     else {
-                        btnPre.setText("PRE");
-                        btnNext.setText("NEXT");
+                        btnPre.setText("上一页");
+                        btnNext.setText("下一页");
                     }
                 }
                 addDotsIndicator(i);
@@ -85,7 +86,7 @@ public class IntroSlideActivity extends AppCompatActivity {
                 mSlideViewPager.setCurrentItem(mCurrentPage);
                 addDotsIndicator(mCurrentPage);
             } else {
-                Intent intent = new Intent(this, TestTabActivity.class);
+                Intent intent = new Intent(this, AppActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -97,6 +98,10 @@ public class IntroSlideActivity extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * 添加底部的指示点
+     */
     private void addDotsIndicator(int position) {
 
         mDots = new TextView[3];

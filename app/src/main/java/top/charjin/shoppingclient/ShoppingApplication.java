@@ -14,6 +14,7 @@ import top.charjin.shoppingclient.entity.OsUser;
 public class ShoppingApplication extends Application {
 
     public static final Map<String, Object> map = new HashMap<>();
+
     private static OsUser user = null;
 
     @SuppressLint("StaticFieldLeak")

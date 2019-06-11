@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +28,10 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
+import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.activity.GoodsActivity;
 import top.charjin.shoppingclient.activity.ShopActivity;
+import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.model.CartGoodsModel;
 import top.charjin.shoppingclient.model.CartShopModel;
 import top.charjin.shoppingclient.utils.HttpUtil;
@@ -37,6 +41,7 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
 
     private Context context;
     private List<CartShopModel> shopList;
+    private OsUser user;
     private Map<CartShopModel, List<CartGoodsModel>> cartMap;
     private List<Integer> chosenGoodsIdList = new ArrayList<>();
     private int chosenNum = 0;
@@ -49,6 +54,7 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
         this.context = context;
         this.shopList = shopList;
         this.cartMap = cartMap;
+        user = ShoppingApplication.getUser();
     }
 
     // group的数量 购物车中商店的数量
@@ -167,6 +173,7 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
             view = convertView;
             holder = (ViewHolderGoods) view.getTag();
         }
+        Glide.with(context).load(goods.getImage()).into(holder.ivGoods);
         // property, bind event---
         holder.cbChoose.setChecked(goods.isChecked());
         if (goods.isChecked()) chosenNum++;
@@ -183,7 +190,7 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
         holder.btnPlus.setOnClickListener(e -> {
             int num = Integer.parseInt(holder.tvGoodsNum.getText().toString()), newNum = num + 1;
 
-            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + 1 + "&goodsId=" + goods.getGoodsId() + "&number=" + newNum, new Callback() {
+            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + user.getUserId() + "&goodsId=" + goods.getGoodsId() + "&number=" + newNum, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     onCartGoodsChangedListener.onCartGoodsChanged(false);
@@ -213,7 +220,7 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
                 Toast.makeText(context, "商品数量不能再少啦!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + 1 + "&goodsId=" + goods.getGoodsId() + "&number=" + newNum, new Callback() {
+            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + user.getUserId() + "&goodsId=" + goods.getGoodsId() + "&number=" + newNum, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     onCartGoodsChangedListener.onCartGoodsChanged(false);

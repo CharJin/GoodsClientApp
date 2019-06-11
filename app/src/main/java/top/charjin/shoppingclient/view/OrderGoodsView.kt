@@ -3,6 +3,7 @@ package top.charjin.shoppingclient.view
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.LayoutInflater
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.order_include_goods_item.view.*
 import top.charjin.shoppingclient.R
 import top.charjin.shoppingclient.entity.OsOrderDetail
@@ -14,7 +15,7 @@ class OrderGoodsView(context: Context, orderDetailGoods: OsOrderDetail) : Constr
 
         val goods = orderDetailGoods.goods
 
-//        Glide.with(iv_order_submit_goods).load(goods.image)
+        Glide.with(context).load(goods.image).into(iv_order_goods)
 //        iv_order_submit_goods = goods.
         tv_order_goods_name.text = goods.goodsName
         tv_order_mode.text = context.resources.getString(R.string.preorder_list_item_goods_plan, orderDetailGoods.goodsMode)
