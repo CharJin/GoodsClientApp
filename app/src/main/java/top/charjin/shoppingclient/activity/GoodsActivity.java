@@ -31,7 +31,6 @@ import okhttp3.Response;
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.entity.OsGoods;
 import top.charjin.shoppingclient.entity.OsShop;
-import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.model.CartGoodsModel;
 import top.charjin.shoppingclient.model.PreOrderGoodsModel;
 import top.charjin.shoppingclient.utils.HttpUtil;
@@ -192,8 +191,6 @@ public class GoodsActivity extends BaseActivity {
         // 弹窗中点击确认按钮
         tvBtnBuyConfirm.setOnClickListener(v -> {
 //            OsUser user = (OsUser) MyApplication.map.get("user");
-            OsUser user = new OsUser();
-            user.setUserId(1);
             if (user == null) {
                 Toast.makeText(this, "请登录", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, LoginActivity.class));
@@ -277,6 +274,11 @@ public class GoodsActivity extends BaseActivity {
     }
 
     public void buyNow(View view) {
+        if (!existsUser()) {
+            Toasty.info(this, "请登录账户").show();
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         Intent intent = new Intent(this, OrderSubmitActivity.class);
         OsShop shop = goods.getShop();
         ArrayList<PreOrderGoodsModel> orderGoodsList = new ArrayList<>();

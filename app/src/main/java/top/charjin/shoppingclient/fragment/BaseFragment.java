@@ -1,6 +1,5 @@
 package top.charjin.shoppingclient.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +15,7 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import top.charjin.shoppingclient.activity.AppActivity;
 import top.charjin.shoppingclient.activity.LoginActivity;
 import top.charjin.shoppingclient.activity.MyApplication;
 import top.charjin.shoppingclient.entity.OsUser;
@@ -24,7 +24,8 @@ import top.charjin.shoppingclient.utils.Router;
 
 public abstract class BaseFragment extends Fragment {
     protected Context context;
-    protected Activity activity;
+    protected AppActivity activity;
+    protected OsUser user;
 
 
     /**
@@ -36,7 +37,9 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        activity = getActivity();
+
+        activity = (AppActivity) getActivity();
+        user = activity.getUser();
     }
 
     /**

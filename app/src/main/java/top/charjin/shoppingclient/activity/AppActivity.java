@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,9 +18,8 @@ import top.charjin.shoppingclient.data.BottomNavResource;
 /**
  * 主活动,滑动介绍页面(即SlideActivity)显示过后,app的视图
  */
-public class AppActivity extends AppCompatActivity {
+public class AppActivity extends BaseActivity {
 
-    private MyApplication application;
     private TabLayout mTabLayout;
     private Fragment[] mFragments;
     private Fragment currentFragment = new Fragment();

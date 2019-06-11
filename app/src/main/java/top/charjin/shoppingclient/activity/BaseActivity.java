@@ -21,16 +21,18 @@ import top.charjin.shoppingclient.utils.Router;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected MyApplication application;
-    protected OsUser user;
+    protected OsUser user = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         application = (MyApplication) getApplication();
+    }
 
-        // 用户信息暂时固定化
-        user = new OsUser();
-        user.setUserId(1);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkUser();
     }
 
     /**
@@ -40,7 +42,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
         String username = sp.getString("username", null), password = sp.getString("password", null);
         System.out.println(Router.BASE_URL + "user/login?username=" + username + "&password=" + password);
-        if (username != null) { // 用户名不为空，检测密码是否修改
+        /*
+         * 用户名不为空，说明存在登录记录, 检测密码是否修改 (如果密码正确 则获取用户信息至user实体类)
+         * 如果用户名不存在, 说明无登录记录或者已退出登录, 不做任何操作
+         */
+        if (username != null) {
             HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "user/login?username=" + username + "&password=" + password, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -54,6 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    assert response.body() != null;
                     String jsonData = response.body().string();
                     runOnUiThread(() -> {
 
@@ -62,7 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                             Toast.makeText(BaseActivity.this, "密码已修改,请重新登录！", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(BaseActivity.this, LoginActivity.class));
                         } else {
-                            OsUser user = new Gson().fromJson(jsonData, OsUser.class);
+                            user = new Gson().fromJson(jsonData, OsUser.class);
                             MyApplication.map.put("user", user);
                         }
                     });
@@ -74,4 +81,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
+    protected boolean existsUser() {
+        return user != null;
+    }
+
+    public OsUser getUser() {
+        return user;
+    }
+
+    public void setUser(OsUser user) {
+        this.user = user;
+    }
 }

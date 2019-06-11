@@ -30,7 +30,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         intiComponent();
 
 //        rlUser.setOnClickListener(e -> startActivity(new Intent(getContext(), LoginActivity.class)));
-        rlUser.setOnClickListener(e -> startActivity(new Intent(getContext(), UserInfoActivity.class)));
+        rlUser.setOnClickListener(e -> {
+            startActivity(new Intent(getContext(), UserInfoActivity.class));
+        });
 
 
         rlMyOrder.setOnClickListener(v -> {

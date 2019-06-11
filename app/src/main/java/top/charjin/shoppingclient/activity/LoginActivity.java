@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -23,9 +22,7 @@ import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.JsonUtil;
 import top.charjin.shoppingclient.utils.Router;
 
-public class LoginActivity extends AppCompatActivity implements TextWatcher {
-
-    private MyApplication application;
+public class LoginActivity extends BaseActivity implements TextWatcher {
 
     private TextInputEditText etUserName, etPwd;
     private TextView tvBtnLogin;
@@ -42,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity_main);
-        application = (MyApplication) this.getApplication();
+        MyApplication application = (MyApplication) this.getApplication();
 
         etUserName = findViewById(R.id.et_login_user_name);
         etPwd = findViewById(R.id.et_login_password);
@@ -74,8 +71,8 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher {
                 if (jsonData.equals("")) {
                     runOnUiThread(() -> Toast.makeText(LoginActivity.this, "用户名或密码错误!", Toast.LENGTH_SHORT).show());
                 } else {
-                    OsUser user = JsonUtil.parseJSONObject(jsonData, OsUser.class);
-                    System.out.println(user);
+                    user = JsonUtil.parseJSONObject(jsonData, OsUser.class);
+//                    System.out.println(user);
                     MyApplication.map.put("user", user);
                     SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
 //                    if (sp.getString("username", null) == null) {
