@@ -18,13 +18,14 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
+import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.Router;
 
 public class RegisterActivity extends AppCompatActivity implements TextWatcher {
 
-    private MyApplication application;
+    private ShoppingApplication application;
 
     private TextInputEditText etUserName, etPwd, etPwdConfirm;
     private TextView tvBtnRegister;
@@ -33,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity_main);
-        application = (MyApplication) this.getApplication();
+        application = (ShoppingApplication) this.getApplication();
 
         initComponent();
 
@@ -83,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
                         else {
                             Toasty.success(RegisterActivity.this, "注册成功!").show();
                             Toasty.success(RegisterActivity.this, "请登录!").show();
-//                        MyApplication.map.put("user", user);
+//                        ShoppingApplication.map.put("user", user);
                             finish();
                         }
                     });

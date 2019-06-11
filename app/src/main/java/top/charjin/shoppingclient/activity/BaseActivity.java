@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -15,20 +16,25 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.entity.OsUser;
+import top.charjin.shoppingclient.user.UserManager;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.Router;
 
-public abstract class BaseActivity extends AppCompatActivity {
-    protected MyApplication application;
+public abstract class BaseActivity extends AppCompatActivity implements UserManager {
     protected OsUser user = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        application = (MyApplication) getApplication();
+        user = ShoppingApplication.getUser();
     }
 
+
+    /**
+     * 每个活动对用户登录信息进行验证
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -55,8 +61,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
-                        Thread.sleep(3000);
-                        // 延迟3秒再开启用户信息的检测
+                        Thread.sleep(1000);
+                        // 延迟1秒再开启用户信息的检测
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -70,7 +76,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                             startActivity(new Intent(BaseActivity.this, LoginActivity.class));
                         } else {
                             user = new Gson().fromJson(jsonData, OsUser.class);
-                            MyApplication.map.put("user", user);
+                            ShoppingApplication.setUser(user);
+                            ShoppingApplication.map.put("user", user);
                         }
                     });
                 }
@@ -80,6 +87,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean userLoginIntercept(@NonNull Context context) {
+        if (!existsUser()) {
+            toast(context, "请先登录账户哦!");
+            startActivity(new Intent(context, LoginActivity.class));
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     protected boolean existsUser() {
         return user != null;
@@ -91,5 +108,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void setUser(OsUser user) {
         this.user = user;
+    }
+
+    void toast(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 }

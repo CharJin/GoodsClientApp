@@ -32,7 +32,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.activity.MyApplication;
+import top.charjin.shoppingclient.ShoppingApplication;
+import top.charjin.shoppingclient.activity.LoginActivity;
 import top.charjin.shoppingclient.activity.OrderSubmitActivity;
 import top.charjin.shoppingclient.adapter.CartAdapter;
 import top.charjin.shoppingclient.entity.OsUser;
@@ -108,43 +109,40 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-//        MyApplication application = (MyApplication) this.getActivity().getApplicationContext();
-//        user = application.getUser();
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        System.out.println(context);
-//        checkUser();
-//        if (isLoaded)
+        if (ShoppingApplication.getUser() == null) {
+            toast("请登录账户哦!");
+            startActivity(new Intent(context, LoginActivity.class));
+            cbChooseAll.setEnabled(false);
+            return;
+        }
+        cbChooseAll.setEnabled(true);
         initCartData();
-        Log.e("Cart", "onResume");
 
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("Cart", "onStart");
 
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        isLoaded = false;
-        // 防止从另一个活动返回后 重新加载数据 导致原页面数据被清除
-        super.onSaveInstanceState(outState);
-        Log.e("Cart", "onSaveInstanceState");
-
-
-    }
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        isLoaded = false;
+//        // 防止从另一个活动返回后 重新加载数据 导致原页面数据被清除
+//        super.onSaveInstanceState(outState);
+//
+//
+//    }
 
     private void initCartData() {
         Log.e("Cart", "initCartData");
-        OsUser user = (OsUser) MyApplication.map.get("user");
+        OsUser user = (OsUser) ShoppingApplication.map.get("user");
         // 保留 check
 //        if (user == null) {
 //            Toast.makeText(activity, "请登录账户", Toast.LENGTH_SHORT).show();

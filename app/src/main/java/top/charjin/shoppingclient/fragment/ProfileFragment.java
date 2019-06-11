@@ -31,14 +31,17 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
 //        rlUser.setOnClickListener(e -> startActivity(new Intent(getContext(), LoginActivity.class)));
         rlUser.setOnClickListener(e -> {
-            startActivity(new Intent(getContext(), UserInfoActivity.class));
+            if (activity.userLoginIntercept(context))
+                startActivity(new Intent(getContext(), UserInfoActivity.class));
         });
 
 
         rlMyOrder.setOnClickListener(v -> {
-            Intent intent = new Intent(context, OrderActivity.class);
-            intent.putExtra("orderType", OrderActivity.OrderType.All);
-            startActivity(intent);
+            if (activity.userLoginIntercept(context)) {
+                Intent intent = new Intent(context, OrderActivity.class);
+                intent.putExtra("orderType", OrderActivity.OrderType.All);
+                startActivity(intent);
+            }
         });
 //
 //        tvBtnAllOrder = homeView.findViewById(R.id.tv_btn_order_all);

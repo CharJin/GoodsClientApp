@@ -29,6 +29,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
+import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.entity.OsGoods;
 import top.charjin.shoppingclient.entity.OsShop;
 import top.charjin.shoppingclient.model.CartGoodsModel;
@@ -65,7 +66,7 @@ public class GoodsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.goods_activity_main);
-        application = (MyApplication) this.getApplication();
+        application = (ShoppingApplication) this.getApplication();
         // 获取点击商品后传来的商品实体类
 
         initComponent();
@@ -190,7 +191,6 @@ public class GoodsActivity extends BaseActivity {
 
         // 弹窗中点击确认按钮
         tvBtnBuyConfirm.setOnClickListener(v -> {
-//            OsUser user = (OsUser) MyApplication.map.get("user");
             if (user == null) {
                 Toast.makeText(this, "请登录", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, LoginActivity.class));

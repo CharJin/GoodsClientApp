@@ -66,8 +66,6 @@ public class HomeFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        context = this.getContext();
-        activity = this.getActivity();
         viewHome = inflater.inflate(R.layout.home_fragment_main, container, false);
 
         initComponent();
@@ -87,7 +85,7 @@ public class HomeFragment extends BaseFragment {
 
         initGoods();
 
-        // NestedScrollView
+        // 检测是否滑到底部，更新出新数据
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
                 initGoods();
@@ -105,7 +103,11 @@ public class HomeFragment extends BaseFragment {
         return viewHome;
     }
 
+
     private void initComponent() {
+        /**
+         * 四个推荐信息,其后改为自定义View
+         */
         tvRecommend1 = viewHome.findViewById(R.id.tv_home_recommend_text_1);
         tvRecommend2 = viewHome.findViewById(R.id.tv_home_recommend_text_2);
         tvRecommend3 = viewHome.findViewById(R.id.tv_home_recommend_text_3);
@@ -206,7 +208,14 @@ public class HomeFragment extends BaseFragment {
         list_title.add("9090");
         list_title.add("9090");
 
-        imageLoader = new BannerAdsImageLoader();
+        imageLoader = new BannerAdsImageLoader(){
+            @Override
+            public void displayImage(Context context, Object path, ImageView imageView) {
+                Glide.with(context.getApplicationContext())
+                        .load(path)
+                        .into(imageView);
+            }
+        };
 
         banner_ads = viewHome.findViewById(R.id.banner_home_ads);
 //        banner_ads.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
@@ -225,9 +234,7 @@ public class HomeFragment extends BaseFragment {
 
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context.getApplicationContext())
-                    .load(path)
-                    .into(imageView);
+
         }
     }
 }

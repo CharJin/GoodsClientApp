@@ -17,6 +17,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
+import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.JsonUtil;
@@ -29,7 +30,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
 /*
     // 点击第4个选项卡时候 判断一下用户是否登录
-        if (MyApplication.map.get("user") == null) {
+        if (ShoppingApplication.map.get("user") == null) {
         startActivity(new Intent(AppActivity.this, LoginActivity.class));
         return;
     }
@@ -39,7 +40,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity_main);
-        MyApplication application = (MyApplication) this.getApplication();
+        ShoppingApplication application = (ShoppingApplication) this.getApplication();
 
         etUserName = findViewById(R.id.et_login_user_name);
         etPwd = findViewById(R.id.et_login_password);
@@ -72,10 +73,9 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                     runOnUiThread(() -> Toast.makeText(LoginActivity.this, "用户名或密码错误!", Toast.LENGTH_SHORT).show());
                 } else {
                     user = JsonUtil.parseJSONObject(jsonData, OsUser.class);
-//                    System.out.println(user);
-                    MyApplication.map.put("user", user);
+                    ShoppingApplication.setUser(user);
+                    ShoppingApplication.map.put("user", user);
                     SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
-//                    if (sp.getString("username", null) == null) {
                     SharedPreferences.Editor editor = sp.edit();
                     editor.clear()
                             .putString("username", user.getUsername())

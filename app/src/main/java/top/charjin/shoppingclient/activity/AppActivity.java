@@ -1,6 +1,5 @@
 package top.charjin.shoppingclient.activity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -30,13 +29,7 @@ public class AppActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_activity);
-
-//        application = (MyApplication) getApplication();
-
-//        mImmersionBar = ImmersionBar.with(this);
-//        mImmersionBar.init();
         initView();
-//        new CheckUser().execute();
 
     }
 
@@ -126,11 +119,4 @@ public class AppActivity extends BaseActivity {
         }
     }
 
-    private static class CheckUser extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
-        }
-    }
 }
