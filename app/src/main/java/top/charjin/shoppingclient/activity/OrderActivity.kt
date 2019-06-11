@@ -123,6 +123,8 @@ class OrderActivity : BaseActivity(), TabLayout.OnTabSelectedListener {
         val bufferList = arrayListOf<OsOrderModel>()
         bufferList.addAll(allOrderList)
 
+        adapter.isAllOrder = sTab == "全部"       // 如果是全部页Tab,则右上角显示订单状态
+
         filterList = when (sTab) {
             "待付款" -> bufferList.stream().filter { it.orderStatus.toInt() == 0 }.collect(Collectors.toList())
             "待发货" -> bufferList.stream().filter { it.orderStatus.toInt() == 1 }.collect(Collectors.toList())

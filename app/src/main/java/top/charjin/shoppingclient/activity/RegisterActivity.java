@@ -2,7 +2,6 @@ package top.charjin.shoppingclient.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -18,14 +17,11 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.Router;
 
-public class RegisterActivity extends AppCompatActivity implements TextWatcher {
-
-    private ShoppingApplication application;
+public class RegisterActivity extends BaseActivity implements TextWatcher {
 
     private TextInputEditText etUserName, etPwd, etPwdConfirm;
     private TextView tvBtnRegister;
@@ -34,7 +30,6 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity_main);
-        application = (ShoppingApplication) this.getApplication();
 
         initComponent();
 
@@ -82,9 +77,8 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
                         if (status == 0)
                             Toasty.warning(RegisterActivity.this, "该用户名已被使用!").show();
                         else {
-                            Toasty.success(RegisterActivity.this, "注册成功!").show();
-                            Toasty.success(RegisterActivity.this, "请登录!").show();
-//                        ShoppingApplication.map.put("user", user);
+                            Toasty.success(RegisterActivity.this, "注册成功!,去登录吧!").show();
+//                            ShoppingApplication.setUser(user);
                             finish();
                         }
                     });

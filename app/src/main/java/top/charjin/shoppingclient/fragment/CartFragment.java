@@ -36,7 +36,6 @@ import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.activity.LoginActivity;
 import top.charjin.shoppingclient.activity.OrderSubmitActivity;
 import top.charjin.shoppingclient.adapter.CartAdapter;
-import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.model.CartGoodsModel;
 import top.charjin.shoppingclient.model.CartShopModel;
 import top.charjin.shoppingclient.model.PreOrderGoodsModel;
@@ -67,7 +66,6 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View homeView = inflater.inflate(R.layout.cart_fragment_main, container, false);
 
-//        activity = getActivity();
 
         tvBtnCheckout = homeView.findViewById(R.id.tv_btn_cart_chock_out);
         tvCartSum = homeView.findViewById(R.id.tv_cart_sum);
@@ -142,14 +140,13 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
 
     private void initCartData() {
         Log.e("Cart", "initCartData");
-        OsUser user = (OsUser) ShoppingApplication.map.get("user");
         // 保留 check
 //        if (user == null) {
 //            Toast.makeText(activity, "请登录账户", Toast.LENGTH_SHORT).show();
 //            startActivity(new Intent(activity, LoginActivity.class));
 //            return;
 //        }
-        HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "cart/query-cart?userId=" + 1, new Callback() {
+        HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "cart/query-cart?userId=" + ShoppingApplication.getUser().getUserId(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(this.getClass().getName(), e.getMessage());
@@ -161,6 +158,7 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
                 shopList.clear();
                 cartMap.clear();
 
+                assert response.body() != null;
                 String jsonData = response.body().string();
 
                 Gson gson = new Gson();
@@ -179,6 +177,8 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
                     }
 
                     activity.runOnUiThread(() -> {
+                        if (shopList.size() > 0) cbChooseAll.setEnabled(true);
+                        else cbChooseAll.setEnabled(false);
                         cartAdapter.notifyDataSetChanged();
                         // 根据店铺的数量，把每个item展开
                         for (int i = 0; i < shopList.size(); i++) {

@@ -1,7 +1,6 @@
 package top.charjin.shoppingclient.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
@@ -54,6 +53,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
 
     }
 
+
     public void finishOnClick(View view) {
         this.finish();
     }
@@ -74,14 +74,10 @@ public class LoginActivity extends BaseActivity implements TextWatcher {
                 } else {
                     user = JsonUtil.parseJSONObject(jsonData, OsUser.class);
                     ShoppingApplication.setUser(user);
-                    ShoppingApplication.map.put("user", user);
-                    SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.clear()
-                            .putString("username", user.getUsername())
-                            .putString("password", user.getPassword())
-                            .apply();
+                    saveUserToFileSystem(user);
+
 //                    }
+
                     runOnUiThread(() -> {
                         Toast.makeText(LoginActivity.this, "登录成功!", Toast.LENGTH_SHORT).show();
                         finish();

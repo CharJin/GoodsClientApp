@@ -39,7 +39,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        checkUser();
     }
 
     /**
@@ -68,7 +67,7 @@ public abstract class BaseFragment extends Fragment {
                     activity.runOnUiThread(() -> {
                         if (jsonData.equals("")) { // 查询结果为空，则密码错误
                             // 进入登录页面.登录页面未选择登录 则user未null，如果登录则重新实例化此对象，并更新SharedPreferences
-                            Toast.makeText(context, "密码已修改,请重新登录！", Toast.LENGTH_SHORT).show();
+                            toast("密码已修改,请重新登录！");
                             startActivity(new Intent(activity, LoginActivity.class));
                         } else {
                             OsUser user = new Gson().fromJson(jsonData, OsUser.class);
@@ -78,6 +77,9 @@ public abstract class BaseFragment extends Fragment {
                     });
                 }
             });
+        } else {
+            toast("先登录账户吧!");
+            startActivity(new Intent(activity, LoginActivity.class));
         }
 
 

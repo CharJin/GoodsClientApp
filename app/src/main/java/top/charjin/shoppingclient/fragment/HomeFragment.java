@@ -32,6 +32,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
+import top.charjin.shoppingclient.activity.GoodsActivity;
 import top.charjin.shoppingclient.activity.SearchActivity;
 import top.charjin.shoppingclient.activity.SearchResultActivity;
 import top.charjin.shoppingclient.adapter.GoodsDisplayAdapter;
@@ -83,12 +84,12 @@ public class HomeFragment extends BaseFragment {
         rvGoods.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         rvGoods.setAdapter(adapter);
 
-        initGoods();
+        initGoodsDisplayData();
 
         // 检测是否滑到底部，更新出新数据
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
-                initGoods();
+                initGoodsDisplayData();
                 isRefresh = false;
                 Toast.makeText(this.context, "HomeFragment:已滑到了底!", Toast.LENGTH_SHORT).show();
             }
@@ -150,7 +151,7 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
-    private void initGoods() {
+    private void initGoodsDisplayData() {
         HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "goods/getAllGoods", new Callback() {
 
             @Override
@@ -186,7 +187,8 @@ public class HomeFragment extends BaseFragment {
             }
             activity.runOnUiThread(() -> {
                 initRecommend();
-                initGoods();
+                initGoodsDisplayData();
+                initBannerAdsResource();
                 swipeRefreshLayout.setRefreshing(false);
             });
         }
@@ -198,36 +200,65 @@ public class HomeFragment extends BaseFragment {
      * 初始化轮播图 广告视图
      */
     private void initBannerAdsResource() {
-        List<Integer> list_path = new ArrayList<>();
-        List<String> list_title = new ArrayList<>();
-        list_path.add(R.drawable.background);
-        list_path.add(R.drawable.sleep_icon);
-        list_path.add(R.drawable.home_category_img_foods);
 
-        list_title.add("9090");
-        list_title.add("9090");
-        list_title.add("9090");
 
-        imageLoader = new BannerAdsImageLoader(){
+//        list_title.add("9090");
+//        list_title.add("9090");
+//        list_title.add("9090");
+//
+//        list_path.add(R.drawable.background);
+//        list_path.add(R.drawable.sleep_icon);
+//        list_path.add(R.drawable.home_category_img_foods);
+
+        HttpUtil.sendOkHttpRequestByGet(Router.GOODS_URL + "getBannerGoods", new Callback() {
             @Override
-            public void displayImage(Context context, Object path, ImageView imageView) {
-                Glide.with(context.getApplicationContext())
-                        .load(path)
-                        .into(imageView);
-            }
-        };
+            public void onFailure(Call call, IOException e) {
 
-        banner_ads = viewHome.findViewById(R.id.banner_home_ads);
-//        banner_ads.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-        banner_ads.setImageLoader(imageLoader);
-        banner_ads.setBannerAnimation(Transformer.Default);
-        banner_ads.setBannerTitles(list_title);
-        banner_ads.setDelayTime(3000);
-        banner_ads.isAutoPlay(true);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                assert response.body() != null;
+                String jsonData = response.body().string();
+                List<OsGoods> bannerGoodsList = JsonUtil.parseJSONObjectInStringToEntityList(jsonData, OsGoods.class);
+
+                List<String> list_title = new ArrayList<>();
+                List<String> list_path = new ArrayList<>();
+                bannerGoodsList.forEach(goods -> {
+                    list_title.add(goods.getGoodsName());
+                    list_path.add(goods.getImage());
+                });
+
+                activity.runOnUiThread(() -> {
+                    imageLoader = new BannerAdsImageLoader() {
+                        @Override
+                        public void displayImage(Context context, Object path, ImageView imageView) {
+                            Glide.with(context.getApplicationContext())
+                                    .load(path)
+                                    .into(imageView);
+                        }
+                    };
+
+                    banner_ads = viewHome.findViewById(R.id.banner_home_ads);
+                    banner_ads.setImageLoader(imageLoader);
+                    banner_ads.setBannerAnimation(Transformer.Default);
+                    banner_ads.setBannerTitles(list_title);
+                    banner_ads.setDelayTime(3000);
+                    banner_ads.isAutoPlay(true);
 //        banner_ads.setIndicatorGravity(BannerConfig.CIRCLE_INDICATOR);
-        banner_ads.setImages(list_path)
-//                .setOnBannerListener(this)
-                .start();
+                    banner_ads.setImages(list_path)
+                            .setOnBannerListener(position -> {
+                                Intent intent = new Intent(context, GoodsActivity.class);
+                                intent.putExtra("goods", bannerGoodsList.get(position));
+                                startActivity(intent);
+                            })
+                            .start();
+                });
+
+            }
+        });
+
+
     }
 
     private class BannerAdsImageLoader extends ImageLoader {

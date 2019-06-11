@@ -22,6 +22,7 @@ import com.youth.banner.loader.ImageLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -29,7 +30,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
-import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.entity.OsGoods;
 import top.charjin.shoppingclient.entity.OsShop;
 import top.charjin.shoppingclient.model.CartGoodsModel;
@@ -66,7 +66,6 @@ public class GoodsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.goods_activity_main);
-        application = (ShoppingApplication) this.getApplication();
         // 获取点击商品后传来的商品实体类
 
         initComponent();
@@ -238,13 +237,12 @@ public class GoodsActivity extends BaseActivity {
      * 获取图片路径 Banner 显示
      */
     private void initBanner() {
-        List<Integer> imgUrls = new ArrayList<>();
-//        String[] urls = goods.getImage().split("~");
-//        Collections.addAll(imgUrls, urls);
+        List<String> imgUrls = new ArrayList<>();
+        String[] urls = goods.getImage().split("~~");
+        Collections.addAll(imgUrls, urls);
 
-        imgUrls.add(R.drawable.background);
-        imgUrls.add(R.drawable.background);
-        imgUrls.add(R.drawable.background);
+        imgUrls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560275469604&di=4ab8e3f71951c7d70402f03533a453d1&imgtype=0&src=http%3A%2F%2Fimg4.cache.netease.com%2Flady%2F2013%2F12%2F2%2F201312021033519354e_550.jpg");
+
         banner.setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {

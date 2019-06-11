@@ -1,5 +1,6 @@
 package top.charjin.shoppingclient.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+
+import java.util.Objects;
 
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.data.BottomNavResource;
@@ -50,7 +53,10 @@ public class AppActivity extends BaseActivity {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                changeFragment(tab.getPosition());
+                if (!changeFragment(tab.getPosition())) {
+                    Objects.requireNonNull(mTabLayout.getTabAt(0)).select();
+                    return;
+                }
                 // Tab 选中之后，改变各个Tab的状态
                 for (int i = 0; i < mTabLayout.getTabCount(); i++) {
                     // 获取自定义的Tab
@@ -88,7 +94,8 @@ public class AppActivity extends BaseActivity {
      *
      * @param position
      */
-    private void changeFragment(int position) {
+    private boolean changeFragment(int position) {
+        boolean flag = true;
         Fragment fragment = null;
         switch (position) {
             case 0:
@@ -98,11 +105,19 @@ public class AppActivity extends BaseActivity {
                 fragment = mFragments[1];
                 break;
             case 2:
-                fragment = mFragments[2];
+                if (user != null)
+                    fragment = mFragments[2];
+                else
+                    flag = false;
                 break;
             case 3:
                 fragment = mFragments[3];
                 break;
+        }
+        if (!flag) {
+            toast(this, "请先登录账户!");
+            startActivity(new Intent(this, LoginActivity.class));
+            return false;
         }
         // 替换显示的Fragment.
         if (fragment != null) {
@@ -117,6 +132,7 @@ public class AppActivity extends BaseActivity {
                 }
             }
         }
+        return true;
     }
 
 }

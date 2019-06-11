@@ -93,7 +93,7 @@ class OrderSubmitActivity : BaseActivity() {
      * 逻辑由服务器端处理
      */
     private fun initDefaultAddress() {
-        HttpUtil.sendOkHttpRequestByGet(Router.ADDRESS_URL + "getDefaultAddress?userId=1",
+        HttpUtil.sendOkHttpRequestByGet(Router.ADDRESS_URL + "getDefaultAddress?userId=" + user.userId,
                 object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
                         Toasty.error(this@OrderSubmitActivity, "地址数据请求错误!").show()

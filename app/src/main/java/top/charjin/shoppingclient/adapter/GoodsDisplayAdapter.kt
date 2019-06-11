@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.goods_display_list_item.view.*
 import top.charjin.shoppingclient.R
 import top.charjin.shoppingclient.activity.GoodsActivity
@@ -21,7 +22,7 @@ class GoodsDisplayAdapter(val context: Context, val goodsList: List<OsGoods>) : 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val goods = goodsList[position]
-//        Glide.with(holder.ivGoods).load(goods.image)
+        Glide.with(context).load(goods.image).into(holder.ivGoods)
         holder.tvGoodsName.text = goods.goodsName
         holder.tvPrice.text = String.format("%.0f", goods.price)
         holder.tvRegion.text = goods.region

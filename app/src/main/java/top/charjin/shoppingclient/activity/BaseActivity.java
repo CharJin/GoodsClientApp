@@ -29,6 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity implements UserMana
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         user = ShoppingApplication.getUser();
+        checkUser();
     }
 
 
@@ -38,7 +39,8 @@ public abstract class BaseActivity extends AppCompatActivity implements UserMana
     @Override
     protected void onResume() {
         super.onResume();
-        checkUser();
+        if (user != ShoppingApplication.getUser())
+            user = ShoppingApplication.getUser();   // 从其他页面返回后 重新在application中获取user对象
     }
 
     /**
@@ -60,12 +62,12 @@ public abstract class BaseActivity extends AppCompatActivity implements UserMana
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    try {
-                        Thread.sleep(1000);
-                        // 延迟1秒再开启用户信息的检测
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        Thread.sleep(1000);
+//                        // 延迟1秒再开启用户信息的检测
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
                     assert response.body() != null;
                     String jsonData = response.body().string();
                     runOnUiThread(() -> {
@@ -77,7 +79,6 @@ public abstract class BaseActivity extends AppCompatActivity implements UserMana
                         } else {
                             user = new Gson().fromJson(jsonData, OsUser.class);
                             ShoppingApplication.setUser(user);
-                            ShoppingApplication.map.put("user", user);
                         }
                     });
                 }
@@ -110,7 +111,16 @@ public abstract class BaseActivity extends AppCompatActivity implements UserMana
         this.user = user;
     }
 
-    void toast(Context context, String msg) {
+    protected void toast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void saveUserToFileSystem(OsUser newUser) {
+        SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear()
+                .putString("username", newUser.getUsername())
+                .putString("password", newUser.getPassword())
+                .apply();
     }
 }
