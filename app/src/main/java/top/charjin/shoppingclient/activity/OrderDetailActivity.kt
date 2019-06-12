@@ -88,6 +88,7 @@ class OrderDetailActivity : AppCompatActivity() {
         tv_order_detail_center_goods_pay_actual.text = String.format("%.2f", order.orderAmountActual)
 
         tv_order_detail_pay_channel.text = order.payBusiness.name
+        tv_order_detail_order_no.text = order.orderNo
         tv_order_detail_order_create_time.text = order.orderCreateTime.toString()
         tv_order_detail_order_paid_time.text = order.orderPayTime?.toString() ?: ""
         tv_order_detail_order_deliver_time.text = ""            // 该字段暂被忘记创建了 哈哈.
