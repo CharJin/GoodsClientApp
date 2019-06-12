@@ -49,18 +49,19 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:paddingHorizontal="20dp"
-        android:paddingBottom="20dp">
+        android:layout_marginTop="10dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="10dp">
 
         <android.support.v7.widget.CardView
             android:id="@+id/cv_profile_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:elevation="10dp"
+            android:elevation="4dp"
             android:padding="0dp"
-            app:cardCornerRadius="10dp"
+            app:cardCornerRadius="4dp"
             app:cardUseCompatPadding="true">
 
             <include layout="@layout/profile_include_order" />
@@ -72,9 +73,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:padding="20dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/background" />
+        android:src="@drawable/profile_ads_618" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -153,35 +153,13 @@
 
     <include layout="@layout/separator_line_horizontal" />
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:paddingStart="20dp">-->
+    <!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:gravity="center_vertical"--><!--android:orientation="horizontal"--><!--android:paddingStart="20dp">-->
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/profile_personal_recommend_title"-->
-    <!--android:textColor="#000000"-->
-    <!--android:textSize="22sp"-->
-    <!--tools:ignore="RtlSymmetry" />-->
+    <!--<TextView--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="@string/profile_personal_recommend_title"--><!--android:textColor="#000000"--><!--android:textSize="22sp"--><!--tools:ignore="RtlSymmetry" />-->
 
-    <!--<View-->
-    <!--android:layout_width="1dp"-->
-    <!--android:layout_height="18dp"-->
-    <!--android:layout_marginStart="6dp"-->
-    <!--android:background="@color/home_separator_line_color" />-->
+    <!--<View--><!--android:layout_width="1dp"--><!--android:layout_height="18dp"--><!--android:layout_marginStart="6dp"--><!--android:background="@color/home_separator_line_color" />-->
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="25dp"-->
-    <!--android:layout_gravity="bottom"-->
-    <!--android:layout_marginStart="6dp"-->
-    <!--android:paddingTop="6dp"-->
-    <!--android:text="@string/profile_personal_recommend_title_decorate"-->
-    <!--android:textSize="12sp" />-->
+    <!--<TextView--><!--android:layout_width="wrap_content"--><!--android:layout_height="25dp"--><!--android:layout_gravity="bottom"--><!--android:layout_marginStart="6dp"--><!--android:paddingTop="6dp"--><!--android:text="@string/profile_personal_recommend_title_decorate"--><!--android:textSize="12sp" />-->
 
     <!--</LinearLayout>-->
 
