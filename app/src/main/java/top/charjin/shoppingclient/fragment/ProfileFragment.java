@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import de.hdodenhof.circleimageview.CircleImageView;
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.ShoppingApplication;
+import top.charjin.shoppingclient.activity.LoginActivity;
 import top.charjin.shoppingclient.activity.OrderActivity;
 import top.charjin.shoppingclient.activity.UserInfoActivity;
 import top.charjin.shoppingclient.entity.OsUser;
@@ -75,6 +76,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     }
 
 
+    /**
+     * 初始化header注释
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -96,6 +100,10 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        if (ShoppingApplication.getUser() == null) {
+            startActivity(new Intent(context, LoginActivity.class));
+            return;
+        }
         int id = v.getId();
         Intent intent = new Intent(context, OrderActivity.class);
         switch (id) {

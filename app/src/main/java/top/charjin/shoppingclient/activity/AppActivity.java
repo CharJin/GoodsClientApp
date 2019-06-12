@@ -53,7 +53,11 @@ public class AppActivity extends BaseActivity {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                /**
+                 * if 判断是否是选中购物车tab,以判断用户是否登录
+                 */
                 if (!changeFragment(tab.getPosition())) {
+                    // 使选中状态仍然保持在第一个tab
                     Objects.requireNonNull(mTabLayout.getTabAt(0)).select();
                     return;
                 }
@@ -119,7 +123,7 @@ public class AppActivity extends BaseActivity {
             startActivity(new Intent(this, LoginActivity.class));
             return false;
         }
-        // 替换显示的Fragment.
+        // 替换显示的Fragment.(避免反复加载Fragment使用hide,show的方式显示碎片)
         if (fragment != null) {
             if (currentFragment != fragment) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
