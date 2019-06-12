@@ -38,13 +38,6 @@
         </activity>
         <activity android:name=".activity.AppActivity" />
         <activity android:name=".activity.SplashActivity" />
-        <activity android:name=".activity.TestTabActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            </intent-filter>
-        </activity>
         <activity android:name=".activity.IntroSlideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
