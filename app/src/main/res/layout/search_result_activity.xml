@@ -18,12 +18,12 @@
 
         <ImageView
             android:layout_width="26dp"
-            android:layout_height="20dp"
+            android:layout_height="26dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="6dp"
             android:onClick="finishOnClick"
             android:scaleType="fitXY"
-            android:src="@drawable/search_back_icon" />
+            android:src="@drawable/ic_arrow_back_grey_800_24dp" />
 
         <RelativeLayout
             android:id="@+id/rl_home_search"
@@ -45,11 +45,11 @@
         </RelativeLayout>
 
         <ImageView
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
             android:gravity="center"
-            android:paddingStart="10dp"
-            android:src="@drawable/search_result_img_other"
+            android:src="@drawable/ic_more_vert_grey_900_24dp"
             android:textColor="@color/search_btn_color"
             tools:ignore="RtlSymmetry" />
 

@@ -153,21 +153,10 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-    }
-
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        isLoaded = false;
-//        // 防止从另一个活动返回后 重新加载数据 导致原页面数据被清除
-//        super.onSaveInstanceState(outState);
-//
-//
-//    }
-
+    /**
+     * 初始化购物车数据
+     */
     private void initCartData() {
         llHintEmpty.setVisibility(View.GONE);
         HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "cart/query-cart?userId=" + ShoppingApplication.getUser().getUserId(), new Callback() {

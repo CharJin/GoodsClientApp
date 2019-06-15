@@ -15,10 +15,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/rl_profile_top"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="100dp"
                 android:background="@color/colorPrimary">
 
 
@@ -26,59 +26,91 @@
                     android:id="@+id/civ_user_head_portrait"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:src="@drawable/background" />
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/head_portrait_null"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_user_name"
+                    android:id="@+id/tv_profile_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_toEndOf="@id/civ_user_head_portrait"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/profile_user_name"
                     android:textColor="@color/user_name_text_color"
                     android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_profile_contact"
+                    app:layout_constraintStart_toEndOf="@+id/civ_user_head_portrait"
+                    app:layout_constraintTop_toTopOf="@+id/civ_user_head_portrait"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
-                <ImageButton
+                <TextView
+                    android:id="@+id/tv_profile_contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/app_dev_email"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="@+id/civ_user_head_portrait"
+                    app:layout_constraintStart_toStartOf="@+id/tv_profile_user_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_name" />
+
+                <ImageView
                     android:id="@+id/btn_user_info"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:background="@android:color/transparent"
+                    android:layout_marginEnd="15dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_navigate_next_white_24dp"
-                    android:text=">" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </RelativeLayout>
+            </android.support.constraint.ConstraintLayout>
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
+                android:orientation="vertical"
                 android:paddingBottom="10dp">
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cv_profile_order"
+
+                <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="-50dp"
+                    android:background="@drawable/order_bg_orange" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:elevation="4dp"
-                    android:padding="0dp"
-                    app:cardCornerRadius="4dp"
-                    app:cardUseCompatPadding="true">
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp">
 
-                    <include layout="@layout/profile_include_order" />
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cv_profile_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:elevation="5dp"
+                        android:padding="0dp"
+                        app:cardCornerRadius="8dp"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                </android.support.v7.widget.CardView>
+                        <include layout="@layout/profile_include_order" />
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
 
-            </FrameLayout>
+
+            </RelativeLayout>
 
             <ImageView
                 android:layout_width="match_parent"
@@ -87,8 +119,9 @@
                 android:src="@drawable/profile_ads_618" />
 
             <LinearLayout
+                android:id="@+id/ll_profile_tools"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="90dp"
                 android:gravity="center">
 
                 <LinearLayout
@@ -98,14 +131,17 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:layout_width="60dp"
-                        android:layout_height="60dp" />
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/profile_property_img" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="待付款" />
+                        android:layout_marginTop="8dp"
+                        android:text="我的资产"
+                        android:textColor="@color/app_base_black_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -115,14 +151,17 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:layout_width="60dp"
-                        android:layout_height="60dp" />
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/profile_collect_img" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="待付款" />
+                        android:layout_marginTop="8dp"
+                        android:text="我的收藏"
+                        android:textColor="@color/app_base_black_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -132,14 +171,17 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:layout_width="60dp"
-                        android:layout_height="60dp" />
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/profile_help_img" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="待付款" />
+                        android:layout_marginTop="8dp"
+                        android:text="帮助中心"
+                        android:textColor="@color/app_base_black_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -149,17 +191,21 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
-                        android:layout_width="60dp"
-                        android:layout_height="60dp" />
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/profile_wallet_img" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="待付款" />
+                        android:layout_marginTop="8dp"
+                        android:text="钱包"
+                        android:textColor="@color/app_base_black_color" />
                 </LinearLayout>
 
             </LinearLayout>
+
 
             <include layout="@layout/separator_line_horizontal" />
 

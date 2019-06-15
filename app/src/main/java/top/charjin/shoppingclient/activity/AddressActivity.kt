@@ -40,9 +40,10 @@ class AddressActivity : BaseActivity(), Callback {
         if (flag == OrderSubmitActivity.CHANGE_ADDRESS) {
             adapter.onItemClickListener = object : AddressAdapter.OnItemClickListener {
                 override fun onItemClick(address: OsAddress) {
-                    val resultIntent = Intent()
-                    resultIntent.putExtra("address", address)
-                    setResult(Activity.RESULT_OK, resultIntent)
+                    Intent().apply {
+                        putExtra("address", address)
+                        setResult(Activity.RESULT_OK, this)
+                    }
                     finish()
                 }
 
@@ -61,14 +62,12 @@ class AddressActivity : BaseActivity(), Callback {
     fun finishOnClick(view: View) = finish()
 
     fun addNewAddress(view: View) {
-        val intent = Intent(this, AddressModifyActivity::class.java)
-        intent.putExtra("addressOperatorType", AddressModifyActivity.ADDRESS_ADD)   // 0 : add, 1 : update
+        Intent(this, AddressModifyActivity::class.java).apply {
+            putExtra("addressOperatorType", AddressModifyActivity.ADDRESS_ADD)  // 0 : add, 1 : update
+            putExtra("address", OsAddress().apply { this.userId = user.userId }) //传递空数据的的Address地址对象
+            startActivity(this)
+        }
 
-        val address = OsAddress()
-        address.userId = user.userId
-
-        intent.putExtra("address", address) //传递空数据的的Address地址对象
-        startActivity(intent)
     }
 
     override fun onFailure(call: Call, e: IOException) {

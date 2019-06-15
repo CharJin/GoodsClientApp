@@ -2,11 +2,12 @@ package top.charjin.shoppingclient.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -37,6 +38,7 @@ import top.charjin.shoppingclient.model.PreOrderGoodsModel;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.JsonUtil;
 import top.charjin.shoppingclient.utils.Router;
+import top.charjin.shoppingclient.utils.WindowUtil;
 import top.charjin.shoppingclient.view.GoodsPopupWindow;
 
 public class GoodsActivity extends BaseActivity {
@@ -66,32 +68,37 @@ public class GoodsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.goods_activity_main);
+//        setAndroidNativeLightStatusBar(this, true);
+
         // 获取点击商品后传来的商品实体类
 
         initComponent();
         windowHeight = getWindowManager().getDefaultDisplay().getHeight();
         slGoodsMain.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-
-            Log.e("Goods", windowHeight + "");
             if (scrollY >= 0 && scrollY < 765) {
                 float f = (float) scrollY / 765;
-                Log.e("Goods", scrollY + "");
                 tvGoodsHeaderTitle.setAlpha(f);
                 rlGoodsHeader.getBackground().mutate().setAlpha(scrollY / 3);
-//                back.setImageDrawable(getResources().getDrawable(R.mipmap.icon_back_white));
-//                iv_more.setImageDrawable(getResources().getDrawable(R.mipmap.ic_more_white));
+                if (f > 0.8) {
+                    ivGoodsHeaderBack.setBackground(null);
+                    ivGoodsHeaderBack.setImageResource(R.drawable.goods_header_img_back_white);
+                    ivGoodsHeaderShare.setBackground(null);
+                    ivGoodsHeaderShare.setImageResource(R.drawable.goods_header_img_share_white);
+                } else {
+                    ivGoodsHeaderBack.setBackground(getResources().getDrawable(R.drawable.goods_back_bg_shape));
+                    ivGoodsHeaderBack.setImageResource(R.drawable.goods_header_img_back_black);
+                    ivGoodsHeaderShare.setBackground(getResources().getDrawable(R.drawable.goods_back_bg_shape));
+                    ivGoodsHeaderShare.setImageResource(R.drawable.goods_header_img_share_grey);
+                }
             }
-            /*else if (scrollY >= banner.getHeight()) {
-                tvGoodsHeaderTitle.setAlpha(1.0f);
-                rlGoodsHeader.getBackground().mutate().setAlpha(255);
-//                back.setImageDrawable(getResources().getDrawable(R.mipmap.ic_back));
-//                iv_more.setImageDrawable(getResources().getDrawable(R.mipmap.ic_more));
-            }*/
-
         });
 
         // 根据传入的实体类或者goodsId初始化基本内容
         goods = (OsGoods) this.getIntent().getSerializableExtra("goods");
+
+        TextView tvGoodsData = findViewById(R.id.tv_goods_json);
+        tvGoodsData.setText(new Gson().toJson(goods));  // 简单显示goods的数据
+
         if (goods != null) {
             tvGoodsName.setText(goods.getGoodsName());
             tvGoodsPrice.setText(String.format("%s", goods.getPrice()));
@@ -124,11 +131,6 @@ public class GoodsActivity extends BaseActivity {
 
         // 初始化底部弹出窗口信息
         popupWindowContentView = LayoutInflater.from(this).inflate(R.layout.goods_mode_popup_window, null);
-//        tvGoodsNum = popupWindowContentView.findViewById(R.id.tv_goods_item_choose_number);
-//        tvBtnConfirm = popupWindowContentView.findViewById(R.id.tv_btn_confirm_goods_item);
-//        tvBtnConfirm.setOnClickListener(v -> {
-//
-//        });
         popupWindow = new GoodsPopupWindow(this, popupWindowContentView);
         initPopupWindowEvent();
 
@@ -152,6 +154,11 @@ public class GoodsActivity extends BaseActivity {
 
         tvGoodsHeaderTitle.setAlpha(0.0f);
         rlGoodsHeader.getBackground().mutate().setAlpha(0); // 标题栏的背景将背景透明度做初始化
+        int statusBarHeight = WindowUtil.getStatusBarHeight(this);
+        ViewGroup.LayoutParams goodsHeaderLayoutParams = rlGoodsHeader.getLayoutParams();
+        goodsHeaderLayoutParams.height += statusBarHeight;
+        rlGoodsHeader.setLayoutParams(goodsHeaderLayoutParams);
+        rlGoodsHeader.setPadding(0, statusBarHeight, 0, 0);
     }
 
     /**
@@ -306,7 +313,7 @@ public class GoodsActivity extends BaseActivity {
 
 
     @Override
-    protected boolean isNeedLoadStatusBar() {
-        return false;
+    protected void setColorId() {
+        mColorId = Color.TRANSPARENT;
     }
 }

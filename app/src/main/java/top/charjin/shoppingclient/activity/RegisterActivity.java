@@ -59,8 +59,9 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
             Toasty.info(this, "两次密码不一致").show();
         } else {
             OsUser user = new OsUser();
-            user.setUsername(etUserName.getText().toString());
+            user.setUsername(Objects.requireNonNull(etUserName.getText()).toString());
             user.setPassword(pwd);
+            user.setHeadPortrait("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=120606963,1622152554&fm=26&gp=0.jpg");
 
             // 传递用户实体类对象至服务端 如果成功,将此对象设置为全局对象
             String json_user = new Gson().toJson(user);
@@ -73,8 +74,6 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-//                    Log.e("Register", "注册成功");
-
                     assert response.body() != null;
                     String jsonData = response.body().string();
                     ResultModel rs = JsonUtil.parseJSONObject(jsonData, ResultModel.class);

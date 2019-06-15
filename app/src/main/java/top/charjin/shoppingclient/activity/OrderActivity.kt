@@ -35,7 +35,6 @@ class OrderActivity : BaseActivity(), TabLayout.OnTabSelectedListener {
     private lateinit var adapter: OrderAdapter
 
     private lateinit var orderType: OrderType
-    private var isFirst = true              // 取消首次监听执行
     private val orderList = ArrayList<OsOrderModel>()
     private val allOrderList = arrayListOf<OsOrderModel>()
 
@@ -114,11 +113,6 @@ class OrderActivity : BaseActivity(), TabLayout.OnTabSelectedListener {
 
     override fun onTabSelected(tab: TabLayout.Tab) {
         cl_order_no_record_tip.visibility = View.GONE
-
-//        if (isFirst) {
-//            isFirst = false
-//            return
-//        }
         /**
          * 订单状态(0:待付款 1:待发货 2:待收货 3:待评论)
          */

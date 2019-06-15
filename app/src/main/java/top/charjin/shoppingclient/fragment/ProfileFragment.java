@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -42,7 +43,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private TextView tvUserName;
     private CircleImageView civHeaderPortrait;
     private View homeView;
-    private RelativeLayout rlUser;
+    private ConstraintLayout clUser;
     private LinearLayout llGoodsDisplay;
     private RecyclerView rvGoodsDisplay;
 
@@ -67,7 +68,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
 
         llGoodsDisplay.setVisibility(View.GONE);    // 去除猜你喜欢字样
 
-        rlUser.setOnClickListener(e -> {
+        clUser.setOnClickListener(e -> {
             if (activity.userLoginIntercept(context))
                 startActivity(new Intent(getContext(), UserInfoActivity.class));
         });
@@ -90,14 +91,16 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         rvGoodsDisplay.setAdapter(goodsAdapter);
 
         initGoodsDisplayData();
+        LinearLayout llTool = homeView.findViewById(R.id.ll_profile_tools);
+        llTool.setOnClickListener(v -> toast("未开发"));
 
         return homeView;
     }
 
 
     private void intiComponent() {
-        tvUserName = homeView.findViewById(R.id.tv_user_name);
-        rlUser = homeView.findViewById(R.id.rl_profile_top);
+        tvUserName = homeView.findViewById(R.id.tv_profile_user_name);
+        clUser = homeView.findViewById(R.id.rl_profile_top);
         civHeaderPortrait = homeView.findViewById(R.id.civ_user_head_portrait);
         rlMyOrder = homeView.findViewById(R.id.rl_profile_my_order);
         llOrderObligation = homeView.findViewById(R.id.ll_shop_order_obligation);
@@ -122,11 +125,11 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                     .centerCrop()
                     .into(civHeaderPortrait);
         } else {
-            tvUserName.setText("用户未登录");
-            Glide.with(this)
-                    .load(R.drawable.background)
-                    .centerCrop()
-                    .into(civHeaderPortrait);
+            tvUserName.setText(context.getResources().getText(R.string.profile_user_name));
+//            Glide.with(this)
+//                    .load("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=120606963,1622152554&fm=26&gp=0.jpg")
+//                    .centerCrop()
+//                    .into(civHeaderPortrait);
         }
     }
 

@@ -7,12 +7,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.adapter.IntroSliderAdapter;
+import top.charjin.shoppingclient.utils.SharedPreferencesUtil;
 
 public class IntroSlideActivity extends AppCompatActivity {
 
@@ -26,14 +29,14 @@ public class IntroSlideActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-//        if (!SharedPreferencesUtil.isFirstLaunched(this)) {
+        if (!SharedPreferencesUtil.isFirstLaunched(this)) {
             startActivity(new Intent(this, AppActivity.class));
             this.finish();
-//        }
+        }
 
         setContentView(R.layout.intro_activity_main);
 
@@ -61,8 +64,9 @@ public class IntroSlideActivity extends AppCompatActivity {
                 if (i == 0) btnPre.setVisibility(View.INVISIBLE);
                 else {
                     btnPre.setVisibility(View.VISIBLE);
-                    if (i == mDots.length - 1) btnNext.setText("进入");
-                    else {
+                    if (i == mDots.length - 1) {
+                        btnNext.setText("进入");
+                    } else {
                         btnPre.setText("上一页");
                         btnNext.setText("下一页");
                     }
@@ -78,6 +82,7 @@ public class IntroSlideActivity extends AppCompatActivity {
 
         btnPre.setVisibility(View.INVISIBLE);
 
+
         // OnClickListener
         btnNext.setOnClickListener(e -> {
             mCurrentPage++;
@@ -85,6 +90,7 @@ public class IntroSlideActivity extends AppCompatActivity {
                 mSlideViewPager.setCurrentItem(mCurrentPage);
                 addDotsIndicator(mCurrentPage);
             } else {
+                SharedPreferencesUtil.setLoginRecord(this);
                 Intent intent = new Intent(this, AppActivity.class);
                 startActivity(intent);
                 finish();

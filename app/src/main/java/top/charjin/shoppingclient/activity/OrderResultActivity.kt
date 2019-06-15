@@ -43,8 +43,6 @@ class OrderResultActivity : BaseActivity() {
             }
         }
 
-        tv_btn_order_result_go_home
-
         adapter = GoodsDisplayAdapter(this, goodsList)
         rv_goods_display.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         rv_goods_display.adapter = adapter
@@ -73,9 +71,11 @@ class OrderResultActivity : BaseActivity() {
 
 
     fun goHomeOnClick(view: View) {
-        val intent = Intent(this, AppActivity::class.java)
+        Intent(this, AppActivity::class.java)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+                .apply {
+                    startActivity(this)
+                }
         finish()
     }
 
@@ -86,7 +86,4 @@ class OrderResultActivity : BaseActivity() {
     fun finishOnClick(view: View) = finish()
 
 
-//    override fun setStatusBarStyle() {
-//        tintManager.setStatusBarTintDrawable(getDrawable(R.drawable.order_bg))
-//    }
 }

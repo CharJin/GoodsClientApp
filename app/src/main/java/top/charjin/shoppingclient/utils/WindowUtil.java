@@ -26,6 +26,7 @@ public class WindowUtil {
 //        mToolBar.setPadding(0, statusHeight, 0, 0);
     }
 
+
     /**
      * 通过设置全屏，设置状态栏透明
      *

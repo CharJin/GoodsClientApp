@@ -34,12 +34,13 @@ class ShopGoodsAdapter(private var context: Context, var goodsList: List<OsGoods
         holder.tvGoodsPrice.text = String.format("%.2f", goods.price)
         holder.tvService.text = "包邮"
         holder.tvSaleVolume.text = String.format(context.resources.getString(R.string.shop_goods_sale_volume), goods.salesVolume)
-        Glide.with(context).load(R.drawable.background).into(holder.ivGoods)
+        Glide.with(context).load(goods.image).into(holder.ivGoods)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(this.context, GoodsActivity::class.java)
-            intent.putExtra("goods", goods)
-            context.startActivity(intent)
+            Intent(this.context, GoodsActivity::class.java).apply {
+                putExtra("goods", goods)
+                context.startActivity(this)
+            }
         }
 
         holder.ivCart.setOnClickListener {

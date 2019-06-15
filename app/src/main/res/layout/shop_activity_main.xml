@@ -3,13 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".activity.ShopActivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/iv_shop_back"
@@ -18,7 +21,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:onClick="finishOnClick"
-            android:src="@drawable/ic_arrow_back_grey_800_24dp" />
+            android:src="@drawable/ic_arrow_back_white_24dp" />
 
         <TextView
             android:id="@+id/tv_shop_name"
@@ -26,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/shop_name_title"
-            android:textColor="@color/message_title_color"
+            android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
     </RelativeLayout>

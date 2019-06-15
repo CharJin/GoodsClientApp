@@ -22,6 +22,7 @@ class ShopActivity : BaseActivity() {
     private lateinit var adapter: ShopGoodsAdapter
     private val goodsList = arrayListOf<OsGoods>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shop_activity_main)

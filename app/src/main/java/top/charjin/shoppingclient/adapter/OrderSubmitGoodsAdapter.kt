@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.order_submit_list_item.view.*
 import top.charjin.shoppingclient.R
 import top.charjin.shoppingclient.model.PreOrderGoodsModel
@@ -32,6 +33,8 @@ class OrderSubmitGoodsAdapter(val context: Context, val data: List<PreOrderGoods
             sum += it.goodsNum * it.price
         }
 
+        // 不同的店铺类型 显示不同的图标 (后添加)
+        Glide.with(context).load(R.drawable.goods_bottom_img_shop).into(holder.ivShopType)
         holder.tvShopName.text = preOrder.shopName
         holder.tvSendType.text = "普通配送"
         holder.tvOrderSum.text = String.format("%.2f", sum)
@@ -53,11 +56,6 @@ class OrderSubmitGoodsAdapter(val context: Context, val data: List<PreOrderGoods
         val ivShopType = view.iv_order_submit_list_item_type
         val tvShopName = view.tv_order_submit_list_item_shop_name
         val llGoodsView = view.ll_order_submit_list_item_goods
-        //        val ivGoods = view.iv_order_submit_list_item_goods
-//        val tvGoodsName = view.tv_order_submit_list_item_goods_name
-//        val tvPlan = view.tv_order_submit_list_item_plan
-//        val tvGoodsPrice = view.tv_order_submit_list_item_price
-//        val tvGoodsNum = view.tv_order_submit_list_item_goods_num
         val tvSendType = view.tv_order_submit_list_item_send_type_value
         val tvBtnSendType = view.tv_btn_order_submit_list_item_send_type
         val etOrderRemark = view.et_order_submit_list_item_remark

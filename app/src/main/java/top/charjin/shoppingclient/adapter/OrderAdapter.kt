@@ -58,25 +58,19 @@ class OrderAdapter(val context: Context, val orderList: List<OsOrderModel>) : Re
 
         // 点击头部 跳转到店铺
         holder.llHeaderShop.setOnClickListener {
-            val intent = Intent(context, ShopActivity::class.java)
-//            val shop = OsShop()
-//            shop.shopId = order.shop.shopId
-//            shop.shopName = order.shop.shopName
-            intent.putExtra("shop", shop)
-            context.startActivity(intent)
+            Intent(context, ShopActivity::class.java).apply {
+                putExtra("shop", shop)
+                context.startActivity(this)
+            }
         }
 
         // 点击商品部分 跳转至订单详情页
         holder.llShopMain.setOnClickListener {
-            val intent = Intent(context, OrderDetailActivity::class.java)
-            intent.putExtra("order", order)
-            context.startActivity(intent)
-
-//            传递orderList至详情页面
-//            intent.putExtra("goodsId", order.shop.shopId)
-//            context.startActivity(intent)
+            Intent(context, OrderDetailActivity::class.java).apply {
+                putExtra("order", order)
+                context.startActivity(this)
+            }
         }
-        //        holder.ivGoods.setText(order);
     }
 
     override fun getItemCount(): Int {

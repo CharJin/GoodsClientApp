@@ -26,7 +26,7 @@
     <string name="cart_edit">编辑</string>
 
 
-    <string name="profile_user_name">用户未登录</string>
+    <string name="profile_user_name">点我登录</string>
     <string name="profile_personal_recommend_title">个性推荐</string>
     <string name="profile_personal_recommend_title_decorate">更多适合你的好货</string>
 
@@ -66,5 +66,6 @@
     <string name="order_goods_item_goods_num">共%d件商品</string>
     <string name="goods_display_ads_title">【享6期免息】Xiaomi/小米 Redmi K20 Pro 新品4800万三摄骁龙855手机9官方旗舰店正品note7红米k20pro</string>
     <string name="goods_display_sale_volume">%d人购买</string>
+    <string name="app_dev_email">charjindev@gmail.com</string>
 
 </resources>

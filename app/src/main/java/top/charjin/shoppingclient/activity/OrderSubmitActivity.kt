@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.order_include_address.*
 import kotlinx.android.synthetic.main.order_pay_pop_window.view.*
@@ -66,19 +67,11 @@ class OrderSubmitActivity : BaseActivity() {
         rv_order_submit_goods.layoutManager = LinearLayoutManager(this)
         rv_order_submit_goods.adapter = adapter
 
-//        val goodsList: ArrayList<PreOrderGoodsModel> = intent.getSerializableExtra("goods") as ArrayList<PreOrderGoodsModel>
-//        orderGoodsList.addAll(goodsList)
-//        adapter.notifyDataSetChanged()
-
         val goodsList: ArrayList<PreOrderGoodsModel> = intent.getSerializableExtra("orderGoodsList") as ArrayList<PreOrderGoodsModel>
 
         orderGoodsList.clear()
         orderGoodsList.addAll(goodsList)
 
-
-        /*
-         *
-         */
 
         orderGoodsList.forEach { preOrderModel ->
             preOrderModel.goodsList.forEach { sum += it.goodsNum * it.price }
@@ -101,7 +94,9 @@ class OrderSubmitActivity : BaseActivity() {
 
                     override fun onResponse(call: Call, response: Response) {
                         val jsonData = response.body()!!.string()
-                        val rs = JsonUtil.parseJSONObject(jsonData, ResultModel::class.java)
+                        val gson = Gson()
+                        val rs = gson.fromJson<ResultModel<OsAddress>>(jsonData, object : TypeToken<ResultModel<OsAddress>>() {}.type)
+//                        val rs = JsonUtil.parseJSONObject(jsonData, ResultModel::class.java)
                         runOnUiThread {
                             if (rs.code == 200) {
                                 val defaultAddress = rs.data as OsAddress
@@ -125,9 +120,10 @@ class OrderSubmitActivity : BaseActivity() {
      * 更换收货地址，转至地址页面
      */
     fun changeAddressOnClick(view: View) {
-        val intent = Intent(this, AddressActivity::class.java)
-        intent.putExtra("flag", CHANGE_ADDRESS)
-        startActivityForResult(intent, CHANGE_ADDRESS)
+        Intent(this, AddressActivity::class.java).apply {
+            putExtra("flag", CHANGE_ADDRESS)
+            startActivityForResult(this, CHANGE_ADDRESS)
+        }
     }
 
 

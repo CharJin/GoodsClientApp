@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,9 @@ public class AppActivity extends BaseActivity {
         setContentView(R.layout.app_activity_main);
         setAndroidNativeLightStatusBar(this, true);
         initView();
+        Log.e("charjin", "fdsafdasfdsa");
+
+        checkUser();
 
     }
 

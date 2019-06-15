@@ -32,9 +32,8 @@ import top.charjin.shoppingclient.utils.Router;
 public abstract class BaseActivity extends AppCompatActivity implements UserManager {
 
     protected int mColorId = R.color.app_default_status_bar_orange;//状态栏的默认背景色
-    private SystemBarTintManager tintManager;
-
     protected OsUser user = null;
+    private SystemBarTintManager tintManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,12 +76,12 @@ public abstract class BaseActivity extends AppCompatActivity implements UserMana
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-//                    try {
-//                        Thread.sleep(1000);
-//                        // 延迟1秒再开启用户信息的检测
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        Thread.sleep(1500);
+                        // 延迟1秒再开启用户信息的检测
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     assert response.body() != null;
                     String jsonData = response.body().string();
                     runOnUiThread(() -> {

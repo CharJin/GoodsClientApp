@@ -19,7 +19,6 @@ class GoodsDisplayAdapter(val context: Context, val goodsList: List<OsGoods>) : 
 
     override fun getItemCount(): Int = goodsList.size
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val goods = goodsList[position]
         Glide.with(context).load(goods.image).into(holder.ivGoods)
@@ -28,12 +27,12 @@ class GoodsDisplayAdapter(val context: Context, val goodsList: List<OsGoods>) : 
         holder.tvRegion.text = goods.region
         holder.tvSaleVolume.text = String.format(context.resources.getString(R.string.goods_display_sale_volume), goods.salesVolume)
         holder.itemView.setOnClickListener {
-            val intent = Intent(this.context, GoodsActivity::class.java)
-            intent.putExtra("goods", goods)
-            context.startActivity(intent)
+            Intent(this.context, GoodsActivity::class.java).apply {
+                putExtra("goods", goods)
+                context.startActivity(this)
+            }
         }
     }
-
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivGoods = view.iv_goods_display

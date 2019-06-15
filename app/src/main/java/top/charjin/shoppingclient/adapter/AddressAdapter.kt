@@ -1,6 +1,5 @@
 package top.charjin.shoppingclient.adapter
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
@@ -29,12 +28,11 @@ class AddressAdapter(val context: Context, val data: List<OsAddress>) : Recycler
         holder.tvAddressDetail.text = String.format("%s%s%s %s", address.province, address.city, address.district, address.addressDetail)
         holder.tvIsDefault.visibility = if (address.isDefault) View.VISIBLE else View.GONE
         holder.tvBtnEdit.setOnClickListener {
-
-            val intent = Intent(context, AddressModifyActivity::class.java)
-            intent.putExtra("addressOperatorType", AddressModifyActivity.ADDRESS_UPDATE)   // 0 : add, 1 : update
-            intent.putExtra("address", address)
-            (context as Activity).startActivity(intent)
-            //            Toast.makeText(context, "show", Toast.LENGTH_SHORT).show()
+            Intent(context, AddressModifyActivity::class.java).apply {
+                putExtra("addressOperatorType", AddressModifyActivity.ADDRESS_UPDATE)   // 0 : add, 1 : update
+                putExtra("address", address)
+                context.startActivity(this)
+            }
         }
 
         holder.clAddress.setOnClickListener {
