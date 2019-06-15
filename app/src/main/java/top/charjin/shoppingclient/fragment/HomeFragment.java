@@ -64,10 +64,15 @@ public class HomeFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.home_fragment_main;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewHome = inflater.inflate(R.layout.home_fragment_main, container, false);
+        viewHome = LayoutInflater.from(context).inflate(R.layout.home_fragment_main, container, false);
 
         initComponent();
 

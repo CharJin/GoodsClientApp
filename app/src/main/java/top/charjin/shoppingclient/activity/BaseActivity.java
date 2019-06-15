@@ -1,22 +1,28 @@
 package top.charjin.shoppingclient.activity;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.entity.OsUser;
 import top.charjin.shoppingclient.user.UserManager;
@@ -24,13 +30,20 @@ import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.Router;
 
 public abstract class BaseActivity extends AppCompatActivity implements UserManager {
+
+    protected int mColorId = R.color.app_default_status_bar_orange;//状态栏的默认背景色
+    private SystemBarTintManager tintManager;
+
     protected OsUser user = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        initStateBar();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // 不允许横屏
         user = ShoppingApplication.getUser();
+//        initState();
 //        checkUser();
     }
 
@@ -125,4 +138,79 @@ public abstract class BaseActivity extends AppCompatActivity implements UserMana
                 .putString("password", newUser.getPassword())
                 .apply();
     }
+
+
+    /**
+     * 初始化沉浸式
+     */
+    private void initStateBar() {
+        setColorId();
+        if (isNeedLoadStatusBar()) {
+            loadStateBar();
+        }
+    }
+
+    private void loadStateBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+        tintManager = new SystemBarTintManager(this);
+        // 激活状态栏设置
+        tintManager.setStatusBarTintEnabled(true);
+        // 激活导航栏设置
+        tintManager.setNavigationBarTintEnabled(true);
+        // 设置一个状态栏颜色
+        setStatusBarStyle();
+
+    }
+
+    protected void setStatusBarStyle() {
+        tintManager.setStatusBarTintResource(getColorId());
+    }
+
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
+
+    /**
+     * 如果子类使用非默认的StatusBar,就重写此方法,传入布局的id
+     */
+    protected void setColorId() {
+        //this.mColorId=R.color.XXX;子类重写方式
+    }
+
+    protected int getColorId() {
+        return mColorId;
+    }
+
+    /**
+     * 子类是否需要实现沉浸式,默认需要
+     *
+     * @return
+     */
+    protected boolean isNeedLoadStatusBar() {
+        return true;
+    }
+
+
+//    /**
+//     * 沉浸式状态栏
+//     */
+//    private void initState() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { //透明状态栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS); //透明导航栏
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        }
+//
+//        MIUISetStatusBarLightMode(this, true);
+//    }
 }

@@ -1,6 +1,7 @@
 package top.charjin.shoppingclient.activity
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.text.Editable
@@ -17,6 +18,7 @@ import top.charjin.shoppingclient.R
 import top.charjin.shoppingclient.entity.OsAddress
 import top.charjin.shoppingclient.utils.HttpUtil
 import top.charjin.shoppingclient.utils.Router
+import top.charjin.shoppingclient.utils.WindowUtil
 import java.io.IOException
 
 
@@ -42,9 +44,15 @@ class AddressModifyActivity : BaseActivity(), TextWatcher {
         const val ADDRESS_UPDATE = 1
     }
 
+    override fun setColorId() {
+        this.mColorId = Color.TRANSPARENT
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.address_modify_activity_main)
+        WindowUtil.setAndroidNativeLightStatusBar(this, true)
+
 
 //        initAreaInfo()
 

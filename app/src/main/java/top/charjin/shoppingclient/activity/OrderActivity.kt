@@ -21,6 +21,7 @@ import top.charjin.shoppingclient.model.OsOrderModel
 import top.charjin.shoppingclient.utils.HttpUtil
 import top.charjin.shoppingclient.utils.JsonUtil
 import top.charjin.shoppingclient.utils.Router
+import top.charjin.shoppingclient.utils.WindowUtil
 import java.io.IOException
 import java.io.Serializable
 import java.util.stream.Collectors
@@ -42,11 +43,14 @@ class OrderActivity : BaseActivity(), TabLayout.OnTabSelectedListener {
     private lateinit var goodsAdapter: GoodsDisplayAdapter
     private var goodsList = arrayListOf<OsGoods>()
 
+    override fun setColorId() {
+        this.mColorId = R.color.app_status_bar_white
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_activity_main)
-
+        WindowUtil.setAndroidNativeLightStatusBar(this, true)
 
         initComponent()
 
@@ -57,8 +61,8 @@ class OrderActivity : BaseActivity(), TabLayout.OnTabSelectedListener {
 
         // 初始化商品推荐list
         goodsAdapter = GoodsDisplayAdapter(this, goodsList)
-        rv_order_result_goods_display.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rv_order_result_goods_display.adapter = goodsAdapter
+        rv_goods_display.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        rv_goods_display.adapter = goodsAdapter
 
         tlOrder.addOnTabSelectedListener(this)
 

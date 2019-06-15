@@ -6,6 +6,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_goods_display_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -32,7 +33,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_order_result_goods_display"
+        android:id="@+id/rv_goods_display"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

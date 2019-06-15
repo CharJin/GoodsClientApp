@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -36,10 +38,13 @@ import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.activity.LoginActivity;
 import top.charjin.shoppingclient.activity.OrderSubmitActivity;
 import top.charjin.shoppingclient.adapter.CartAdapter;
+import top.charjin.shoppingclient.adapter.GoodsDisplayAdapter;
+import top.charjin.shoppingclient.entity.OsGoods;
 import top.charjin.shoppingclient.model.CartGoodsModel;
 import top.charjin.shoppingclient.model.CartShopModel;
 import top.charjin.shoppingclient.model.PreOrderGoodsModel;
 import top.charjin.shoppingclient.utils.HttpUtil;
+import top.charjin.shoppingclient.utils.JsonUtil;
 import top.charjin.shoppingclient.utils.Router;
 
 public class CartFragment extends BaseFragment implements CartAdapter.OnItemSelectedListener {
@@ -61,10 +66,22 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     private double sum_price = 0.0;     //合计总价格
     private boolean isLoaded = true;
 
+    private LinearLayout llHintEmpty;
+
+    private RecyclerView rvGoodsDisplay;
+    private GoodsDisplayAdapter goodsAdapter;
+    private List<OsGoods> goodsList = new ArrayList<>();
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.cart_fragment_main;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View homeView = inflater.inflate(R.layout.cart_fragment_main, container, false);
+//        View homeView = super.onCreateView(inflater, container, savedInstanceState);
+        View homeView = LayoutInflater.from(context).inflate(R.layout.cart_fragment_main, container, false);
 
 
         tvBtnCheckout = homeView.findViewById(R.id.tv_btn_cart_chock_out);
@@ -99,6 +116,19 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
             startActivity(intent);
 
         });
+
+        llHintEmpty = homeView.findViewById(R.id.ll_cart_hint_empty);
+
+
+        // 初始化推荐商品信息
+       /* rvGoodsDisplay = homeView.findViewById(R.id.rv_goods_display);
+
+        goodsAdapter = new GoodsDisplayAdapter(context, goodsList);
+        rvGoodsDisplay.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        rvGoodsDisplay.setAdapter(goodsAdapter);
+
+        initGoodsDisplayData();*/
+
         return homeView;
     }
 
@@ -139,13 +169,7 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
 //    }
 
     private void initCartData() {
-        Log.e("Cart", "initCartData");
-        // 保留 check
-//        if (user == null) {
-//            Toast.makeText(activity, "请登录账户", Toast.LENGTH_SHORT).show();
-//            startActivity(new Intent(activity, LoginActivity.class));
-//            return;
-//        }
+        llHintEmpty.setVisibility(View.GONE);
         HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "cart/query-cart?userId=" + ShoppingApplication.getUser().getUserId(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -177,8 +201,15 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
                     }
 
                     activity.runOnUiThread(() -> {
-                        if (shopList.size() > 0) cbChooseAll.setEnabled(true);
-                        else cbChooseAll.setEnabled(false);
+                        if (shopList.size() > 0) {
+                            cbChooseAll.setEnabled(true);
+                            elvCart.setVisibility(View.VISIBLE);
+                        } else {
+                            cbChooseAll.setChecked(false);
+                            cbChooseAll.setEnabled(false);
+                            llHintEmpty.setVisibility(View.VISIBLE);
+                            elvCart.setVisibility(View.GONE);
+                        }
                         cartAdapter.notifyDataSetChanged();
                         // 根据店铺的数量，把每个item展开
                         for (int i = 0; i < shopList.size(); i++) {
@@ -297,4 +328,28 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
             updateBtnCheckout();
         }
     }
+
+
+    private void initGoodsDisplayData() {
+        HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "goods/getAllGoods", new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                assert response.body() != null;
+                String jsonData = response.body().string();
+                activity.runOnUiThread(() -> {
+                    goodsList.clear();
+                    goodsList.addAll(JsonUtil.parseJSONObjectInStringToEntityList(jsonData, OsGoods.class));
+                    goodsAdapter.notifyDataSetChanged();
+                });
+            }
+        });
+    }
+
+
 }

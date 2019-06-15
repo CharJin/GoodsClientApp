@@ -1,6 +1,6 @@
-package top.charjin.shoppingserver.model
+package top.charjin.shoppingclient.model
 
-class ResultMap<T>() {
+class ResultModel<T>() {
     var code: Int = 0
     lateinit var msg: String
     var data: T? = null

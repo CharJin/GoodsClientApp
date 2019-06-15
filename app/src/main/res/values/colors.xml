@@ -6,6 +6,10 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTransparentWhite">#CCCCCC</color>
 
+    <color name="app_default_status_bar_orange">#FF5D49</color>
+    <color name="app_status_bar_white">#FFFFFF</color>
+    <color name="app_status_bar_transparent">#FF5D49</color>
+
 
     <!--<color name="colorPrimary">#3F51B5</color>-->
     <!--<color name="colorPrimaryDark">#303F9F</color>-->

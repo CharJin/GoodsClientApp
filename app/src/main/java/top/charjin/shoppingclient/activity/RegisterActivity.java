@@ -18,7 +18,9 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.entity.OsUser;
+import top.charjin.shoppingclient.model.ResultModel;
 import top.charjin.shoppingclient.utils.HttpUtil;
+import top.charjin.shoppingclient.utils.JsonUtil;
 import top.charjin.shoppingclient.utils.Router;
 
 public class RegisterActivity extends BaseActivity implements TextWatcher {
@@ -72,9 +74,13 @@ public class RegisterActivity extends BaseActivity implements TextWatcher {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
 //                    Log.e("Register", "注册成功");
-                    int status = Integer.parseInt(response.body().string());
+
+                    assert response.body() != null;
+                    String jsonData = response.body().string();
+                    ResultModel rs = JsonUtil.parseJSONObject(jsonData, ResultModel.class);
+
                     runOnUiThread(() -> {
-                        if (status == 0)
+                        if (rs.getCode() == 202)
                             Toasty.warning(RegisterActivity.this, "该用户名已被使用!").show();
                         else {
                             Toasty.success(RegisterActivity.this, "注册成功!,去登录吧!").show();

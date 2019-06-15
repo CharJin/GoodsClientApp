@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +15,25 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.ShoppingApplication;
 import top.charjin.shoppingclient.activity.LoginActivity;
 import top.charjin.shoppingclient.activity.OrderActivity;
 import top.charjin.shoppingclient.activity.UserInfoActivity;
+import top.charjin.shoppingclient.adapter.GoodsDisplayAdapter;
+import top.charjin.shoppingclient.entity.OsGoods;
 import top.charjin.shoppingclient.entity.OsUser;
+import top.charjin.shoppingclient.utils.HttpUtil;
+import top.charjin.shoppingclient.utils.JsonUtil;
+import top.charjin.shoppingclient.utils.Router;
 
 public class ProfileFragment extends BaseFragment implements View.OnClickListener {
 
@@ -29,22 +43,34 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     private CircleImageView civHeaderPortrait;
     private View homeView;
     private RelativeLayout rlUser;
+    private LinearLayout llGoodsDisplay;
+    private RecyclerView rvGoodsDisplay;
 
+
+    private GoodsDisplayAdapter goodsAdapter;
+    private List<OsGoods> goodsList = new ArrayList<>();
+
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.profile_fragment_main;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        homeView = inflater.inflate(R.layout.profile_fragment_main, container, false);
+//        homeView = super.onCreateView(inflater, container, savedInstanceState);
+        homeView = LayoutInflater.from(context).inflate(R.layout.profile_fragment_main, container, false);
+
+
         intiComponent();
 
+        llGoodsDisplay.setVisibility(View.GONE);    // 去除猜你喜欢字样
 
-//        rlUser.setOnClickListener(e -> startActivity(new Intent(getContext(), LoginActivity.class)));
         rlUser.setOnClickListener(e -> {
             if (activity.userLoginIntercept(context))
                 startActivity(new Intent(getContext(), UserInfoActivity.class));
         });
-
-
         rlMyOrder.setOnClickListener(v -> {
             if (activity.userLoginIntercept(context)) {
                 Intent intent = new Intent(context, OrderActivity.class);
@@ -52,14 +78,18 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 startActivity(intent);
             }
         });
-//
-//        tvBtnAllOrder = homeView.findViewById(R.id.tv_btn_order_all);
-//        tvBtnAllOrder.setOnClickListener(v -> startActivity(new Intent(context, OrderActivity.class)));
+
 
         llOrderObligation.setOnClickListener(this);
         llWaitReceiving.setOnClickListener(this);
         llOrderComment.setOnClickListener(this);
 
+
+        goodsAdapter = new GoodsDisplayAdapter(context, goodsList);
+        rvGoodsDisplay.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        rvGoodsDisplay.setAdapter(goodsAdapter);
+
+        initGoodsDisplayData();
 
         return homeView;
     }
@@ -73,6 +103,8 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         llOrderObligation = homeView.findViewById(R.id.ll_shop_order_obligation);
         llWaitReceiving = homeView.findViewById(R.id.ll_shop_order_wait_receiving);
         llOrderComment = homeView.findViewById(R.id.ll_shop_order_comment);
+        llGoodsDisplay = homeView.findViewById(R.id.ll_goods_display_header);
+        rvGoodsDisplay = homeView.findViewById(R.id.rv_goods_display);
     }
 
 
@@ -119,4 +151,28 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         }
         startActivity(intent);
     }
+
+
+    private void initGoodsDisplayData() {
+        HttpUtil.sendOkHttpRequestByGet(Router.BASE_URL + "goods/getAllGoods", new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                assert response.body() != null;
+                String jsonData = response.body().string();
+                activity.runOnUiThread(() -> {
+                    goodsList.clear();
+                    goodsList.addAll(JsonUtil.parseJSONObjectInStringToEntityList(jsonData, OsGoods.class));
+                    goodsAdapter.notifyDataSetChanged();
+                });
+            }
+        });
+    }
+
+
 }

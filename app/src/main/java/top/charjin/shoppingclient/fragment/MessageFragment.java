@@ -27,10 +27,16 @@ public class MessageFragment extends BaseFragment {
     private List<MessageModel> data = new ArrayList<>();
 
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.message_fragment_main;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewMessage = inflater.inflate(R.layout.message_fragment_main, container, false);
+//        viewMessage = super.onCreateView(inflater, container, savedInstanceState);
+        viewMessage = LayoutInflater.from(context).inflate(R.layout.message_fragment_main, container, false);
 
         // RecyclerView
         rvMessage = viewMessage.findViewById(R.id.rv_message);

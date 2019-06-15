@@ -303,4 +303,10 @@ public class GoodsActivity extends BaseActivity {
 
     public void collectGoods(View view) {
     }
+
+
+    @Override
+    protected boolean isNeedLoadStatusBar() {
+        return false;
+    }
 }

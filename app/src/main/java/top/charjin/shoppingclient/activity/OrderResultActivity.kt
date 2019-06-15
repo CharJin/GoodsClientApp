@@ -2,7 +2,6 @@ package top.charjin.shoppingclient.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.widget.Toast
@@ -21,7 +20,7 @@ import top.charjin.shoppingclient.utils.Router
 import java.io.IOException
 
 
-class OrderResultActivity : AppCompatActivity() {
+class OrderResultActivity : BaseActivity() {
 
     private lateinit var adapter: GoodsDisplayAdapter
     private var goodsList = arrayListOf<OsGoods>()
@@ -47,8 +46,8 @@ class OrderResultActivity : AppCompatActivity() {
         tv_btn_order_result_go_home
 
         adapter = GoodsDisplayAdapter(this, goodsList)
-        rv_order_result_goods_display.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rv_order_result_goods_display.adapter = adapter
+        rv_goods_display.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        rv_goods_display.adapter = adapter
         initGoodsDisplay()
     }
 
@@ -85,4 +84,9 @@ class OrderResultActivity : AppCompatActivity() {
     }
 
     fun finishOnClick(view: View) = finish()
+
+
+//    override fun setStatusBarStyle() {
+//        tintManager.setStatusBarTintDrawable(getDrawable(R.drawable.order_bg))
+//    }
 }

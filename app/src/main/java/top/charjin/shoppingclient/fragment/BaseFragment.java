@@ -1,11 +1,16 @@
 package top.charjin.shoppingclient.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -25,6 +30,34 @@ import top.charjin.shoppingclient.utils.Router;
 public abstract class BaseFragment extends Fragment {
     protected Context context;
     protected AppActivity activity;
+
+
+    protected View mStatusBarView;
+    private ViewGroup mView;
+
+    public static int getStatusBarHeight(Activity activity) {
+        int statusBarHeight = 0;
+        if (activity != null) {
+            int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+            statusBarHeight = activity.getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight;
+    }
+
+    protected abstract int getLayoutId();
+
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        if (mView == null) {
+//            mView = (ViewGroup) inflater.inflate(getLayoutId(), container, false);
+//        }
+//        ViewGroup parent = (ViewGroup) mView.getParent();
+//        if (parent != null) {
+//            parent.removeView(mView);
+//        }
+//        return mView;
+//    }
 
     /**
      * 获取context和activity
@@ -90,6 +123,25 @@ public abstract class BaseFragment extends Fragment {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.e("9090", this.getClass().getName());
+        addStatusBar();
+    }
+
+    private void addStatusBar() {
+        if (mStatusBarView == null) {
+            mStatusBarView = new View(getContext());
+            int screenWidth = getResources().getDisplayMetrics().widthPixels;
+            int statusBarHeight = getStatusBarHeight(getActivity());
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(screenWidth, statusBarHeight);
+            mStatusBarView.setLayoutParams(params);
+            mStatusBarView.requestLayout();
+            if (mView != null)
+                mView.addView(mStatusBarView, 0);
+        }
+    }
 
 }
 

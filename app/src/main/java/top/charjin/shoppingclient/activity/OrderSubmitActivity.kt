@@ -22,12 +22,12 @@ import top.charjin.shoppingclient.entity.OsAddress
 import top.charjin.shoppingclient.entity.OsOrder
 import top.charjin.shoppingclient.entity.OsOrderDetail
 import top.charjin.shoppingclient.model.PreOrderGoodsModel
+import top.charjin.shoppingclient.model.ResultModel
 import top.charjin.shoppingclient.utils.HttpUtil
 import top.charjin.shoppingclient.utils.JsonUtil
 import top.charjin.shoppingclient.utils.Router
 import top.charjin.shoppingclient.utils.ShoppingClientUtil
 import top.charjin.shoppingclient.view.GoodsPopupWindow
-import top.charjin.shoppingserver.model.ResultMap
 import java.io.IOException
 
 class OrderSubmitActivity : BaseActivity() {
@@ -101,12 +101,19 @@ class OrderSubmitActivity : BaseActivity() {
 
                     override fun onResponse(call: Call, response: Response) {
                         val jsonData = response.body()!!.string()
-                        address = JsonUtil.parseJSONObject(jsonData, OsAddress::class.java)
+                        val rs = JsonUtil.parseJSONObject(jsonData, ResultModel::class.java)
                         runOnUiThread {
-                            tv_order_address_receiver.text = address.receiver
-                            tv_order_address_phone.text = address.phone
-                            tv_order_address_detail.text = String.format("%s%s%s %s",
-                                    address.province, address.city, address.district, address.addressDetail)
+                            if (rs.code == 200) {
+                                val defaultAddress = rs.data as OsAddress
+                                tv_order_address_receiver.text = defaultAddress.receiver
+                                tv_order_address_phone.text = defaultAddress.phone
+                                tv_order_address_detail.text = String.format("%s%s%s %s",
+                                        defaultAddress.province, defaultAddress.city, defaultAddress.district, defaultAddress.addressDetail)
+                            } else {
+                                tv_order_address_receiver.text = ""
+                                tv_order_address_phone.text = ""
+                                tv_order_address_detail.text = "您还未添加任何地址"
+                            }
 
                         }
                     }
@@ -175,8 +182,8 @@ class OrderSubmitActivity : BaseActivity() {
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val resultMap = JsonUtil.parseJSONObject(response.body()!!.string(), ResultMap::class.java)
-                    if (resultMap.code == 201) {
+                    val resultMap = JsonUtil.parseJSONObject(response.body()!!.string(), ResultModel::class.java)
+                    if (resultMap.code == 200) {
                     } else {
                     }
 
@@ -193,7 +200,7 @@ class OrderSubmitActivity : BaseActivity() {
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val resultMap = JsonUtil.parseJSONObject(response.body()!!.string(), ResultMap::class.java)
+                    val resultMap = JsonUtil.parseJSONObject(response.body()!!.string(), ResultModel::class.java)
                     if (resultMap.code == 201) {
                     } else {
                     }

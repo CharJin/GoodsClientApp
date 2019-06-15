@@ -34,6 +34,31 @@
 
     <include layout="@layout/separator_line_horizontal" />
 
+
+    <LinearLayout
+        android:id="@+id/ll_cart_hint_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@drawable/cart_hint_empty" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="购物车还是空的\n快去逛逛吧"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
     <ExpandableListView
         android:id="@+id/elv_cart"
         android:layout_width="match_parent"
@@ -41,6 +66,27 @@
         android:layout_weight="1"
         android:groupIndicator="@null" />
 
+    <!-- <android.support.v4.widget.NestedScrollView
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="1">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
+
+
+             <include
+                 layout="@layout/goods_display_include_recommend"
+                 android:visibility="gone" />
+
+         </LinearLayout>
+
+
+     </android.support.v4.widget.NestedScrollView>
+
+ -->
     <!--android:dividerHeight="6dp"-->
     <!--android:divider="@drawable/cart_item_divider"-->
 
@@ -140,5 +186,6 @@
 
 
     </LinearLayout>
+
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package top.charjin.shoppingclient.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -17,6 +18,8 @@ import java.util.Objects;
 import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.data.BottomNavResource;
 
+import static top.charjin.shoppingclient.utils.WindowUtil.setAndroidNativeLightStatusBar;
+
 /**
  * 主活动,滑动介绍页面(即SlideActivity)显示过后,app的视图
  */
@@ -32,8 +35,14 @@ public class AppActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_activity_main);
+        setAndroidNativeLightStatusBar(this, true);
         initView();
 
+    }
+
+    @Override
+    protected void setColorId() {
+        this.mColorId = Color.TRANSPARENT;
     }
 
     @Override
@@ -101,6 +110,7 @@ public class AppActivity extends BaseActivity {
     private boolean changeFragment(int position) {
         boolean flag = true;
         Fragment fragment = null;
+        this.mColorId = Color.TRANSPARENT;
         switch (position) {
             case 0:
                 fragment = mFragments[0];
@@ -116,6 +126,7 @@ public class AppActivity extends BaseActivity {
                 break;
             case 3:
                 fragment = mFragments[3];
+                mColorId = R.color.app_default_status_bar_orange;
                 break;
         }
         if (!flag) {

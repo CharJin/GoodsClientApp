@@ -1,7 +1,6 @@
 package top.charjin.shoppingclient.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import android.widget.Toast
@@ -23,7 +22,7 @@ import top.charjin.shoppingclient.utils.Router
 import top.charjin.shoppingclient.view.OrderGoodsView
 import java.io.IOException
 
-class OrderDetailActivity : AppCompatActivity() {
+class OrderDetailActivity : BaseActivity() {
 
     private lateinit var order: OsOrderModel
 
@@ -42,8 +41,8 @@ class OrderDetailActivity : AppCompatActivity() {
         initBottomBtnView()
 
         adapter = GoodsDisplayAdapter(this, goodsList)
-        rv_order_result_goods_display.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rv_order_result_goods_display.adapter = adapter
+        rv_goods_display.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        rv_goods_display.adapter = adapter
         initGoodsDisplay()
     }
 

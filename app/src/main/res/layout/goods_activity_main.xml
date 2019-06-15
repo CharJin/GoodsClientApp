@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,54 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.GoodsActivity">
-
-
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/ll_search_header"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="55dp"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:orientation="horizontal">-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="23dp"-->
-    <!--android:layout_height="23dp"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_marginStart="10dp"-->
-    <!--android:layout_marginEnd="10dp"-->
-    <!--android:onClick="backOnClick"-->
-    <!--android:src="@drawable/search_back_icon" />-->
-
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_search_btn"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:gravity="center"-->
-    <!--android:text="商品页"-->
-    <!--android:textColor="@color/search_btn_color"-->
-    <!--android:textSize="18sp" />-->
-
-
-    <!--<ImageView-->
-    <!--android:layout_width="24dp"-->
-    <!--android:layout_height="24dp"-->
-    <!--android:layout_alignParentEnd="true"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:layout_marginEnd="15dp"-->
-    <!--android:onClick="shareOnClick"-->
-    <!--android:scaleType="centerCrop"-->
-    <!--android:src="@drawable/goods_header_img_share" />-->
-
-    <!--</RelativeLayout>-->
-
-    <!--<include layout="@layout/separator_line_horizontal" />-->
-
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="4dp" />-->
-
 
     <FrameLayout
         android:layout_width="match_parent"
