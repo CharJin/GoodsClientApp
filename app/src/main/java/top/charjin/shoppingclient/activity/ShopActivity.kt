@@ -1,5 +1,6 @@
 package top.charjin.shoppingclient.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
@@ -30,6 +31,10 @@ class ShopActivity : BaseActivity() {
         adapter = ShopGoodsAdapter(this, goodsList)
         adapter.onCartClickListener = object : ShopGoodsAdapter.OnCartClickListener {
             override fun onCartClick(goods: OsGoods) {
+                if (user == null) {
+                    startActivity(Intent(this@ShopActivity, LoginActivity::class.java))
+                    return
+                }
                 HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoods?userId=${user.userId}&goodsId=${goods.goodsId}&goodsNum=1",
                         object : Callback {
                             override fun onFailure(call: Call, e: IOException) {
