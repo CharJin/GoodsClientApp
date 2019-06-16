@@ -171,6 +171,10 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e(this.getClass().getName(), e.getMessage());
+                cbChooseAll.setChecked(false);
+                cbChooseAll.setEnabled(false);
+                llHintEmpty.setVisibility(View.VISIBLE);
+                elvCart.setVisibility(View.GONE);
             }
 
             @Override
