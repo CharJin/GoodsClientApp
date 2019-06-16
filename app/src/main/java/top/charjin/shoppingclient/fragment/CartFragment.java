@@ -374,7 +374,7 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     private void onCheckoutRemoveClick(View v) {
 
         new AlertDialog.Builder(context)
-                .setTitle("是否删除该地址")
+                .setTitle("确定删除吗?")
                 .setPositiveButton("删除", (dialog, which) -> {
                     List<Integer> removeGoodsIdList = new ArrayList<>();
                     cartMap.forEach((shop, goodsList) -> removeGoodsIdList.addAll(goodsList.stream()

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -185,8 +184,6 @@ class OrderSubmitActivity : BaseActivity() {
                 override fun onFailure(call: Call, e: IOException) {
                     runOnUiThread {
                         Toasty.error(this@OrderSubmitActivity, "订单接口请求错误!")
-                        Log.i("orderSubmit", e.message.toString())
-
                     }
                 }
 
@@ -204,7 +201,6 @@ class OrderSubmitActivity : BaseActivity() {
                 override fun onFailure(call: Call, e: IOException) {
                     runOnUiThread {
                         Toasty.error(this@OrderSubmitActivity, "订单接口请求错误!")
-                        Log.i("orderSubmit", e.message.toString())
                     }
                 }
 

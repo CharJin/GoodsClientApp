@@ -1,7 +1,7 @@
 package top.charjin.shoppingclient.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -23,7 +23,9 @@ import top.charjin.shoppingclient.entity.OsGoods;
 import top.charjin.shoppingclient.utils.HttpUtil;
 import top.charjin.shoppingclient.utils.Router;
 
-public class SearchResultActivity extends AppCompatActivity implements Callback {
+import static top.charjin.shoppingclient.utils.WindowUtil.setAndroidNativeLightStatusBar;
+
+public class SearchResultActivity extends BaseActivity implements Callback {
 
     private RecyclerView rvRsGoods;
     private GoodsDisplayAdapter adapter;
@@ -33,9 +35,15 @@ public class SearchResultActivity extends AppCompatActivity implements Callback 
     private String key;
 
     @Override
+    protected void setColorId() {
+        this.mColorId = Color.TRANSPARENT;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result_activity);
+        setAndroidNativeLightStatusBar(this, true);
         initComponent();
 
         // 设置搜索框，内容
