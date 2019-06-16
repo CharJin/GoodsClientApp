@@ -20,6 +20,7 @@
             tools:ignore="RelativeOverlap" />
 
         <Button
+            android:id="@+id/btn_cart_edit_goods"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -90,39 +91,43 @@
     <!--android:dividerHeight="6dp"-->
     <!--android:divider="@drawable/cart_item_divider"-->
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <CheckBox
+            android:id="@+id/cb_cart_choose_all"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/cart_choose_selector"
+            android:button="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="10dp">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="全选"
+            android:textColor="@color/message_title_color"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cb_cart_choose_all"
+            app:layout_constraintStart_toEndOf="@+id/cb_cart_choose_all"
+            app:layout_constraintTop_toTopOf="@+id/cb_cart_choose_all" />
 
-            <CheckBox
-                android:id="@+id/cb_cart_choose_all"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@drawable/cart_choose_selector"
-                android:button="@android:color/transparent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="全选"
-                android:textColor="@color/message_title_color"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_cart_goods_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_btn_cart_chock_out"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tv_cart_label_sum"
@@ -158,34 +163,31 @@
                 android:id="@+id/tv_cart_sum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
                 android:text="0.0"
                 android:textColor="@color/cart_shop_price_color"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_btn_cart_chock_out"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_btn_cart_chock_out"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/cart_checkout_btn_selector"
-                android:enabled="false"
-                android:gravity="center"
-                android:onClick="checkoutOnclick"
-                android:text="@string/cart_bottom_checkout"
-                android:textColor="@color/cart_check_out_text_color"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
 
-        </android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_btn_cart_chock_out"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/cart_checkout_btn_selector"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/cart_bottom_checkout"
+            android:textColor="@color/cart_check_out_text_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
 </LinearLayout>

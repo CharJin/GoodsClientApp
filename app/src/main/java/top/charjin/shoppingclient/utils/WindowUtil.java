@@ -1,5 +1,6 @@
 package top.charjin.shoppingclient.utils;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -8,11 +9,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class WindowUtil {
 
+    public static final int COLOR = 0;
+    public static final int DRAWABLE = 1;
 
     //Get status bar height
     public static int getStatusBarHeight(Context context) {
@@ -92,6 +97,12 @@ public class WindowUtil {
     }
 
 
+    /**
+     * 是否将状态栏显示字体设为黑色
+     *
+     * @param activity
+     * @param dark
+     */
     public static void setAndroidNativeLightStatusBar(Activity activity, boolean dark) {
         View decor = activity.getWindow().getDecorView();
         if (dark) {
@@ -101,4 +112,42 @@ public class WindowUtil {
         }
     }
 
+
+    /**
+     * 设置状态栏Color或Drawable
+     *
+     * @param activity
+     * @param statusBarType
+     * @param resource
+     */
+    public static void setStatusBarStyle(Activity activity, int statusBarType, int resource) {
+        SystemBarTintManager tintManager;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(activity, true);
+        }
+        tintManager = new SystemBarTintManager(activity);
+        // 激活状态栏设置
+        tintManager.setStatusBarTintEnabled(true);
+        // 激活导航栏设置
+        tintManager.setNavigationBarTintEnabled(true);
+        // 设置一个状态栏颜色
+        if (statusBarType == WindowUtil.COLOR)
+            tintManager.setStatusBarTintResource(resource);
+        else
+            tintManager.setStatusBarTintDrawable(activity.getDrawable(resource));
+
+    }
+
+    @TargetApi(19)
+    private static void setTranslucentStatus(Activity activity, boolean on) {
+        Window win = activity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
 }

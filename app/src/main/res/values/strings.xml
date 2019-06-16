@@ -36,7 +36,8 @@
 
 
     <string name="goods_detail_title">商品详情</string>
-    <string name="cart_bottom_checkout">去结算(%s)</string>
+    <string name="cart_bottom_checkout">去结算(%d)</string>
+    <string name="cart_bottom_checkout_remove">删除(%d)</string>
 
 
     <string name="shop_name_title">%s</string>

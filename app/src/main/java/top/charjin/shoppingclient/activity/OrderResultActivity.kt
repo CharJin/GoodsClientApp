@@ -17,6 +17,7 @@ import top.charjin.shoppingclient.entity.OsGoods
 import top.charjin.shoppingclient.utils.HttpUtil
 import top.charjin.shoppingclient.utils.JsonUtil
 import top.charjin.shoppingclient.utils.Router
+import top.charjin.shoppingclient.utils.WindowUtil
 import java.io.IOException
 
 
@@ -28,6 +29,7 @@ class OrderResultActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_result_activity_main)
+        WindowUtil.setStatusBarStyle(this, WindowUtil.DRAWABLE, R.drawable.order_result_header_bg)
 
         when (intent.getBooleanExtra("orderStatus", false)) {
             true -> {
@@ -85,5 +87,7 @@ class OrderResultActivity : BaseActivity() {
 
     fun finishOnClick(view: View) = finish()
 
+
+    override fun isNeedLoadStatusBar(): Boolean = false
 
 }

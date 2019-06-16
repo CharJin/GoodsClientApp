@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     tools:context=".activity.OrderResultActivity">
 
     <LinearLayout
@@ -15,7 +17,7 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/order_bg">
+            android:background="@drawable/order_result_header_bg">
 
 
             <ImageView

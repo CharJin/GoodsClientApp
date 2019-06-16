@@ -90,6 +90,7 @@ public class IntroSlideActivity extends AppCompatActivity {
                 mSlideViewPager.setCurrentItem(mCurrentPage);
                 addDotsIndicator(mCurrentPage);
             } else {
+                btnNext.setOnClickListener(null);
                 SharedPreferencesUtil.setLoginRecord(this);
                 Intent intent = new Intent(this, AppActivity.class);
                 startActivity(intent);

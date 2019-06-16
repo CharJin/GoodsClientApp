@@ -159,13 +159,10 @@ public abstract class BaseActivity extends AppCompatActivity implements UserMana
         // 激活导航栏设置
         tintManager.setNavigationBarTintEnabled(true);
         // 设置一个状态栏颜色
-        setStatusBarStyle();
-
-    }
-
-    protected void setStatusBarStyle() {
         tintManager.setStatusBarTintResource(getColorId());
+
     }
+
 
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {

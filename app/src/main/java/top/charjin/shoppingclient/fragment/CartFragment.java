@@ -1,5 +1,6 @@
 package top.charjin.shoppingclient.fragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -57,20 +59,23 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     private List<CartShopModel> shopList = new ArrayList<>();
     private Map<CartShopModel, List<CartGoodsModel>> cartMap = new HashMap<>();
 
+    private Button btnEditGoods;
     private TextView tvBtnCheckout;
     private TextView tvCartSum;
     private CheckBox cbChooseAll;
     private boolean isChooseAll = false;
+    private LinearLayout llCartGoodsAmount;
 
     private int goods_num = 0;          //商品的价格
     private double sum_price = 0.0;     //合计总价格
-    private boolean isLoaded = true;
 
     private LinearLayout llHintEmpty;
 
     private RecyclerView rvGoodsDisplay;
     private GoodsDisplayAdapter goodsAdapter;
     private List<OsGoods> goodsList = new ArrayList<>();
+
+    private String sCheckoutFormat;
 
     @Override
     protected int getLayoutId() {
@@ -80,44 +85,36 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View homeView = super.onCreateView(inflater, container, savedInstanceState);
         View homeView = LayoutInflater.from(context).inflate(R.layout.cart_fragment_main, container, false);
 
+        llHintEmpty = homeView.findViewById(R.id.ll_cart_hint_empty);
 
+        btnEditGoods = homeView.findViewById(R.id.btn_cart_edit_goods);
         tvBtnCheckout = homeView.findViewById(R.id.tv_btn_cart_chock_out);
         tvCartSum = homeView.findViewById(R.id.tv_cart_sum);
 
         elvCart = homeView.findViewById(R.id.elv_cart);
+        cbChooseAll = homeView.findViewById(R.id.cb_cart_choose_all);
+
+        llCartGoodsAmount = homeView.findViewById(R.id.ll_cart_goods_amount);
+
+
+        initComponent();
+        sCheckoutFormat = getResources().getString(R.string.cart_bottom_checkout);
+
         cartAdapter = new CartAdapter(this.getContext(), shopList, cartMap);
         cartAdapter.setOnItemSelectedListener(this);
         cartAdapter.setOnCartGoodsChangedListener(this::onCartGoodsChanged);
         elvCart.setAdapter(cartAdapter);
 
-        cbChooseAll = homeView.findViewById(R.id.cb_cart_choose_all);
         cbChooseAll.setOnClickListener(this::onChooseAllClick);
 
         // 初始总额为0
-        tvBtnCheckout.setText(String.format(getResources().getString(R.string.cart_bottom_checkout), 0 + ""));
+        tvBtnCheckout.setText(String.format(getResources().getString(R.string.cart_bottom_checkout), 0));
         // 点击结算按钮,跳转至订单提交页面
-        tvBtnCheckout.setOnClickListener(v -> {
-            List<PreOrderGoodsModel> orderGoodsList = new ArrayList<>();
+        tvBtnCheckout.setOnClickListener(this::onCheckoutClick);
 
-            // 遍历map, 过滤出被选中的商品存入list中
-            cartMap.forEach((shop, goodsList) -> {
-                List<CartGoodsModel> selectedGoodsList = goodsList.stream().filter(CartGoodsModel::isChecked).collect(Collectors.toList());
-                if (selectedGoodsList.size() != 0) {
-                    PreOrderGoodsModel preOrder = new PreOrderGoodsModel(shop.getShopId(), shop.getShopName(), selectedGoodsList);
-                    orderGoodsList.add(preOrder);
-                }
-            });
-
-            Intent intent = new Intent(context, OrderSubmitActivity.class);
-            intent.putExtra("orderGoodsList", (Serializable) orderGoodsList);
-            startActivity(intent);
-
-        });
-
-        llHintEmpty = homeView.findViewById(R.id.ll_cart_hint_empty);
+        btnEditGoods.setOnClickListener(this::onEditClick);
 
 
         // 初始化推荐商品信息
@@ -133,6 +130,11 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     }
 
 
+    private void initComponent() {
+
+    }
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -142,6 +144,12 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     @Override
     public void onResume() {
         super.onResume();
+        // 重置按钮等状态
+        cbChooseAll.setChecked(false);
+        tvBtnCheckout.setEnabled(false);
+        tvBtnCheckout.setText(String.format(getResources().getString(R.string.cart_bottom_checkout), 0));
+        tvCartSum.setText(String.format("%s", 0.0));
+
         if (ShoppingApplication.getUser() == null) {
             toast("请登录账户哦!");
             startActivity(new Intent(context, LoginActivity.class));
@@ -206,9 +214,6 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
                         }
                     });
 
-//                    cartAdapter = new CartAdapter(CartFragment.this.getContext(), shopList, cartMap);
-//                    handler.sendEmptyMessage(1);
-//                    elvCart.setAdapter(cartAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -306,14 +311,14 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
                 });
             }
         });
-        tvBtnCheckout.setText(String.format(getResources().getString(R.string.cart_bottom_checkout), goods_num + ""));
+
+        tvBtnCheckout.setText(String.format(sCheckoutFormat, goods_num));
         tvCartSum.setText(String.format("%s", sum_price));
         tvBtnCheckout.setEnabled(sum_price > 0);
     }
 
     private void onCartGoodsChanged(boolean isSucceeded) {
         if (isSucceeded) {
-//            activity.runOnUiThread(this::);
             updateBtnCheckout();
         }
     }
@@ -341,4 +346,73 @@ public class CartFragment extends BaseFragment implements CartAdapter.OnItemSele
     }
 
 
+    // 遍历map, 过滤出被选中的商品存入list中
+    private void onCheckoutClick(View v) {
+        List<PreOrderGoodsModel> orderGoodsList = new ArrayList<>();
+
+        // 遍历map, 过滤出被选中的商品存入list中
+        cartMap.forEach((shop, goodsList) -> {
+            List<CartGoodsModel> selectedGoodsList = goodsList.stream().filter(CartGoodsModel::isChecked).collect(Collectors.toList());
+            if (selectedGoodsList.size() != 0) {
+                PreOrderGoodsModel preOrder = new PreOrderGoodsModel(shop.getShopId(), shop.getShopName(), selectedGoodsList);
+                orderGoodsList.add(preOrder);
+            }
+        });
+
+        Intent intent = new Intent(context, OrderSubmitActivity.class);
+        intent.putExtra("orderGoodsList", (Serializable) orderGoodsList);
+        startActivity(intent);
+    }
+
+    /**
+     * 点击编辑时,更改checkout的点击监听事件
+     */
+    private void onCheckoutRemoveClick(View v) {
+
+        new AlertDialog.Builder(context)
+                .setTitle("是否删除该地址")
+                .setPositiveButton("删除", (dialog, which) -> {
+                    List<Integer> removeGoodsIdList = new ArrayList<>();
+                    cartMap.forEach((shop, goodsList) -> removeGoodsIdList.addAll(goodsList.stream()
+                            .filter(CartGoodsModel::isChecked)
+                            .map(CartGoodsModel::getGoodsId)
+                            .collect(Collectors.toList())));
+
+                    HttpUtil.sendOkHttpRequestByPost(Router.CART_URL + "removeGoods?userId=" + ShoppingApplication.getUser().getUserId(),
+                            new Gson().toJson(removeGoodsIdList), new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    activity.runOnUiThread(() -> initCartData());
+                                }
+                            });
+                })
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    /**
+     * @param v
+     */
+    private void onEditClick(View v) {
+        if (llCartGoodsAmount.getVisibility() == View.VISIBLE) {
+            llCartGoodsAmount.setVisibility(View.GONE);
+            sCheckoutFormat = getResources().getString(R.string.cart_bottom_checkout_remove);
+            btnEditGoods.setText("完成");
+            tvBtnCheckout.setOnClickListener(this::onCheckoutRemoveClick);
+            updateBtnCheckout();
+
+        } else {
+            llCartGoodsAmount.setVisibility(View.VISIBLE);
+            sCheckoutFormat = getResources().getString(R.string.cart_bottom_checkout);
+            btnEditGoods.setText("删除");
+            tvBtnCheckout.setOnClickListener(this::onCheckoutClick);
+            updateBtnCheckout();
+
+
+        }
+    }
 }

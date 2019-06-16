@@ -3,7 +3,7 @@ package top.charjin.shoppingclient.utils;
 public class Router {
 
     public static final String BASE_URL = "http://charjin.top:4315/shoppingserver/";
-//    public static final String BASE_URL = "http://192.168.0.100:4315/shoppingserver/";
+//    public static final String BASE_URL = "http://192.168.0.104:4315/shoppingserver/";
 //    public static final String BASE_URL = "http://10.0.2.2:4315/shoppingserver/";
 
     public static final String CART_URL = BASE_URL + "cart/";

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.order_include_address.*
@@ -33,7 +34,7 @@ import java.io.IOException
 
 class OrderSubmitActivity : BaseActivity() {
 
-    private lateinit var address: OsAddress
+    private var address: OsAddress? = null
     private val orderGoodsList = arrayListOf<PreOrderGoodsModel>()
     private var sum = 0.0
 
@@ -94,16 +95,20 @@ class OrderSubmitActivity : BaseActivity() {
 
                     override fun onResponse(call: Call, response: Response) {
                         val jsonData = response.body()!!.string()
-                        val gson = Gson()
+                        println(jsonData)
+                        val gson = GsonBuilder()
+                                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                                .create()
                         val rs = gson.fromJson<ResultModel<OsAddress>>(jsonData, object : TypeToken<ResultModel<OsAddress>>() {}.type)
-//                        val rs = JsonUtil.parseJSONObject(jsonData, ResultModel::class.java)
                         runOnUiThread {
                             if (rs.code == 200) {
-                                val defaultAddress = rs.data as OsAddress
-                                tv_order_address_receiver.text = defaultAddress.receiver
-                                tv_order_address_phone.text = defaultAddress.phone
-                                tv_order_address_detail.text = String.format("%s%s%s %s",
-                                        defaultAddress.province, defaultAddress.city, defaultAddress.district, defaultAddress.addressDetail)
+                                address = rs.data as OsAddress
+                                address?.let {
+                                    tv_order_address_receiver.text = it.receiver
+                                    tv_order_address_phone.text = it.phone
+                                    tv_order_address_detail.text = String.format("%s%s%s %s",
+                                            it.province, it.city, it.district, it.addressDetail)
+                                }
                             } else {
                                 tv_order_address_receiver.text = ""
                                 tv_order_address_phone.text = ""
@@ -133,10 +138,12 @@ class OrderSubmitActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == CHANGE_ADDRESS && resultCode == Activity.RESULT_OK) {
             address = data!!.getSerializableExtra("address") as OsAddress
-            tv_order_address_receiver.text = address.receiver
-            tv_order_address_phone.text = address.phone
-            tv_order_address_detail.text = String.format("%s%s%s %s",
-                    address.province, address.city, address.district, address.addressDetail)
+            address?.let {
+                tv_order_address_receiver.text = it.receiver
+                tv_order_address_phone.text = it.phone
+                tv_order_address_detail.text = String.format("%s%s%s %s",
+                        it.province, it.city, it.district, it.addressDetail)
+            }
 
         }
     }
@@ -147,6 +154,12 @@ class OrderSubmitActivity : BaseActivity() {
      * 根据其他电商平台,点击提交后 订单就已创建成功, 初始状态为"未支付".
      */
     fun submitOrderOnClick(view: View) {
+        // 如果地址为空则返回
+        if (address == null) {
+            Toasty.warning(this, "请选择收货地址!").show()
+            return
+        }
+
         val orderNoList = arrayListOf<String>()
         // 订单按照商店创建
         orderGoodsList.forEach {
@@ -165,7 +178,7 @@ class OrderSubmitActivity : BaseActivity() {
                 orderDetailGoodsList.add(orderDetailGoods)
             }
 
-            val order = OsOrder(user.userId, it.shopId, address.addressId, orderNo, amountActual, amountActual,
+            val order = OsOrder(user.userId, it.shopId, address!!.addressId, orderNo, amountActual, amountActual,
                     ShoppingClientUtil.getCurrentTime(), null, 0, 1)
 
             HttpUtil.sendOkHttpRequestByPost(Router.ORDER_URL + "/addOrder", JsonUtil.parseObjectToJSONWithDateFormat(order), object : Callback {
@@ -211,7 +224,7 @@ class OrderSubmitActivity : BaseActivity() {
          */
         if (orderNoList.size > 0) {
             var orderNos = ""
-            orderNoList.forEach { orderNos += "$it " }
+            orderNoList.forEach { orderNos += "$it\n" }
             orderPayContentView.tv_order_pay_order_number.text = orderNos
             orderPayContentView.tv_order_pay_amount.text = sum.toString()
             orderPayContentView.tv_btn_order_pay_cancel.setOnClickListener {
