@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,8 +37,6 @@ public class AppActivity extends BaseActivity {
         setContentView(R.layout.app_activity_main);
         setAndroidNativeLightStatusBar(this, true);
         initView();
-        Log.e("charjin", "fdsafdasfdsa");
-
         checkUser();
 
     }
@@ -58,7 +55,7 @@ public class AppActivity extends BaseActivity {
 
     private void initView() {
         mFragments = BottomNavResource.getFragments();
-        mTabLayout = findViewById(R.id.bottom_tab_layout);
+        mTabLayout = findViewById(R.id.app_bottom_tab_layout);
 
         // 添加底部Tab
         View[] tabViews = BottomNavResource.createTabView(this);
@@ -79,16 +76,16 @@ public class AppActivity extends BaseActivity {
                     // 获取自定义的Tab
                     View custom_tab = mTabLayout.getTabAt(i).getCustomView();
 
-                    ImageView icon = custom_tab.findViewById(R.id.tab_content_image);
-                    TextView text = custom_tab.findViewById(R.id.tab_content_text);
+                    ImageView icon = custom_tab.findViewById(R.id.app_tab_content_image);
+                    TextView text = custom_tab.findViewById(R.id.app_tab_content_text);
                     // 如果被选中,修改对应样式
                     if (i == tab.getPosition()) {
                         icon.setImageResource(BottomNavResource.mTabResPressed[i]);
-                        text.setTextColor(getResources().getColor(android.R.color.black));
+                        text.setTextColor(getResources().getColor(R.color.app_bottom_tab_selected));
                     } else {
                         // 未选中,修改对应样式
                         icon.setImageResource(BottomNavResource.mTabRes[i]);
-                        text.setTextColor(getResources().getColor(android.R.color.darker_gray));
+                        text.setTextColor(getResources().getColor(R.color.app_bottom_tab_normal));
                     }
                 }
 

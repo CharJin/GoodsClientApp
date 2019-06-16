@@ -56,6 +56,6 @@
         android:layout_height="35dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/code_icon" />
+        android:src="@drawable/app_code_icon" />
 
 </LinearLayout>

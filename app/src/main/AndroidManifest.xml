@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <!--android:roundIcon="@mipmap/ic_launcher_round"-->
     <application
         android:name=".ShoppingApplication"
         android:allowBackup="true"
@@ -19,6 +18,7 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".activity.AboutActivity"></activity>
         <activity android:name=".activity.OrderResultActivity" />
         <activity android:name=".activity.OrderDetailActivity" />
         <activity
@@ -45,6 +45,7 @@
         <activity android:name=".activity.IntroSlideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

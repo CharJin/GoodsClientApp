@@ -212,7 +212,7 @@ public class HomeFragment extends BaseFragment {
 //        list_title.add("9090");
 //
 //        list_path.add(R.drawable.background);
-//        list_path.add(R.drawable.sleep_icon);
+//        list_path.add(R.drawable.app_sleep_icon);
 //        list_path.add(R.drawable.home_category_img_foods);
 
         HttpUtil.sendOkHttpRequestByGet(Router.GOODS_URL + "getBannerGoods", new Callback() {

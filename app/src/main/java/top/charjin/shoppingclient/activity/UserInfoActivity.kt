@@ -36,13 +36,20 @@ class UserInfoActivity : BaseActivity() {
 
     fun settingItemOnClick(view: View) {
         when (view.id) {
+            R.id.ll_user_info_address ->
+                startActivity(Intent(this, AddressActivity::class.java))
             R.id.tv_btn_user_info_quit -> {
                 ShoppingApplication.setUser(null)
                 getSharedPreferences("user", Context.MODE_PRIVATE).edit().clear().apply()
                 Toasty.success(this, "已退出").show()
                 finish()
             }
-            else -> startActivity(Intent(this, AddressActivity::class.java))
+            R.id.ll_user_info_about -> {
+                startActivity(Intent(this, AboutActivity::class.java))
+            }
+            else -> {
+                Toasty.info(this, "仅开发地址、关于及退出!").show()
+            }
         }
     }
 

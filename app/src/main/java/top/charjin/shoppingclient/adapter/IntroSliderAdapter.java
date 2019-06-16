@@ -20,12 +20,13 @@ public class IntroSliderAdapter extends PagerAdapter {
 
     private Context context;
 
-    private int[] slide_images = {R.drawable.eat_icon, R.drawable.sleep_icon, R.drawable.code_icon};
-    private String[] slide_headings = {"EAT", "SLEEP", "CODE"};
-    private String[] slide_descs = {
-            "测试数据\nfdsafjidfdsafdsa"
-            , "54325432543254325432543\n都是测试数据\nfdsafdsafd"
-            , "54325555555555555544444444444444444444\nfdsafdsa\n就是测试数据"};
+    private int[] slide_pager_bg = {R.drawable.app_tab_eat_bg, R.drawable.app_tab_sleep_bg, R.drawable.app_tab_walk_bg};
+    private int[] slide_images = {R.drawable.app_eat_icon, R.drawable.app_sleep_icon, R.drawable.app_code_icon};
+    private String[] slide_headings = {"吃啥。。", "住啥。。", "干啥。。"};
+    private String[] slide_decs = {
+            "之丑陋，凑凑页面!...."
+            , "之丑陋，凑凑页面!...."
+            , "之丑陋，凑凑页面!...."};
 
     public IntroSliderAdapter(Context context) {
         this.context = context;
@@ -47,13 +48,18 @@ public class IntroSliderAdapter extends PagerAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert layoutInflater != null;
         View view = layoutInflater.inflate(R.layout.intro_fragment_item, container, false);
-        ImageView slideImageView = view.findViewById(R.id.slide_image);
-        TextView slideHeading = view.findViewById(R.id.slide_heading);
-        TextView slideDescription = view.findViewById(R.id.slide_desc);
 
-        slideImageView.setImageResource(slide_images[position]);
-        slideHeading.setText(slide_headings[position]);
-        slideDescription.setText(slide_descs[position]);
+//        view.setBackground(container.getResources().getDrawable(slide_pager_bg[position]));
+
+        ImageView ivSlideBg = view.findViewById(R.id.iv_app_slide_bg);
+        ImageView ivSlideHeader = view.findViewById(R.id.iv_app_slide_image);
+        TextView tvSlideDes = view.findViewById(R.id.tv_app_slide_heading);
+        TextView slideDescription = view.findViewById(R.id.tv_app_slide_desc);
+
+        ivSlideBg.setImageResource(slide_pager_bg[position]);
+        ivSlideHeader.setImageResource(slide_images[position]);
+        tvSlideDes.setText(slide_headings[position]);
+        slideDescription.setText(slide_decs[position]);
 
         container.addView(view);
         return view;

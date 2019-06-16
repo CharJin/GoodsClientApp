@@ -303,7 +303,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="关于我们"
+                android:text="关于 Char Jin -> This project."
                 android:textColor="@color/app_base_black_color"
                 android:textSize="16sp" />
 
