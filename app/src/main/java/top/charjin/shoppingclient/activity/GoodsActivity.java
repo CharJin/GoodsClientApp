@@ -68,30 +68,10 @@ public class GoodsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.goods_activity_main);
-//        setAndroidNativeLightStatusBar(this, true);
-
-        // 获取点击商品后传来的商品实体类
 
         initComponent();
         windowHeight = getWindowManager().getDefaultDisplay().getHeight();
-        slGoodsMain.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-            if (scrollY >= 0 && scrollY < 765) {
-                float f = (float) scrollY / 765;
-                tvGoodsHeaderTitle.setAlpha(f);
-                rlGoodsHeader.getBackground().mutate().setAlpha(scrollY / 3);
-                if (f > 0.8) {
-                    ivGoodsHeaderBack.setBackground(null);
-                    ivGoodsHeaderBack.setImageResource(R.drawable.goods_header_img_back_white);
-                    ivGoodsHeaderShare.setBackground(null);
-                    ivGoodsHeaderShare.setImageResource(R.drawable.goods_header_img_share_white);
-                } else {
-                    ivGoodsHeaderBack.setBackground(getResources().getDrawable(R.drawable.goods_back_bg_shape));
-                    ivGoodsHeaderBack.setImageResource(R.drawable.goods_header_img_back_black);
-                    ivGoodsHeaderShare.setBackground(getResources().getDrawable(R.drawable.goods_back_bg_shape));
-                    ivGoodsHeaderShare.setImageResource(R.drawable.goods_header_img_share_grey);
-                }
-            }
-        });
+        slGoodsMain.setOnScrollChangeListener(this::onScrollChange);
 
         // 根据传入的实体类或者goodsId初始化基本内容
         goods = (OsGoods) this.getIntent().getSerializableExtra("goods");
@@ -100,6 +80,7 @@ public class GoodsActivity extends BaseActivity {
         tvGoodsData.setText(new Gson().toJson(goods));  // 简单显示goods的数据
 
         if (goods != null) {
+//            tvGoodsHeaderTitle.setText("此处其后添加TabLayout");
             tvGoodsName.setText(goods.getGoodsName());
             tvGoodsPrice.setText(String.format("%s", goods.getPrice()));
             tvSaleVolume.setText(String.format("销量 %s", goods.getSalesVolume()));
@@ -315,5 +296,24 @@ public class GoodsActivity extends BaseActivity {
     @Override
     protected void setColorId() {
         mColorId = Color.TRANSPARENT;
+    }
+
+    private void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        if (scrollY >= 0 && scrollY < 765) {
+            float f = (float) scrollY / 765;
+            tvGoodsHeaderTitle.setAlpha(f);
+            rlGoodsHeader.getBackground().mutate().setAlpha(scrollY / 3);
+            if (f > 0.8) {
+                ivGoodsHeaderBack.setBackground(null);
+                ivGoodsHeaderBack.setImageResource(R.drawable.goods_header_img_back_white);
+                ivGoodsHeaderShare.setBackground(null);
+                ivGoodsHeaderShare.setImageResource(R.drawable.goods_header_img_share_white);
+            } else {
+                ivGoodsHeaderBack.setBackground(getResources().getDrawable(R.drawable.goods_back_bg_shape));
+                ivGoodsHeaderBack.setImageResource(R.drawable.goods_header_img_back_black);
+                ivGoodsHeaderShare.setBackground(getResources().getDrawable(R.drawable.goods_back_bg_shape));
+                ivGoodsHeaderShare.setImageResource(R.drawable.goods_header_img_share_grey);
+            }
+        }
     }
 }

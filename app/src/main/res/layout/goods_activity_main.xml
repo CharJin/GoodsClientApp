@@ -286,7 +286,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="商品名称"
+                android:text="此处其后添加TabLayout"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 

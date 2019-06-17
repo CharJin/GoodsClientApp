@@ -1,14 +1,11 @@
 package top.charjin.shoppingclient.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -17,7 +14,6 @@ import top.charjin.shoppingclient.R;
 import top.charjin.shoppingclient.model.MessageModel;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
-    private Context context;
     private List<MessageModel> data;
 
     public MessageAdapter(List<MessageModel> data) {
@@ -27,7 +23,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        context = parent.getContext();
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.message_list_item, parent, false));
     }
 
@@ -36,7 +31,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         MessageModel message = data.get(position);
         holder.tvShopTitle.setText(message.getShopTitle());
         holder.tvLatestMsg.setText(message.getLatestMsg());
-        Glide.with(context).load(R.drawable.background).into(holder.civShopPic);
+//        Glide.with(context).load(R.drawable.background).into(holder.civShopPic);
 //        Glide.with(context).load(message.getShopPic()).into(holder.civShopPic);
 
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -13,71 +13,56 @@
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/background" />
+        android:src="@drawable/app_code_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<ImageView-->
-    <!--android:id="@+id/iv_list_item_message_shop_img"-->
-    <!--android:layout_width="40dp"-->
-    <!--android:layout_height="40dp"-->
-    <!--android:layout_marginStart="10dp"-->
-    <!--android:layout_marginEnd="10dp"-->
-    <!--android:scaleType="centerCrop"-->
-    <!--android:src="@drawable/background" />-->
 
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_weight="1"
-        android:paddingEnd="10dp"
-        tools:ignore="RtlSymmetry">
+    <TextView
+        android:id="@+id/tv_list_item_message_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="店铺名"
+        android:textColor="@color/message_title_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_list_item_message_latest"
+        app:layout_constraintStart_toEndOf="@+id/iv_list_item_message_shop_img"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-        <LinearLayout
-            android:id="@+id/ll_list_item_message_shop_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="1dp">
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/message_list_item_img_shop"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_list_item_message_title"
+        app:layout_constraintStart_toEndOf="@+id/tv_list_item_message_title"
+        app:layout_constraintTop_toTopOf="@+id/tv_list_item_message_title" />
 
-            <TextView
-                android:id="@+id/tv_list_item_message_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="店铺名"
-                android:textColor="@color/message_title_color"
-                android:textSize="16sp" />
+    <TextView
+        android:id="@+id/tv_list_item_message_latest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="bottom"
+        android:text="[自动回复]"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_list_item_message_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_list_item_message_title" />
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginStart="12dp"
-                android:src="@drawable/message_list_item_img_shop" />
+    <TextView
+        android:id="@+id/tv_list_item_message_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="2019/1/12"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_list_item_message_latest"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_list_item_message_latest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_list_item_message_shop_title"
-            android:layout_alignStart="@id/ll_list_item_message_shop_title"
-            android:layout_alignParentBottom="true"
-            android:gravity="bottom"
-            android:text="[自动回复]"
-            android:textSize="13sp" />
-
-        <TextView
-            android:id="@+id/tv_list_item_message_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:text="2019/1/12"
-            android:textSize="12sp" />
-
-    </RelativeLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
