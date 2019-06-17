@@ -230,7 +230,7 @@ public class GoodsActivity extends BaseActivity {
         });
 
 //        String imgUri = goods.get
-        Glide.with(this).load(R.drawable.background).into(ivGoodsItem);
+        Glide.with(this).load(goods.getImage()).into(ivGoodsItem);
 
         // 固定的数据 需要再添加数据库字段  后补充
         tvGoodsItemPrice.setText(getResources().getString(R.string.goods_item_pop_price, goods.getPrice()));
