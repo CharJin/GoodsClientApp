@@ -190,7 +190,7 @@ public class CartAdapter extends BaseExpandableListAdapter implements Callback {
         holder.btnPlus.setOnClickListener(e -> {
             int num = Integer.parseInt(holder.tvGoodsNum.getText().toString()), newNum = num + 1;
 
-            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "addGoodsNum?userId=" + user.getUserId() + "&goodsId=" + goods.getGoodsId() + "&number=" + newNum, new Callback() {
+            HttpUtil.sendOkHttpRequestByGet(Router.CART_URL + "updateGoodsNum?userId=" + user.getUserId() + "&goodsId=" + goods.getGoodsId() + "&number=" + newNum, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     onCartGoodsChangedListener.onCartGoodsChanged(false);
