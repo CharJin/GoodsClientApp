@@ -80,11 +80,11 @@ public class AppActivity extends BaseActivity {
                     TextView text = custom_tab.findViewById(R.id.app_tab_content_text);
                     // 如果被选中,修改对应样式
                     if (i == tab.getPosition()) {
-                        icon.setImageResource(BottomNavResource.mTabResPressed[i]);
+                        icon.setImageResource(BottomNavResource.mTabResSelected[i]);
                         text.setTextColor(getResources().getColor(R.color.app_bottom_tab_selected));
                     } else {
                         // 未选中,修改对应样式
-                        icon.setImageResource(BottomNavResource.mTabRes[i]);
+                        icon.setImageResource(BottomNavResource.mTabResNormal[i]);
                         text.setTextColor(getResources().getColor(R.color.app_bottom_tab_normal));
                     }
                 }

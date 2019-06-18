@@ -24,11 +24,12 @@ public class IntroSlideActivity extends AppCompatActivity {
     private Button btnPre, btnNext;
 
     private TextView[] mDots;
-    private int mCurrentPage = 0;
+    private int mCurrentPageIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 设置全屏显示
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -46,10 +47,9 @@ public class IntroSlideActivity extends AppCompatActivity {
         mSlideViewPager = findViewById(R.id.slideViewpager);
         mDotLayout = findViewById(R.id.mDotLayout);
 
-        IntroSliderAdapter introSliderAdapter = new IntroSliderAdapter(this);
-        mSlideViewPager.setAdapter(introSliderAdapter);
+        mSlideViewPager.setAdapter(new IntroSliderAdapter(this));
 
-        addDotsIndicator(mCurrentPage);
+        addDotsIndicator(mCurrentPageIndex);
         mSlideViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -60,7 +60,7 @@ public class IntroSlideActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onPageSelected(int i) {
-                mCurrentPage = i;
+                mCurrentPageIndex = i;
                 if (i == 0) btnPre.setVisibility(View.INVISIBLE);
                 else {
                     btnPre.setVisibility(View.VISIBLE);
@@ -85,10 +85,10 @@ public class IntroSlideActivity extends AppCompatActivity {
 
         // OnClickListener
         btnNext.setOnClickListener(e -> {
-            mCurrentPage++;
-            if (mCurrentPage < 3) { // not the last page.
-                mSlideViewPager.setCurrentItem(mCurrentPage);
-                addDotsIndicator(mCurrentPage);
+            mCurrentPageIndex++;
+            if (mCurrentPageIndex < 3) { // not the last page.
+                mSlideViewPager.setCurrentItem(mCurrentPageIndex);
+                addDotsIndicator(mCurrentPageIndex);
             } else {
                 btnNext.setOnClickListener(null);
                 SharedPreferencesUtil.setLoginRecord(this);
@@ -99,8 +99,8 @@ public class IntroSlideActivity extends AppCompatActivity {
         });
 
         btnPre.setOnClickListener(e -> {
-            mSlideViewPager.setCurrentItem(--mCurrentPage);
-            addDotsIndicator(mCurrentPage);
+            mSlideViewPager.setCurrentItem(--mCurrentPageIndex);
+            addDotsIndicator(mCurrentPageIndex);
         });
     }
 

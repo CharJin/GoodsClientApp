@@ -19,9 +19,9 @@ import top.charjin.shoppingclient.fragment.ProfileFragment;
  */
 public class BottomNavResource {
     // 底部Tab的常态样式
-    public static final int[] mTabRes = new int[]{R.drawable.home_light, R.drawable.message_light, R.drawable.cart_light, R.drawable.my_light};
+    public static final int[] mTabResNormal = new int[]{R.drawable.home_light, R.drawable.message_light, R.drawable.cart_light, R.drawable.my_light};
     // 底部Tab按下之后的样式
-    public static final int[] mTabResPressed = new int[]{R.drawable.home_fill_light_press, R.drawable.message_fill_light_press, R.drawable.cart_fill_light_press, R.drawable.my_fill_light_press};
+    public static final int[] mTabResSelected = new int[]{R.drawable.home_fill_light_press, R.drawable.message_fill_light_press, R.drawable.cart_fill_light_press, R.drawable.my_fill_light_press};
 
     private static final int TAB_COUNT = 4;
     // 底部各Tab显示的文本信息
@@ -51,7 +51,7 @@ public class BottomNavResource {
             ImageView tabImage = tabView.findViewById(R.id.app_tab_content_image);
             TextView tabText = tabView.findViewById(R.id.app_tab_content_text);
 
-            tabImage.setImageResource(BottomNavResource.mTabRes[i]);
+            tabImage.setImageResource(BottomNavResource.mTabResNormal[i]);
             tabText.setText(mTabTitle[i]);
             tabViews[i] = tabView;
         }
